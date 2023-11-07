@@ -1,9 +1,49 @@
 .header {
     background-color: #EEEEEE;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
 }
+
+.title {
+    align-self: start;
+}
+
 .img {
     height: 87px;
     width: 183px;
+}
+
+.menu {
+    display: flex;
+    padding: 20px 20px;
+
+    &__list {
+        align-items: center;
+        display: flex;
+    }
+
+    &__link {
+        list-style-type: none;
+        padding: 0 20px;
+
+        a {
+            color: black;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: .2s ease;
+
+            &:hover {
+                color: #176B87;
+            }
+        }
+    }
+
+    &__button {
+        list-style-type: none;
+        padding: 0 10px;
+    }
 }
