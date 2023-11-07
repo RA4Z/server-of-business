@@ -4,7 +4,7 @@ import 'pages/home.css';
 export default function Home() {
     return (
         <div className="App">
-            <Header />
+            <Header logado={false} />
             <header className="App-header">
             </header>
         </div>
