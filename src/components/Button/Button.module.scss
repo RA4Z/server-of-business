@@ -1,0 +1,21 @@
+.preenchimento {
+    text-align: center;
+    font-weight: bold;
+    background-color: white;
+    color: #176B87;
+    border: 1.5px solid #176B87;
+    height: fit-content;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 45px;
+    cursor: pointer;
+    transition: .2s ease-in;
+    &__dark {
+        border:1.5px solid #053B50;
+        background-color: #053B50;
+        color: white;
+    }
+    &:hover {
+        box-shadow: 3px 3px 3px grey;
+    }
+}
