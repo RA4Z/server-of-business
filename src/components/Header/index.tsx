@@ -32,7 +32,6 @@ export default function Header({ logado = false }) {
         to: '/'
     }]
 
-    console.log(window.screen.width)
     return (
         <div className={styles.header}>
             <img className={styles.img} src={logo} alt='Logo do projeto' />
