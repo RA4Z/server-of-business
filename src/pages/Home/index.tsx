@@ -1,5 +1,5 @@
-import Header from '../../components/Header';
-import '../home.css';
+import Header from 'components/Header';
+import 'pages/home.css';
 
 export default function Home() {
     return (

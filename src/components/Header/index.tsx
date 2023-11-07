@@ -1,5 +1,5 @@
-import logo from '../../images/logo.svg'
-import Button from '../Button'
+import logo from 'images/logo.svg'
+import Button from 'components/Button'
 import styles from './Header.module.scss'
 
 export default function Header() {

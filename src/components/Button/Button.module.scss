@@ -1,9 +1,11 @@
+@import "styles/variaveis";
+
 .preenchimento {
     text-align: center;
     font-weight: bold;
     background-color: white;
-    color: #176B87;
-    border: 1.5px solid #176B87;
+    color: $secondary;
+    border: 1.5px solid $secondary;
     height: fit-content;
     font-size: 15px;
     padding: 10px 20px;
@@ -11,8 +13,8 @@
     cursor: pointer;
     transition: .2s ease-in;
     &__dark {
-        border:1.5px solid #053B50;
-        background-color: #053B50;
+        border:1.5px solid $primary;
+        background-color: $primary;
         color: white;
     }
     &:hover {
