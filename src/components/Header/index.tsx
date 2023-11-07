@@ -1,5 +1,5 @@
 import logo from 'images/logo.svg'
-import hamburguer from 'images/hamburguer.svg'
+import hamburguer from 'images/hamburguer.png'
 import user from 'images/user.png'
 
 import Button from 'components/Button'
