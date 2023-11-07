@@ -1,4 +1,5 @@
 import logo from 'images/logo.svg'
+import hamburguer from 'images/hamburguer.svg'
 import Button from 'components/Button'
 import styles from './Header.module.scss'
 
@@ -20,6 +21,7 @@ export default function Header() {
         dark: true,
         to: '/'
     }]
+    console.log(window.screen.width)
     return (
         <div className={styles.header}>
             <img className={styles.img} src={logo} alt='Logo do projeto' />
@@ -31,7 +33,8 @@ export default function Header() {
                     </li>
                 ))}
             </ul>
-            <ul className={styles.menu__list}>
+            
+            <ul className={styles.menu__buttons}>
                 {menu_item.map((menu_item, index) => (
                     <li key={index} className={styles.menu__button}>
                         <a href={menu_item.to}>
@@ -40,7 +43,7 @@ export default function Header() {
                     </li>
                 ))}
             </ul>
-
+            <img className={styles.hamburguer} src={hamburguer} alt='Menu Hamburguer' />
         </div>
     )
 }

@@ -1,4 +1,5 @@
 @import "styles/variaveis";
+@import "styles/breakpoints";
 
 .header {
     background-color: $backgrounds;
@@ -11,17 +12,28 @@
 .title {
     align-self: start;
 }
-
 .img {
     height: 87px;
     width: 183px;
 }
 
+.hamburguer {
+    display: none;
+    @media(max-width: $tablet) {
+        display: block;
+    }
+    height: 49px;
+    width: 43px;
+    padding: 20px;
+}
+
 .menu {
     display: flex;
     padding: 20px 20px;
-
     &__list {
+        @media(max-width: $mobile) {
+            display: none;
+        }
         align-items: center;
         display: flex;
     }
@@ -37,13 +49,22 @@
             font-weight: 500;
             text-decoration: none;
             transition: .2s ease;
-
+            @media(max-width: $tablet) {
+                font-size: 15px;
+            }
             &:hover {
                 color: $secondary;
             }
         }
     }
 
+    &__buttons {
+        @media(max-width: $tablet) {
+            display: none;
+        }
+        align-items: center;
+        display: flex;
+    }
     &__button {
         list-style-type: none;
         padding: 0 10px;
