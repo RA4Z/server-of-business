@@ -10,12 +10,16 @@
     display: flex;
     align-items: center;
     background-color: $backgrounds;
-    border-radius: 20px;
     height: auto;
-    width: auto;
+    min-width: 300px;
     padding: 20px;
     gap: 5px;
     flex-direction: column;
-    z-index: 1;
-
+    position: absolute;
+    box-shadow: 2px 2px $texto_secundario;
+    z-index: 5;
+    @media(max-width: $mobile) {
+        width: 100%;
+    }
+    
 }

@@ -1,6 +1,5 @@
 import Card from 'components/Card';
 import Header from 'components/Header';
-import OptionMenu from 'components/OptionMenu';
 import 'pages/home.css';
 
 export default function Home() {
@@ -14,7 +13,6 @@ export default function Home() {
                     imagem='/assets/freelancer.jpg'
                     buttonText='Candidatar-se como Freelancer'
                 />
-                <OptionMenu logado={false} />
             </div>
         </div>
     );
