@@ -1,0 +1,21 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.titulo {
+    color: $texto;
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    background-color: $backgrounds;
+    border-radius: 20px;
+    height: auto;
+    width: auto;
+    padding: 20px;
+    gap: 5px;
+    flex-direction: column;
+    z-index: 1;
+
+}

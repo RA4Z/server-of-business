@@ -4,6 +4,7 @@ import user from 'images/user.png'
 
 import Button from 'components/Button'
 import styles from './Header.module.scss'
+import OptionMenu from 'components/OptionMenu'
 
 export default function Header({ logado = false, selected = 0 }) {
     const rotas_logon = [{
@@ -83,7 +84,7 @@ export default function Header({ logado = false, selected = 0 }) {
                     </ul>
                 </>
             }
-            <img className={styles.hamburguer} src={hamburguer} alt='Menu Hamburguer' />
+            <img className={styles.hamburguer} src={hamburguer} alt='Menu Hamburguer' onClick={() => console.log('nothing to see here!')} />
         </div>
     )
 }
