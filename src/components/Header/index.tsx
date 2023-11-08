@@ -59,9 +59,7 @@ export default function Header({ logado = false, selected = 0 }) {
                         </ul>
                         <ul className={styles.menu__buttons}>
                             <li className={styles.menu__button}>
-                                <a href='/'>
-                                    <img className={styles.user} src={user} alt='Perfil de usuário' />
-                                </a>
+                                <img className={styles.user} src={user} alt='Perfil de usuário' onClick={() => setOption(!option)} />
                             </li>
                         </ul>
                     </>
@@ -91,7 +89,7 @@ export default function Header({ logado = false, selected = 0 }) {
                 <img className={styles.hamburguer} src={hamburguer} alt='Menu Hamburguer' onClick={() => setOption(!option)} />
             </div>
 
-            { option? <div className={styles.container}>
+            {option ? <div className={styles.container}>
                 <OptionMenu logado={logado} />
             </div> : ''}
         </>
