@@ -5,20 +5,24 @@ import user from 'images/user.png'
 import Button from 'components/Button'
 import styles from './Header.module.scss'
 
-export default function Header({ logado = false }) {
+export default function Header({ logado = false, selected = 0 }) {
     const rotas_logon = [{
         label: 'Especialistas',
+        selected: 1,
         to: '/'
     }, {
         label: 'Serviços',
+        selected: 2,
         to: '/'
     }];
 
     const rotas_logoff = [{
         label: 'Contratar',
+        selected: 1,
         to: '/'
     }, {
         label: 'Candidatar-se',
+        selected: 2,
         to: '/'
     }];
 
@@ -41,16 +45,19 @@ export default function Header({ logado = false }) {
                     <ul className={styles.menu__list}>
                         {rotas_logon.map((rotas_logon, index) => (
                             <li key={index} className={styles.menu__link}>
-                                <a href={rotas_logon.to}>{rotas_logon.label}</a>
+                                {selected === rotas_logon.selected ?
+                                    <p>{rotas_logon.label}</p>
+                                    :
+                                    <a href={rotas_logon.to}>{rotas_logon.label}</a>}
                             </li>
                         ))}
                     </ul>
                     <ul className={styles.menu__buttons}>
-                            <li className={styles.menu__button}>
-                                <a href='/'>
-                                    <img className={styles.user} src={user} alt='Perfil de usuário' />
-                                </a>
-                            </li>
+                        <li className={styles.menu__button}>
+                            <a href='/'>
+                                <img className={styles.user} src={user} alt='Perfil de usuário' />
+                            </a>
+                        </li>
                     </ul>
                 </>
                 :
@@ -58,7 +65,10 @@ export default function Header({ logado = false }) {
                     <ul className={styles.menu__list}>
                         {rotas_logoff.map((rotas_logoff, index) => (
                             <li key={index} className={styles.menu__link}>
-                                <a href={rotas_logoff.to}>{rotas_logoff.label}</a>
+                                {selected === rotas_logoff.selected ?
+                                    <p>{rotas_logoff.label}</p>
+                                    :
+                                    <a href={rotas_logoff.to}>{rotas_logoff.label}</a>}
                             </li>
                         ))}
                     </ul>
