@@ -92,7 +92,7 @@ export default function Header({ logado = false, selected = 0 }) {
             </div>
 
             { option? <div className={styles.container}>
-                <OptionMenu logado={true} />
+                <OptionMenu logado={logado} />
             </div> : ''}
         </>
     )
