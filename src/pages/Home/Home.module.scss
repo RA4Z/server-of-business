@@ -1,0 +1,16 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.container {
+    display: flex;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    margin: 20px;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
