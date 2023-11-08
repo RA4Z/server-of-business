@@ -6,9 +6,14 @@ export default function Home() {
     return (
         <div className="App">
             <Header logado={false} />
-            <header className="App-header">
-                <Card />
-            </header>
+            <body className="App-body">
+                <Card
+                    titulo='Prestar serviço como Freelancer'
+                    descricao='Procurar serviços de curta duração, para serem realizados em poucos dias ou horas.'
+                    imagem='/assets/freelancer.jpg'
+                    buttonText='Candidatar-se como Freelancer'
+                />
+            </body>
         </div>
     );
 }

@@ -8,19 +8,29 @@
     height: auto;
     padding: 15px;
     max-width: 400px;
+    text-align: center;
 }
 .top{
     display: flex;
     align-items: center;
     justify-content: space-around;
     &__img {
-        height: 75px;
-        width: 150px;
-        background-color: green;
+        @media(max-width: $tablet) {
+            height: 88px;
+            width: 135px;
+        }
+        @media(max-width: $mobile) {
+            max-height: 78px;
+            max-width: 120px;
+        }
+        height: 114px;
+        width: 175px;
+        border-radius: 30px;
     }
     &__text {
         color: $texto;
         max-width: 300px;
+        font-weight: bold;
     }
 }
 .descricao {
