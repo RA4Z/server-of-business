@@ -11,6 +11,46 @@
 .cards {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 100px;
     flex-wrap: wrap;
+}
+
+.propaganda {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 15px;
+
+    &__title {
+        color: $texto;
+        font-size: calc(20px + 2vmin);
+        font-weight: bold;
+        max-width: 700px;
+        @media(max-width: $tablet) {
+            font-size: calc(12px + 2vmin);
+        }
+        @media(max-width: $mobile) {
+            font-size: calc(10px + 1vmin);
+        }
+    }
+    &__description {
+        color: $texto_secundario;
+        font-size: calc(10px + 1vmin);
+        max-width: 700px;
+        @media(max-width: $mobile) {
+            font-size: calc(8px + 1vmin);
+        }
+    }
+    img {
+        width: 493px;
+        height: 333px;
+        border-radius: 45px;
+        @media(max-width: $tablet) {
+            width: 397px;
+            height: 268px;
+        }
+        @media(max-width: $mobile) {
+            width: 227px;
+            height: 156px;
+        }
+    }
 }
