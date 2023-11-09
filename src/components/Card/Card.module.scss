@@ -35,5 +35,5 @@
 }
 .descricao {
     color: $texto_secundario;
-    font-size: 13px;
+    font-size: calc(7px + 1vmin);
 }

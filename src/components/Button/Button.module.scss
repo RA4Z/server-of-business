@@ -7,15 +7,11 @@
     color: $secondary;
     border: 1.5px solid $secondary;
     height: fit-content;
-    font-size: 15px;
+    font-size: calc(10px + 1vmin);
     padding: 10px 20px;
     border-radius: 45px;
     cursor: pointer;
     transition: .2s ease-in;
-
-    @media(max-width: $tablet) {
-        font-size: 12px;
-    }
     
     &__dark {
         border:1.5px solid $primary;
