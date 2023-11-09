@@ -18,8 +18,18 @@ export default function Home() {
             buttonText: 'Candidatar-se como Autônomo',
         }
     ]
-    function teste() {
-        console.log("teste")
+
+    function direcionamento(destino: string) {
+        switch (destino) {
+            case 'Prestar serviço como Freelancer':
+                console.log('Direcionar para Freelancer')
+                break;
+            case 'Prestar serviço como Autônomo':
+                console.log('Direcionar para Autônomo')
+                break;
+            default:
+                console.log('Erro Inesperado no Direcionamento')
+        }
     }
 
     return (
@@ -34,7 +44,7 @@ export default function Home() {
                             descricao={card.descricao}
                             imagem={card.imagem}
                             buttonText={card.buttonText}
-                            onClick={teste}
+                            onClick={() => direcionamento(card.titulo)}
                         />
                     ))}
                 </div>
