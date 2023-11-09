@@ -49,7 +49,7 @@ export default function Header({ logado = false, selected = 0, childToParent }:a
                                     {selected === rotas_logon.selected ?
                                         <p>{rotas_logon.label}</p>
                                         :
-                                        <a onClick={() => childToParent(rotas_logon.selected-1)}>{rotas_logon.label}</a>}
+                                        <button onClick={() => childToParent(rotas_logon.selected-1)}>{rotas_logon.label}</button>}
                                 </li>
                             ))}
                         </ul>
@@ -67,7 +67,7 @@ export default function Header({ logado = false, selected = 0, childToParent }:a
                                     {selected === rotas_logoff.selected ?
                                         <p>{rotas_logoff.label}</p>
                                         :
-                                        <a onClick={() => childToParent(rotas_logoff.selected-1)}>{rotas_logoff.label}</a>}
+                                        <button onClick={() => childToParent(rotas_logoff.selected-1)}>{rotas_logoff.label}</button>}
                                 </li>
                             ))}
                         </ul>

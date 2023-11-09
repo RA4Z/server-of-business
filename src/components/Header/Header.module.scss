@@ -50,13 +50,14 @@
         list-style-type: none;
         padding: 0 20px;
 
-        a {
+        button {
             color: $texto;
             cursor: pointer;
             font-size: calc(5px + 2vmin);
             font-weight: 500;
             text-decoration: none;
             transition: .2s ease;
+            border: 0;
             &:hover {
                 color: $secondary;
             }
