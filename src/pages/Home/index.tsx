@@ -18,17 +18,23 @@ export default function Home() {
             buttonText: 'Candidatar-se como Autônomo',
         }
     ]
+    function teste() {
+        console.log("teste")
+    }
+
     return (
-        <div>
+        <div onClick={event => event}>
             <Header logado={false} selected={0} />
             <div className={styles.container}>
                 <div className={styles.cards}>
                     {cards_especialista.map((card) => (
                         <Card
+                            key={card.titulo}
                             titulo={card.titulo}
                             descricao={card.descricao}
                             imagem={card.imagem}
                             buttonText={card.buttonText}
+                            onClick={teste}
                         />
                     ))}
                 </div>
