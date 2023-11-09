@@ -54,3 +54,16 @@
         }
     }
 }
+
+.alternativa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin: 20px;
+    &__texto {
+        color: $primary;
+        font-size: calc(12px + 1vmin);
+        cursor: pointer;
+    }
+}

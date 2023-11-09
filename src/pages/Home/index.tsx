@@ -1,27 +1,15 @@
-import contratante from 'images/main_contratante.jpg';
-
+import { info_preenchida } from './infos'
 import Card from 'components/Card';
 import Header from 'components/Header';
 import styles from './Home.module.scss';
-import 'pages/home.css';
+import Button from 'components/Button';
+import { useState } from 'react';
 
 export default function Home() {
-    const cards_especialista = [
-        {
-            titulo: 'Prestar serviço como Freelancer',
-            descricao: 'Procurar serviços de curta duração, para serem realizados em poucos dias ou horas.',
-            imagem: '/assets/freelancer.jpg',
-            buttonText: 'Candidatar-se como Freelancer',
-        },
-        {
-            titulo: 'Prestar serviço como Autônomo',
-            descricao: 'Procurar oportunidades de serviços de médio a longo prazo para duração de meses a anos.',
-            imagem: '/assets/autonomo.jpg',
-            buttonText: 'Candidatar-se como Autônomo',
-        }
-    ]
-
+    const [pagina, setPagina] = useState(0);
     function direcionamento(destino: string) {
+        setPagina(0)
+        
         switch (destino) {
             case 'Prestar serviço como Freelancer':
                 console.log('Direcionar para Freelancer')
@@ -36,19 +24,21 @@ export default function Home() {
 
     return (
         <div>
-            <Header logado={false} selected={1} />
-
+            <Header logado={false} selected={pagina+1} />
             <div className={styles.propaganda}>
                 <div>
-                    <p className={styles.propaganda__title}>Todo dia precisamos resolver diversos problemas, por que não procurar alguém especializado na resolução deles?</p>
-                    <p className={styles.propaganda__description}>Aqui você pode encontrar especialistas das mais diversas áreas de negócio que podem resolver dos mais diversos tipos de problemas em sua vida!</p>
+                    <p className={styles.propaganda__title}>{info_preenchida[pagina].titulo}</p>
+                    <p className={styles.propaganda__description}>{info_preenchida[pagina].descricao}</p>
                 </div>
-                <img src={contratante} alt='Pessoas apertando as mãos' />
+                <img src={info_preenchida[pagina].image} alt='Pessoas apertando as mãos' />
             </div>
-
+            <div className={styles.alternativa}>
+                <Button dark={true} texto={info_preenchida[pagina].button} />
+                <p className={styles.alternativa__texto}>{info_preenchida[pagina].alternative_button}</p>
+            </div>
             <div className={styles.container}>
                 <div className={styles.cards}>
-                    {cards_especialista.map((card) => (
+                    {info_preenchida[pagina].cards.map((card) => (
                         <Card
                             key={card.titulo}
                             titulo={card.titulo}
