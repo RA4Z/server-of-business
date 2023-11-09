@@ -7,7 +7,7 @@
     box-shadow: 2px 2px $texto_secundario;
     height: auto;
     padding: 15px;
-    max-width: 400px;
+    max-width: 500px;
     text-align: center;
 }
 .top{
@@ -17,11 +17,11 @@
     &__img {
         @media(max-width: $tablet) {
             height: 88px;
-            width: 135px;
+            width: 155px;
         }
         @media(max-width: $mobile) {
             max-height: 78px;
-            max-width: 120px;
+            max-width: 140px;
         }
         height: 114px;
         width: 175px;
@@ -36,4 +36,5 @@
 .descricao {
     color: $texto_secundario;
     font-size: calc(7px + 1vmin);
+    min-height: 50px;
 }

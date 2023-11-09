@@ -7,27 +7,23 @@ import Button from 'components/Button'
 import styles from './Header.module.scss'
 import OptionMenu from 'components/OptionMenu'
 
-export default function Header({ logado = false, selected = 0 }) {
+export default function Header({ logado = false, selected = 0, childToParent }:any) {
     const [option, setOption] = useState(false)
 
     const rotas_logon = [{
         label: 'Especialistas',
         selected: 1,
-        to: '/'
     }, {
         label: 'Serviços',
-        selected: 2,
-        to: '/'
+        selected: 2
     }];
 
     const rotas_logoff = [{
         label: 'Contratar',
         selected: 1,
-        to: '/'
     }, {
         label: 'Candidatar-se',
         selected: 2,
-        to: '/'
     }];
 
     const menu_item = [{
@@ -53,7 +49,7 @@ export default function Header({ logado = false, selected = 0 }) {
                                     {selected === rotas_logon.selected ?
                                         <p>{rotas_logon.label}</p>
                                         :
-                                        <a href={rotas_logon.to}>{rotas_logon.label}</a>}
+                                        <a onClick={() => childToParent(rotas_logon.selected-1)}>{rotas_logon.label}</a>}
                                 </li>
                             ))}
                         </ul>
@@ -71,7 +67,7 @@ export default function Header({ logado = false, selected = 0 }) {
                                     {selected === rotas_logoff.selected ?
                                         <p>{rotas_logoff.label}</p>
                                         :
-                                        <a href={rotas_logoff.to}>{rotas_logoff.label}</a>}
+                                        <a onClick={() => childToParent(rotas_logoff.selected-1)}>{rotas_logoff.label}</a>}
                                 </li>
                             ))}
                         </ul>

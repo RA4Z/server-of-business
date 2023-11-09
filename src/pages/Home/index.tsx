@@ -7,9 +7,12 @@ import { useState } from 'react';
 
 export default function Home() {
     const [pagina, setPagina] = useState(0);
+
+    const childToParent = (childdata: number) => {
+        setPagina(childdata)
+    }
+
     function direcionamento(destino: string) {
-        setPagina(0)
-        
         switch (destino) {
             case 'Prestar serviço como Freelancer':
                 console.log('Direcionar para Freelancer')
@@ -24,7 +27,8 @@ export default function Home() {
 
     return (
         <div>
-            <Header logado={false} selected={pagina+1} />
+            <Header logado={false} selected={pagina + 1} childToParent={childToParent} />
+
             <div className={styles.propaganda}>
                 <div>
                     <p className={styles.propaganda__title}>{info_preenchida[pagina].titulo}</p>
