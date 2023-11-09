@@ -40,6 +40,7 @@ export default function Home() {
                 <Button dark={true} texto={info_preenchida[pagina].button} />
                 <p className={styles.alternativa__texto}>{info_preenchida[pagina].alternative_button}</p>
             </div>
+            
             <div className={styles.container}>
                 <div className={styles.cards}>
                     {info_preenchida[pagina].cards.map((card) => (

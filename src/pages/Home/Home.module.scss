@@ -11,7 +11,8 @@
 .cards {
     display: flex;
     justify-content: center;
-    gap: 100px;
+    column-gap: 100px;
+    row-gap: 50px;
     flex-wrap: wrap;
 }
 
