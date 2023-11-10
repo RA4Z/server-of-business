@@ -12,7 +12,7 @@
     border-radius: 45px;
     cursor: pointer;
     transition: .2s ease-in;
-    
+    text-wrap: nowrap;
     &__dark {
         border:1.5px solid $primary;
         background-color: $primary;
@@ -20,5 +20,9 @@
     }
     &:hover {
         box-shadow: 3px 3px 3px grey;
+    }
+
+    @media(max-width: $mobile) {
+        font-size: calc(8px + 1vmin);
     }
 }
