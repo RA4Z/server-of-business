@@ -5,10 +5,16 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: calc(10px + 2vmin);
     margin-top: 100px;
     padding: 30px;
     flex-direction: column;
-    color: $color;
     background-color: $background-footer;
+    
+    button, a {
+        border: none;
+        text-decoration: none;
+        background-color: transparent;
+        color: $color;
+        font-size: calc(8px + 2vmin);
+    }
 }
