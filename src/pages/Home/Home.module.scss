@@ -26,11 +26,9 @@
         font-size: calc(15px + 2vmin);
         font-weight: bold;
         max-width: 700px;
+        text-align: center;
         @media(max-width: $tablet) {
             font-size: calc(10px + 2vmin);
-        }
-        @media(max-width: $mobile) {
-            text-align: center;
         }
     }
     &__description {
