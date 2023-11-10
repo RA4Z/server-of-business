@@ -64,8 +64,10 @@
         color: $primary;
         font-size: calc(12px + 1vmin);
         cursor: pointer;
+        text-align: center;
         @media(max-width: $mobile) {
             font-size: calc(8px + 1vmin);
+            margin: 10px;
         }
     }
     @media(max-width: $mobile) {
