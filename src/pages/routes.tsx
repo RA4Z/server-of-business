@@ -13,7 +13,7 @@ export default function AppRouter() {
 
     return (
         <Router>
-            <Header logado={false} selected={pagina + 1} childToParent={childToParent} />
+            <Header logado={true} selected={pagina + 1} childToParent={childToParent} />
             <Routes>
                 <Route path='/' element={<Home pagina={pagina} childToParent={childToParent} />} />
             </Routes>

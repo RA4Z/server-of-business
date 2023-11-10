@@ -16,7 +16,7 @@
     gap: 5px;
     flex-direction: column;
     position: absolute;
-    box-shadow: 2px 2px $texto_secundario;
+    box-shadow: 5px 5px 7px #888888;
     z-index: 5;
     @media(max-width: $mobile) {
         width: 100%;
