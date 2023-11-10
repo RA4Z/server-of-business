@@ -1,16 +1,9 @@
 import { info_preenchida } from './infos'
 import Card from 'components/Card';
-import Header from 'components/Header';
 import styles from './Home.module.scss';
 import Button from 'components/Button';
-import { useState } from 'react';
 
-export default function Home() {
-    const [pagina, setPagina] = useState(0);
-
-    const childToParent = (childdata: number) => {
-        setPagina(childdata)
-    }
+export default function Home({ pagina = 0, childToParent }:any) {
 
     function direcionamento(destino: string) {
         switch (destino) {
@@ -32,8 +25,6 @@ export default function Home() {
     }
     return (
         <div>
-            <Header logado={false} selected={pagina + 1} childToParent={childToParent} />
-
             <div className={styles.propaganda}>
                 <div>
                     <p className={styles.propaganda__title}>{info_preenchida[pagina].titulo}</p>
@@ -43,7 +34,7 @@ export default function Home() {
             </div>
             <div className={styles.alternativa}>
                 <Button dark={true} texto={info_preenchida[pagina].button} />
-                <p className={styles.alternativa__texto} onClick={() => setPagina(info_preenchida[pagina].direcionamento)}>{info_preenchida[pagina].alternative_button}</p>
+                <p className={styles.alternativa__texto} onClick={() => childToParent(info_preenchida[pagina].direcionamento)}>{info_preenchida[pagina].alternative_button}</p>
             </div>
 
             <div className={styles.container}>
