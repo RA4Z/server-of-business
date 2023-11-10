@@ -9,7 +9,7 @@ interface Props {
 export default function OptionMenu(props: Props) {
     return (
         <div className={styles.container}>
-            <text className={styles.titulo}>Informações Adicionais</text>
+            <div className={styles.titulo}>Informações Adicionais</div>
             {props.logado ?
                 <>
                     <Button texto='Tornar-se Premium' dark={false} />
