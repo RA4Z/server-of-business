@@ -1,0 +1,14 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.background {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: calc(10px + 2vmin);
+    margin-top: 100px;
+    padding: 30px;
+    flex-direction: column;
+    color: $color;
+    background-color: $background-footer;
+}
