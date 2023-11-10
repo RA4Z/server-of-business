@@ -19,6 +19,7 @@ export const info_preenchida = [
         descricao: 'Aqui você pode encontrar especialistas das mais diversas áreas de negócio que podem resolver dos mais diversos tipos de problemas em sua vida!',
         button: 'Contratar Especialistas',
         alternative_button: 'Candidatar-se como Especialista',
+        direcionamento: 1,
         image: '/assets/main_contratante.jpg'
     },
     {
@@ -41,6 +42,7 @@ export const info_preenchida = [
         descricao: 'Inscreva-se como um Especialista em qualquer área de negócio e encontre diversas oportunidades de alavancar sua carreira!',
         button: 'Candidatar-se como Especialista',
         alternative_button: 'Contratar Especialistas',
+        direcionamento: 0,
         image: '/assets/main_especialista.jpg'
     }
 ]
