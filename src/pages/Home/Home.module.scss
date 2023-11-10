@@ -30,7 +30,7 @@
             font-size: calc(10px + 2vmin);
         }
         @media(max-width: $mobile) {
-            font-size: calc(9px + 1vmin);
+            text-align: center;
         }
     }
     &__description {
@@ -39,6 +39,8 @@
         max-width: 700px;
         @media(max-width: $mobile) {
             font-size: calc(8px + 1vmin);
+            margin-top: 40px;
+            position: absolute;
         }
     }
     img {
@@ -57,7 +59,7 @@
     justify-content: center;
     align-items: center;
     gap: 50px;
-    margin: 20px;
+    margin: 50px;
     &__texto {
         color: $primary;
         font-size: calc(12px + 1vmin);
@@ -65,5 +67,8 @@
         @media(max-width: $mobile) {
             font-size: calc(8px + 1vmin);
         }
+    }
+    @media(max-width: $mobile) {
+        margin-top: 80px;
     }
 }
