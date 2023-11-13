@@ -33,8 +33,9 @@ export default function Header({ logado = false, selected, childToParent }: any)
     function navegarMenu(selecionado: number) {
         if (window.location.pathname !== '/') {
             navigate('/')
+        } else {
+            childToParent(selecionado)
         }
-        childToParent(selecionado)
     }
 
     return (
@@ -79,7 +80,7 @@ export default function Header({ logado = false, selected, childToParent }: any)
             {option ? <div className={styles.container}>
                 <OptionMenu logado={logado} />
             </div> : ''}
-            
+
             <Outlet />
         </>
     )

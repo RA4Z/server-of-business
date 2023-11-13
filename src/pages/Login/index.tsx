@@ -21,7 +21,7 @@ export default function Login() {
 
                 <div className={styles.container__criar}>
                     <p>Ainda não possui uma conta?</p>
-                    <button>Criar conta</button>
+                    <button onClick={() => navigate('/cadastro')}>Criar conta</button>
                 </div>
 
             </div>

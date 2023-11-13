@@ -20,6 +20,11 @@
         flex-direction: column;
         justify-content: center;
         gap: 30px;
+
+        p {
+            text-align: center;
+            font-size: calc(20px + 2vmin);
+        }
     }
 
     &__right {
@@ -29,6 +34,30 @@
         img {
             display: flex;
             max-height: 90vh;
+        }
+    }
+
+    &__criar {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        margin: 30px;
+        font-size: calc(9px + 1vmin);
+        color: $texto-secundario;
+
+        button {
+            text-decoration: none;
+            border: none;
+            background-color: transparent;
+            font-size: calc(10px + 1vmin);
+            cursor: pointer;
+            transition: .3s;
+
+            @media(min-width: $tablet) {
+                &:hover {
+                    color: $secondary;
+                }
+            }
         }
     }
 
