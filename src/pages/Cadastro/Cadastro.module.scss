@@ -10,6 +10,11 @@
     max-width: calc(100px + 50vmin);
 }
 
+.selection {
+    font-size: calc(10px + 1vmin);
+    color: $primary;
+}
+
 .container {
     display: flex;
     justify-content: space-around;
@@ -24,6 +29,12 @@
         p {
             text-align: center;
             font-size: calc(20px + 2vmin);
+        }
+
+        &__countries {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
     }
 
