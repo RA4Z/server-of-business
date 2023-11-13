@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import styles from './Cadastro.module.scss'
-import Imagem from 'images/tela-cadastro.jpg'
+import Imagem from 'images/tela-cadastro.png'
 import Header from 'components/Header'
 import Button from 'components/Button'
 
