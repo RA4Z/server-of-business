@@ -22,7 +22,7 @@ export default function Cadastro() {
                     <TextField id="outlined-basic" label="Nome completo" variant="outlined" className={styles.input} />
                     <TextField id="outlined-basic" label="E-mail" variant="outlined" className={styles.input} />
                     <TextField id="outlined-password-input" label="Senha" variant="outlined" type='password' autoComplete="current-password" className={styles.input} />
-                    
+
                     <div className={styles.container__left__countries}>
                         <CountryDropdown
                             classes={styles.selection}
@@ -44,6 +44,7 @@ export default function Cadastro() {
                         <button onClick={() => navigate('/login')}>Login</button>
                     </div>
                 </form>
+
                 <div className={styles.container__right}>
                     <img src={Imagem} alt='Imagem representando profissões' />
                 </div>
