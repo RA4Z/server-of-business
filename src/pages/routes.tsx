@@ -11,12 +11,13 @@ export default function AppRouter() {
     const childToParent = (childdata: number) => {
         setPagina(childdata)
     }
-
     return (
         <Router>
-            <Header logado={false} selected={pagina} childToParent={childToParent} />
             <Routes>
-                <Route path='/' element={<Home pagina={pagina} childToParent={childToParent} />} />
+                <Route path='/' element={<Header selected={pagina} childToParent={childToParent} />}>
+                    <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
+                </Route>
+                <Route path='/login' element={<Login />} />
             </Routes>
             <Footer />
 

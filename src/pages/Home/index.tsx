@@ -3,7 +3,7 @@ import Card from 'components/Card';
 import styles from './Home.module.scss';
 import Button from 'components/Button';
 
-export default function Home({ pagina = 1, childToParent }:any) {
+export default function Home({ pagina = 1, childToParent }: any) {
 
     function direcionamento(destino: string) {
         switch (destino) {
@@ -27,19 +27,19 @@ export default function Home({ pagina = 1, childToParent }:any) {
         <div>
             <div className={styles.propaganda}>
                 <div>
-                    <p className={styles.propaganda__title}>{info_preenchida[pagina-1].titulo}</p>
-                    <p className={styles.propaganda__description}>{info_preenchida[pagina-1].descricao}</p>
+                    <p className={styles.propaganda__title}>{info_preenchida[pagina - 1].titulo}</p>
+                    <p className={styles.propaganda__description}>{info_preenchida[pagina - 1].descricao}</p>
                 </div>
-                <img src={info_preenchida[pagina-1].image} alt='Imagem Propaganda' />
+                <img src={info_preenchida[pagina - 1].image} alt='Imagem Propaganda' />
             </div>
             <div className={styles.alternativa}>
-                <Button dark={true} texto={info_preenchida[pagina-1].button} />
-                <p className={styles.alternativa__texto} onClick={() => childToParent(info_preenchida[pagina-1].direcionamento)}>{info_preenchida[pagina-1].alternative_button}</p>
+                <Button dark={true} texto={info_preenchida[pagina - 1].button} />
+                <p className={styles.alternativa__texto} onClick={() => childToParent(info_preenchida[pagina - 1].direcionamento)}>{info_preenchida[pagina - 1].alternative_button}</p>
             </div>
 
             <div className={styles.container}>
                 <div className={styles.cards}>
-                    {info_preenchida[pagina-1].cards.map((card) => (
+                    {info_preenchida[pagina - 1].cards.map((card) => (
                         <Card
                             key={card.titulo}
                             titulo={card.titulo}

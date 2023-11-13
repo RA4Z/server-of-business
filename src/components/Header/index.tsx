@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom';
 import logo from 'images/logo.svg'
 import hamburguer from 'images/hamburguer.png'
 import user from 'images/user.png'
@@ -9,6 +10,7 @@ import OptionMenu from 'components/OptionMenu'
 
 export default function Header({ logado = false, selected, childToParent }: any) {
     const [option, setOption] = useState(false)
+    const navigate = useNavigate();
 
     const rotas = [{
         label: 'Contratar',
@@ -25,24 +27,31 @@ export default function Header({ logado = false, selected, childToParent }: any)
     }, {
         label: 'Cadastre-se',
         dark: true,
-        to: '/'
+        to: '/cadastro'
     }]
+
+    function navegarMenu(selecionado: number) {
+        if (window.location.pathname !== '/') {
+            navigate('/')
+        }
+        childToParent(selecionado)
+    }
 
     return (
         <>
             <div className={styles.header}>
-                <img className={styles.img} src={logo} alt='Logo do projeto' />
+                <img className={styles.img} src={logo} onClick={() => navigate('/')} alt='Logo do projeto' />
 
                 <ul className={styles.menu__list}>
-                            {rotas.map((rotas, index) => (
-                                <li key={index} className={styles.menu__link}>
-                                    {selected === rotas.selected ?
-                                        <p>{rotas.label}</p>
-                                        :
-                                        <button onClick={() => childToParent(rotas.selected)}>{rotas.label}</button>}
-                                </li>
-                            ))}
-                        </ul>
+                    {rotas.map((rotas, index) => (
+                        <li key={index} className={styles.menu__link}>
+                            {selected === rotas.selected ?
+                                <p>{rotas.label}</p>
+                                :
+                                <button onClick={() => navegarMenu(rotas.selected)}>{rotas.label}</button>}
+                        </li>
+                    ))}
+                </ul>
                 {logado ?
                     <>
                         <ul className={styles.menu__buttons}>
@@ -70,6 +79,8 @@ export default function Header({ logado = false, selected, childToParent }: any)
             {option ? <div className={styles.container}>
                 <OptionMenu logado={logado} />
             </div> : ''}
+            
+            <Outlet />
         </>
     )
 }
