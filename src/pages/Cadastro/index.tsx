@@ -39,6 +39,7 @@ export default function Cadastro() {
 
                     <FormControlLabel control={<Checkbox />} label="Ao criar sua conta você estará aceitando os termos de serviço e a política de privacidade da Server of Business." className={styles.check} />
                     <Button texto='Crie sua conta' dark={true} />
+
                     <div className={styles.container__criar}>
                         Já possui uma conta?
                         <button onClick={() => navigate('/login')}>Login</button>

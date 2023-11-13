@@ -10,6 +10,11 @@ interface Props {
 
 export default function OptionMenu(props: Props) {
     const navigate = useNavigate();
+
+    function deslogar() {
+        navigate('/login')
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.titulo}>Informações Adicionais</div>
@@ -19,12 +24,12 @@ export default function OptionMenu(props: Props) {
                     <Button texto='Procurar Especialistas' dark={false} />
                     <Button texto='Solicitações em aberto' dark={false} />
                     <Button texto='Perfil de Usuário' dark={false} />
-                    <Button texto='Logout' dark={true} />
+                    <Button texto='Logout' onClick={() => deslogar} dark={true} />
                 </>
                 :
                 <>
                     <Button texto='Crie sua conta' dark={true} onClick={() => navigate('/cadastro')} />
-                    <Divider style={{background:'#7C7C7C',width:'100%',margin:5}}></Divider>
+                    <Divider style={{ background: '#7C7C7C', width: '100%', margin: 5 }}></Divider>
                     <Button texto='Especialistas Cadastrados' dark={false} />
                     <Button texto='Serviços Solicitados em aberto' dark={false} />
                     <Button texto='Fazer Login' dark={false} onClick={() => navigate('/login')} />
