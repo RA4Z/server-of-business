@@ -1,8 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+
 import Home from './Home';
 import Login from './Login';
+import Cadastro from './Cadastro';
+
 import Header from 'components/Header';
-import { useState } from 'react';
 import Footer from 'components/Footer';
 
 export default function AppRouter() {
@@ -18,9 +21,9 @@ export default function AppRouter() {
                     <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
                 </Route>
                 <Route path='/login' element={<Login />} />
+                <Route path='/cadastro' element={<Cadastro />} />
             </Routes>
             <Footer />
-
         </Router>
     )
 }

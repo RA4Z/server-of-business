@@ -23,7 +23,7 @@ export default function OptionMenu(props: Props) {
                 </>
                 :
                 <>
-                    <Button texto='Crie sua conta' dark={true} />
+                    <Button texto='Crie sua conta' dark={true} onClick={() => navigate('/cadastro')} />
                     <Divider style={{background:'#7C7C7C',width:'100%',margin:5}}></Divider>
                     <Button texto='Especialistas Cadastrados' dark={false} />
                     <Button texto='Serviços Solicitados em aberto' dark={false} />

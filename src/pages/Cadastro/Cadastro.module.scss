@@ -1,0 +1,35 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.input {
+    width: calc(100px + 50vmin);
+}
+
+.check {
+    color: $texto-secundario;
+    max-width: calc(100px + 50vmin);
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+
+    &__left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    &__right {
+        display: flex;
+        margin-top: 50px;
+
+        img {
+            display: flex;
+            max-height: 90vh;
+        }
+    }
+
+}
