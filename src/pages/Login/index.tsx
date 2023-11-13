@@ -13,8 +13,8 @@ export default function Login() {
                 <img src={Logo} onClick={() => navigate('/')} alt='Logotipo da empresa' />
                 <p className={styles.container__title}>Server of Business</p>
                 <form className={styles.container__inputs}>
-                    <TextField id="outlined-basic" label="E-mail" variant="outlined" style={{ width: 500 }} />
-                    <TextField id="outlined-password-input" label="Senha" variant="outlined" type='password' autoComplete="current-password" style={{ width: 500 }} />
+                    <TextField id="outlined-basic" label="E-mail" variant="outlined" className={styles.input} />
+                    <TextField id="outlined-password-input" label="Senha" variant="outlined" type='password' autoComplete="current-password" className={styles.input} />
                 </form>
                 <p className={styles.container__password}>Esqueceu sua senha?</p>
                 <Button texto='Login' dark={true} />

@@ -1,21 +1,26 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
+.input {
+    width: calc(100px + 50vmin);
+}
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 20px;
+    margin: 30px;
+    text-wrap: nowrap;
 
     img {
-        max-width: 553px;
-        max-height: 263px;
+        width: calc(100px + 50vmin);
+        height: auto;
         cursor: pointer;
     }
     &__title {
         color: $primary;
-        font-size: calc(20px + 2vmin);
+        font-size: calc(20px + 1vmin);
     }
     p {
         margin: 0;
@@ -25,10 +30,13 @@
         flex-direction: column;
         margin-top: 20px;
         row-gap: 20px;
+        @media(max-width: $mobile) {
+            margin-top: 50px;
+        }
     }
     &__password {
         color: $texto-secundario;
-        font-size: calc(5px + 2vmin);
+        font-size: calc(10px + 1vmin);
         padding: 15px;
         cursor: pointer;
         transition: .3s;
