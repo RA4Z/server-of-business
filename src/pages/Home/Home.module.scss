@@ -27,24 +27,29 @@
         font-weight: bold;
         max-width: 700px;
         text-align: center;
+
         @media(max-width: $tablet) {
             font-size: calc(10px + 2vmin);
         }
     }
+
     &__description {
         color: $texto_secundario;
         font-size: calc(9px + 1vmin);
         max-width: 700px;
+
         @media(max-width: $mobile) {
             font-size: calc(8px + 1vmin);
             margin-top: 40px;
             position: absolute;
         }
     }
+
     img {
         width: 493px;
         height: 333px;
         border-radius: 45px;
+
         @media(max-width: $tablet) {
             max-width: 50%;
             height: auto;
@@ -58,22 +63,28 @@
     align-items: center;
     gap: 50px;
     margin: 50px;
+
     &__texto {
         color: $primary;
         font-size: calc(12px + 1vmin);
         cursor: pointer;
         text-align: center;
         transition: .3s;
+
         @media(max-width: $mobile) {
             font-size: calc(8px + 1vmin);
             margin: 10px;
         }
-        &:hover {
-            color: $paralela;
+
+        @media(min-width: $tablet) {
+            &:hover {
+                color: $paralela;
+            }
         }
     }
+
     @media(max-width: $mobile) {
         margin-top: 80px;
-        gap:10px;
+        gap: 10px;
     }
 }

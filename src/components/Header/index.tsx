@@ -7,7 +7,7 @@ import Button from 'components/Button'
 import styles from './Header.module.scss'
 import OptionMenu from 'components/OptionMenu'
 
-export default function Header({ logado = false, selected = 0, childToParent }: any) {
+export default function Header({ logado = false, selected, childToParent }: any) {
     const [option, setOption] = useState(false)
 
     const rotas = [{
@@ -21,7 +21,7 @@ export default function Header({ logado = false, selected = 0, childToParent }: 
     const menu_item = [{
         label: 'Login',
         dark: false,
-        to: '/'
+        to: '/login'
     }, {
         label: 'Cadastre-se',
         dark: true,
@@ -39,7 +39,7 @@ export default function Header({ logado = false, selected = 0, childToParent }: 
                                     {selected === rotas.selected ?
                                         <p>{rotas.label}</p>
                                         :
-                                        <button onClick={() => childToParent(rotas.selected - 1)}>{rotas.label}</button>}
+                                        <button onClick={() => childToParent(rotas.selected)}>{rotas.label}</button>}
                                 </li>
                             ))}
                         </ul>
