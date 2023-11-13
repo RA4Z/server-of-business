@@ -1,0 +1,23 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+
+    img {
+        max-width: 553px;
+        max-height: 263px;
+    }
+    &__title {
+        color: $primary;
+        font-size: calc(20px + 2vmin);
+    }
+    p {
+        margin: 0;
+        font-size: calc(20px + 2vmin);
+    }
+}
