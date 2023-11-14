@@ -1,4 +1,5 @@
 import Button from 'components/Button'
+import Estrela from 'images/estrela.svg'
 import styles from './Card.module.scss'
 
 interface Props {
@@ -6,15 +7,26 @@ interface Props {
     descricao: string,
     imagem: string,
     buttonText: string,
-    onClick?:  (_:any) => any;
+    subtitulo?: string,
+    onClick?: (_: any) => any;
 }
 
 export default function Card(props: Props) {
     return (
         <div className={styles.corpo}>
             <div className={styles.top}>
-                <img src={props.imagem} className={styles.top__img} alt='Imagem do Card' />
-                <p className={styles.top__text}>{props.titulo}</p>
+                <img src={props.imagem} className={styles.top__img} alt='Imagem do Card' style={props.subtitulo !== '' ? { width: 'auto' } : {}} />
+                <div className={styles.top__textos}>
+                    <p className={styles.top__text}>{props.titulo}</p>
+                    {
+                        props.subtitulo !== undefined ?
+                            <>
+                                <img src={Estrela} alt='Estrela amarela' className={styles.top__textos__star} />
+                                <p className={styles.top__text}>{props.subtitulo}</p>
+                            </>
+                            : ''
+                    }
+                </div>
             </div>
             <p className={styles.descricao}>{props.descricao}</p>
             <Button dark={false} texto={props.buttonText} onClick={props.onClick} />

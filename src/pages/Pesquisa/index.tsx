@@ -40,9 +40,11 @@ export default function Pesquisa({ childToParent }: any) {
 
             <div className={styles.container}>
                 {info_preenchida[Number(categoria) - 1].cards.map((card) => (
+                    
                     <Card
                         key={card.titulo}
                         titulo={card.titulo}
+                        subtitulo={Number(categoria) === 1 ? 'Número de estrelas' : ''}
                         descricao={card.descricao}
                         imagem={card.imagem}
                         buttonText='Ver mais informações'

@@ -27,10 +27,19 @@
         width: 175px;
         border-radius: 30px;
     }
+    &__textos {
+        display: flex;
+        text-wrap: wrap;
+        flex-direction: column;
+    }
     &__text {
         color: $texto;
         max-width: 300px;
         font-weight: bold;
+    }
+    &__star {
+        height: 30px;
+        width: 30px;
     }
 }
 .descricao {
