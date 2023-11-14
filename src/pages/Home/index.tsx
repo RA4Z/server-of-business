@@ -15,16 +15,16 @@ export default function Home({ pagina = 1, childToParent }: any) {
                 navigate('/pesquisa/2')
                 break;
             case 'Prestar serviço como Freelancer':
-                navigate('/pesquisa/2')
+                navigate('/pesquisa/2/free')
                 break;
             case 'Prestar serviço como Autônomo':
-                navigate('/pesquisa/2')
+                navigate('/pesquisa/2/auto')
                 break;
             case 'Tenho um problema rápido de ser resolvido':
-                navigate('/pesquisa/1')
+                navigate('/pesquisa/1/free')
                 break;
             case 'Contratar autônomos para diversos serviços':
-                navigate('/pesquisa/1')
+                navigate('/pesquisa/1/auto')
                 break;
             default:
                 console.log('Erro Inesperado no Direcionamento!')

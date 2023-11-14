@@ -4,7 +4,7 @@ import Button from 'components/Button'
 import { useParams } from 'react-router-dom'
 
 export default function Pesquisa({ childToParent }: any) {
-    const { categoria } = useParams();
+    const { categoria, especifico } = useParams();
 
     switch (categoria) {
         case '1':
@@ -23,8 +23,8 @@ export default function Pesquisa({ childToParent }: any) {
                     <div className={styles.pesquisas__left}>
                         <TextField id="outlined-name" label="Nome Especialista" variant="outlined" autoComplete="username" className={styles.input} />
                         <div>
-                            <FormControlLabel control={<Checkbox />} label="Freelancer" className={styles.check} />
-                            <FormControlLabel control={<Checkbox />} label="Autônomo" className={styles.check} />
+                            <FormControlLabel control={<Checkbox checked={especifico==='free'?true:false} />} label="Freelancer" className={styles.check} />
+                            <FormControlLabel control={<Checkbox checked={especifico==='auto'?true:false} />} label="Autônomo" className={styles.check} />
                         </div>
                     </div>
                     <div className={styles.pesquisas__right}>
