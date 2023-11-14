@@ -1,0 +1,36 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.input {
+    width: calc(100px + 50vmin);
+}
+
+.check {
+    color: $texto;
+    max-width: calc(100px + 50vmin);
+}
+
+form {
+    text-align: center;
+}
+
+.pesquisas {
+    height: auto;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px;
+
+    &__left {
+        display: flex;
+        gap: 30px;
+        flex-direction: column;
+    }
+
+    &__right {
+        display: flex;
+        gap: 30px;
+        flex-direction: column;
+    }
+}

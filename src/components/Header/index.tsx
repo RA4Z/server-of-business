@@ -13,10 +13,10 @@ export default function Header({ logado = false, selected, childToParent }: any)
     const navigate = useNavigate();
 
     const rotas = [{
-        label: 'Contratar',
+        label: (window.location.pathname)==='/' ? 'Contratar' : 'Especialistas',
         selected: 1,
     }, {
-        label: 'Candidatar-se',
+        label: (window.location.pathname)==='/' ? 'Candidatar-se' : 'Serviços',
         selected: 2,
     }];
 
@@ -31,7 +31,7 @@ export default function Header({ logado = false, selected, childToParent }: any)
     }]
 
     function navegarMenu(selecionado: number) {
-        if (window.location.pathname !== '/') {
+        if (window.location.pathname !== '/' && window.location.pathname !== '/pesquisa') {
             navigate('/')
         } else {
             childToParent(selecionado)
