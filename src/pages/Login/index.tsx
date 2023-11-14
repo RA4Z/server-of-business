@@ -6,7 +6,7 @@ import Button from 'components/Button';
 
 export default function Login() {
     const navigate = useNavigate();
-    
+
     return (
         <>
             <div className={styles.container}>

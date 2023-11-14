@@ -19,8 +19,8 @@ export default function Cadastro() {
             <div className={styles.container}>
                 <form className={styles.container__left}>
                     <p>Criação de conta</p>
-                    <TextField id="outlined-basic" label="Nome completo" variant="outlined" className={styles.input} />
-                    <TextField id="outlined-basic" label="E-mail" variant="outlined" className={styles.input} />
+                    <TextField id="outlined-username" label="Nome completo" variant="outlined" autoComplete="username" className={styles.input} />
+                    <TextField id="outlined-email" label="E-mail" variant="outlined" autoComplete="email" className={styles.input} />
                     <TextField id="outlined-password-input" label="Senha" variant="outlined" type='password' autoComplete="current-password" className={styles.input} />
 
                     <div className={styles.container__left__countries}>
