@@ -20,10 +20,10 @@ export default function Card(props: Props) {
                     <p className={styles.top__text}>{props.titulo}</p>
                     {
                         props.subtitulo !== undefined ?
-                            <>
-                                <img src={Estrela} alt='Estrela amarela' className={styles.top__textos__star} />
+                            <div className={styles.classification}>
+                                <img src={Estrela} alt='Estrela amarela' className={styles.classification__star} />
                                 <p className={styles.top__text}>{props.subtitulo}</p>
-                            </>
+                            </div>
                             : ''
                     }
                 </div>

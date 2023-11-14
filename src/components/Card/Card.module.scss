@@ -37,13 +37,19 @@
         max-width: 300px;
         font-weight: bold;
     }
-    &__star {
-        height: 30px;
-        width: 30px;
-    }
 }
 .descricao {
     color: $texto_secundario;
     font-size: calc(8px + 1vmin);
     min-height: 50px;
+}
+.classification {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &__star {
+        height: 30px;
+        width: 30px;
+    }
 }
