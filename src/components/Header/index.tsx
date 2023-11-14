@@ -33,10 +33,7 @@ export default function Header({ logado = false, selected, childToParent }: any)
     function navegarMenu(selecionado: number) {
         if (window.location.pathname !== '/' && window.location.pathname !== '/pesquisa/*') {
             navigate('/pesquisa/' + selecionado)
-        } else if(window.location.pathname === '/pesquisa/*'){
-            navigate('/pesquisa/' + selecionado)
-        } 
-        else {
+        } else {
             childToParent(selecionado)
         }
     }

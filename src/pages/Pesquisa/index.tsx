@@ -23,13 +23,13 @@ export default function Pesquisa({ childToParent }: any) {
                     <div className={styles.pesquisas__left}>
                         <TextField id="outlined-name" label="Nome Especialista" variant="outlined" autoComplete="username" className={styles.input} />
                         <div>
-                            <FormControlLabel control={<Checkbox checked={especifico==='free'?true:false} />} label="Freelancer" className={styles.check} />
-                            <FormControlLabel control={<Checkbox checked={especifico==='auto'?true:false} />} label="Autônomo" className={styles.check} />
+                            <FormControlLabel control={<Checkbox defaultChecked={especifico === 'free' ? true : false} />} label="Freelancer" className={styles.check} />
+                            <FormControlLabel control={<Checkbox defaultChecked={especifico === 'auto' ? true : false} />} label="Autônomo" className={styles.check} />
                         </div>
                     </div>
                     <div className={styles.pesquisas__right}>
-                        <TextField id="outlined-name" label="Cidade" variant="outlined" autoComplete="city" className={styles.input} />
-                        <TextField id="outlined-name" label="Tipo de Especialização" variant="outlined" autoComplete="type" className={styles.input} />
+                        <TextField id="outlined-city" label="Cidade" variant="outlined" autoComplete="city" className={styles.input} />
+                        <TextField id="outlined-special" label="Tipo de Especialização" variant="outlined" autoComplete="type" className={styles.input} />
                     </div>
                 </div>
                 <Button dark={true} texto='Pesquisar' />
