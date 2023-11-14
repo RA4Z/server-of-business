@@ -1,23 +1,30 @@
 import { info_preenchida } from './infos'
+import { useNavigate } from 'react-router-dom';
 import Card from 'components/Card';
 import styles from './Home.module.scss';
 import Button from 'components/Button';
 
 export default function Home({ pagina = 1, childToParent }: any) {
-
+    const navigate = useNavigate()
     function direcionamento(destino: string) {
         switch (destino) {
+            case 'Contratar Especialistas':
+                navigate('/pesquisa/1')
+                break;
+            case 'Candidatar-se como Especialista':
+                navigate('/pesquisa/2')
+                break;
             case 'Prestar serviço como Freelancer':
-                console.log('Direcionar para Candidatar-se como Freelancer')
+                navigate('/pesquisa/2')
                 break;
             case 'Prestar serviço como Autônomo':
-                console.log('Direcionar para Candidatar-se como Autônomo')
+                navigate('/pesquisa/2')
                 break;
             case 'Tenho um problema rápido de ser resolvido':
-                console.log('Direcionar para Contratar um Freelancer')
+                navigate('/pesquisa/1')
                 break;
             case 'Contratar autônomos para diversos serviços':
-                console.log('Direcionar para Contratar um Autônomo')
+                navigate('/pesquisa/1')
                 break;
             default:
                 console.log('Erro Inesperado no Direcionamento!')
@@ -33,7 +40,7 @@ export default function Home({ pagina = 1, childToParent }: any) {
                 <img src={info_preenchida[pagina - 1].image} alt='Imagem Propaganda' />
             </div>
             <div className={styles.alternativa}>
-                <Button dark={true} texto={info_preenchida[pagina - 1].button} />
+                <Button dark={true} texto={info_preenchida[pagina - 1].button} onClick={() => direcionamento(info_preenchida[pagina - 1].button)} />
                 <p className={styles.alternativa__texto} onClick={() => childToParent(info_preenchida[pagina - 1].direcionamento)}>{info_preenchida[pagina - 1].alternative_button}</p>
             </div>
 

@@ -13,10 +13,10 @@ export default function Header({ logado = false, selected, childToParent }: any)
     const navigate = useNavigate();
 
     const rotas = [{
-        label: (window.location.pathname)==='/' ? 'Contratar' : 'Especialistas',
+        label: (window.location.pathname) === '/' ? 'Contratar' : 'Especialistas',
         selected: 1,
     }, {
-        label: (window.location.pathname)==='/' ? 'Candidatar-se' : 'Serviços',
+        label: (window.location.pathname) === '/' ? 'Candidatar-se' : 'Serviços',
         selected: 2,
     }];
 
@@ -31,9 +31,12 @@ export default function Header({ logado = false, selected, childToParent }: any)
     }]
 
     function navegarMenu(selecionado: number) {
-        if (window.location.pathname !== '/' && window.location.pathname !== '/pesquisa') {
-            navigate('/')
-        } else {
+        if (window.location.pathname !== '/' && window.location.pathname !== '/pesquisa/*') {
+            navigate('/pesquisa/' + selecionado)
+        } else if(window.location.pathname === '/pesquisa/*'){
+            navigate('/pesquisa/' + selecionado)
+        } 
+        else {
             childToParent(selecionado)
         }
     }

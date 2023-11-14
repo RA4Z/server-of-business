@@ -1,8 +1,21 @@
 import { Checkbox, Divider, FormControlLabel, TextField } from '@mui/material'
 import styles from './Pesquisa.module.scss'
 import Button from 'components/Button'
+import { useParams } from 'react-router-dom'
 
-export default function Pesquisa({ pagina = 1, childToParent }: any) {
+export default function Pesquisa({ childToParent }: any) {
+    const { categoria } = useParams();
+
+    switch (categoria) {
+        case '1':
+            childToParent(1)
+            break;
+        case '2':
+            childToParent(2)
+            break;
+        default:
+            console.log('Erro Inesperado no Direcionamento!')
+    }
     return (
         <>
             <form>
