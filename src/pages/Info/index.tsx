@@ -4,14 +4,16 @@ import styles from './Info.module.scss'
 import Voltar from 'images/voltar.png'
 import Obra from 'images/obra-temp.png'
 
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
 
 export default function Info({ childToParent }: any) {
     const { categoria, id } = useParams();
+    const navigate = useNavigate();
 
     return (
         <div className={styles.container}>
-            <img src={Voltar} alt='Seta para retornar à página anterior' className={styles.seta_volta} />
+            <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
             <div className={styles.info}>
                 <div className={styles.info__titulo} >Pedreiro solicitado em Schroeder</div>
                 <div className={styles.info__desc}>

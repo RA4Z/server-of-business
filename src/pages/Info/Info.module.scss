@@ -21,32 +21,42 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
 
     &__titulo {
         max-width: 500px;
         text-align: center;
-        font-size: calc(25px + 1vmin);
+        padding: 20px;
+        font-size: calc(30px + 1vmin);
         color: $secondary;
+        @media(max-width: $mobile) {
+            font-size: calc(15px + 3vmin);
+        }
     }
 
     &__desc {
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         margin: 25px;
-        max-width: 1200px;
         gap: 30px;
 
         img {
-            width: 500px;
+            width: calc(500px + 15vmin);
             height: auto;
+            @media(max-width: $mobile) {
+                width: 110%
+            }
         }
 
         p {
             text-align: center;
             color: $texto_secundario;
             max-width: 650px;
-            font-size: calc(15px + 1vmin);
+            font-size: calc(20px + 1vmin);
+            @media(max-width: $mobile) {
+                font-size: calc(10px + 2vmin);
+            }
         }
     }
 }
