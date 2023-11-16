@@ -19,6 +19,7 @@ export default function Info() {
         titulo: aba_atual.titulo,
         descricao: aba_atual.descricao,
         imagem: aba_atual.imagem,
+        premium: aba_atual.premium,
         cargo: categoria === 'users' ? info_especialistas.cards[Number(id) - 1].cargo : '',
         estrelas: categoria === 'users' ? info_especialistas.cards[Number(id) - 1].estrelas : '',
         data: categoria === 'services' ? info_servicos.cards[Number(id) - 1].diaProcurado : '',
