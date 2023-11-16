@@ -6,6 +6,7 @@
     justify-self: start;
     position: relative;
     width: 36px;
+    cursor: pointer;
 }
 
 .container {
@@ -44,6 +45,7 @@
         img {
             width: calc(500px + 15vmin);
             height: auto;
+            border-radius: 25px;
             @media(max-width: $mobile) {
                 width: 110%
             }
