@@ -19,7 +19,7 @@ export default function Card(props: Props) {
                 <div className={styles.top__textos}>
                     <p className={styles.top__text}>{props.titulo}</p>
                     {
-                        props.subtitulo !== undefined ?
+                        props.subtitulo !== undefined && props.subtitulo !== '' ?
                             <div className={styles.classification}>
                                 <img src={Estrela} alt='Estrela amarela' className={styles.classification__star} />
                                 <p className={styles.top__text}>{props.subtitulo}</p>

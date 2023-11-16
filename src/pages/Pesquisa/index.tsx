@@ -1,5 +1,5 @@
 import { Checkbox, Divider, FormControlLabel, TextField } from '@mui/material'
-import { info_preenchida } from './infos'
+import { info_especialistas, info_servicos } from './infos'
 import styles from './Pesquisa.module.scss'
 import Button from 'components/Button'
 import { useParams } from 'react-router-dom'
@@ -18,12 +18,13 @@ export default function Pesquisa({ childToParent }: any) {
         default:
             console.log('Erro Inesperado no Direcionamento!')
     }
+
     return (
         <>
             <form>
                 <div className={styles.pesquisas}>
                     <div className={styles.pesquisas__left}>
-                        <TextField id="outlined-name" label={info_preenchida[Number(categoria) - 1].titulo} variant="outlined" autoComplete="username" className={styles.input} />
+                        <TextField id="outlined-name" label={categoria === '1' ? 'Nome Especialista' : 'Título do Serviço'} variant="outlined" autoComplete="username" className={styles.input} />
                         <div>
                             <FormControlLabel control={<Checkbox defaultChecked={especifico === 'free' ? true : false} />} label="Freelancer" className={styles.check} />
                             <FormControlLabel control={<Checkbox defaultChecked={especifico === 'auto' ? true : false} />} label="Autônomo" className={styles.check} />
@@ -38,18 +39,28 @@ export default function Pesquisa({ childToParent }: any) {
                 <Divider style={{ background: '#7C7C7C', width: 'auto', margin: 25 }}></Divider>
             </form>
 
-            <div className={styles.container}>
-                {info_preenchida[Number(categoria) - 1].cards.map((card) => (
-                    
-                    <Card
-                        key={card.titulo}
-                        titulo={card.titulo}
-                        subtitulo={Number(categoria) === 1 ? 'Número de estrelas' : ''}
-                        descricao={card.descricao}
-                        imagem={card.imagem}
-                        buttonText='Ver mais informações'
-                    />
-                ))}
+            <div id='card_container' className={styles.container}>
+                {categoria === '1' ?
+                    info_especialistas.cards.map((card) => (
+                        <Card
+                            key={card.id}
+                            titulo={card.titulo}
+                            subtitulo={`${card.estrelas} - ${card.cargo}`}
+                            descricao={card.descricao}
+                            imagem={card.imagem}
+                            buttonText='Ver mais informações'
+                        />
+                    ))
+                    :
+                    info_servicos.cards.map((card) => (
+                        <Card
+                            key={card.id}
+                            titulo={card.titulo}
+                            descricao={card.descricao}
+                            imagem={card.imagem}
+                            buttonText='Ver mais informações'
+                        />
+                    ))}
             </div>
         </>
     )
