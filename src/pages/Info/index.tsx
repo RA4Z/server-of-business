@@ -41,12 +41,12 @@ export default function Info() {
                         </>
                         :
                         <>
-                            <div>
+                            <div className={styles.textos}>
                                 <img src={Estrela} alt='Classificação em estrelas' />
                                 {info.estrelas}
                             </div>
                             <img src={info.imagem} alt='Imagem de perfil do usuário' />
-                            <div>{info.cargo}</div>
+                            <div className={styles.textos}>{info.cargo}</div>
                         </>
                     }
                 </div>

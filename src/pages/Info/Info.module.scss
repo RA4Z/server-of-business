@@ -10,6 +10,16 @@
     cursor: pointer;
 }
 
+.textos {
+    font-size: calc(15px + 1vmin);
+    text-align: center;
+    align-self: center;
+
+    @media(min-width: $tablet) {
+        margin: 20px;
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;
