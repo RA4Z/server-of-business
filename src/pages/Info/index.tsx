@@ -7,7 +7,7 @@ import Obra from 'images/obra-temp.png'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
 
-export default function Info({ childToParent }: any) {
+export default function Info() {
     const { categoria, id } = useParams();
     const navigate = useNavigate();
 

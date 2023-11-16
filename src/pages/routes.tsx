@@ -22,7 +22,7 @@ export default function AppRouter() {
                 <Route path='/' element={<Header selected={pagina} childToParent={childToParent} />}>
                     <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
                     <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} />} />
-                    <Route path='info/:categoria/:id' element={<Info childToParent={childToParent} />} />
+                    <Route path='info/:categoria/:id' element={<Info />} />
                 </Route>
                 <Route path='/login' element={<Login />} />
                 <Route path='/cadastro' element={<Cadastro />} />
