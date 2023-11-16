@@ -1,5 +1,6 @@
 import { Checkbox, Divider, FormControlLabel, TextField } from '@mui/material'
 import { info_especialistas, info_servicos } from './infos'
+import { useNavigate } from 'react-router-dom'
 import styles from './Pesquisa.module.scss'
 import Button from 'components/Button'
 import { useParams } from 'react-router-dom'
@@ -7,6 +8,7 @@ import Card from 'components/Card'
 
 export default function Pesquisa({ childToParent }: any) {
     const { categoria, especifico } = useParams();
+    const navigate = useNavigate()
 
     switch (categoria) {
         case '1':
@@ -48,6 +50,7 @@ export default function Pesquisa({ childToParent }: any) {
                             subtitulo={`${card.estrelas} - ${card.cargo}`}
                             descricao={card.descricao}
                             imagem={card.imagem}
+                            onClick={() => navigate(`/info/users/${card.id}`)}
                             buttonText='Ver mais informações'
                         />
                     ))
@@ -58,6 +61,7 @@ export default function Pesquisa({ childToParent }: any) {
                             titulo={card.titulo}
                             descricao={card.descricao}
                             imagem={card.imagem}
+                            onClick={() => navigate(`/info/services/${card.id}`)}
                             buttonText='Ver mais informações'
                         />
                     ))}
