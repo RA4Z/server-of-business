@@ -1,3 +1,52 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
+.seta_volta {
+    display: flex;
+    justify-self: start;
+    position: relative;
+    width: 36px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin: 25px;
+    gap: 20px;
+    justify-content: center;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    &__titulo {
+        max-width: 500px;
+        text-align: center;
+        font-size: calc(25px + 1vmin);
+        color: $secondary;
+    }
+
+    &__desc {
+        display: flex;
+        justify-content: center;
+        margin: 25px;
+        max-width: 1200px;
+        gap: 30px;
+
+        img {
+            width: 500px;
+            height: auto;
+        }
+
+        p {
+            text-align: center;
+            color: $texto_secundario;
+            max-width: 650px;
+            font-size: calc(15px + 1vmin);
+        }
+    }
+}
