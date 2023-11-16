@@ -63,6 +63,9 @@
                 width: 110%
             }
         }
+        @media(max-width: $mobile) {
+            flex-direction: column;
+        }
 
     }
 
@@ -75,5 +78,10 @@
         @media(max-width: $mobile) {
             font-size: calc(10px + 2vmin);
         }
+    }
+}
+.logotipo {
+    @media(max-width: $mobile) {
+        height: calc(40px + 10vmin);
     }
 }

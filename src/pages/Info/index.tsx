@@ -46,7 +46,7 @@ export default function Info() {
                                 <img src={Estrela} alt='Classificação em estrelas' />
                                 {info.estrelas}
                             </div>
-                            <img src={info.imagem} alt='Imagem de perfil do usuário' />
+                            <img src={info.imagem} alt='Imagem de perfil do usuário' className={styles.logotipo} />
                             <div className={styles.textos}>{info.cargo}</div>
                         </>
                     }
