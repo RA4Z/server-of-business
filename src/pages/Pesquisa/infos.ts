@@ -6,7 +6,7 @@ export const info_especialistas =
             titulo: 'Jotaro Kujo',
             estrelas: 4.7,
             cargo: 'Biólogo',
-            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo ...',
+            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
             imagem: '/assets/user.png',
         },
         {
@@ -14,7 +14,7 @@ export const info_especialistas =
             titulo: 'Jotaro Kujo',
             estrelas: 4.7,
             cargo: 'Biólogo',
-            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo ...',
+            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
             imagem: '/assets/user.png',
         },
         {
@@ -22,7 +22,7 @@ export const info_especialistas =
             titulo: 'Jotaro Kujo',
             estrelas: 4.7,
             cargo: 'Biólogo',
-            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo ...',
+            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
             imagem: '/assets/user.png',
         },
         {
@@ -30,7 +30,7 @@ export const info_especialistas =
             titulo: 'Jotaro Kujo',
             estrelas: 4.7,
             cargo: 'Biólogo',
-            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo ...',
+            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
             imagem: '/assets/user.png',
         },
         {
@@ -38,7 +38,7 @@ export const info_especialistas =
             titulo: 'Jotaro Kujo',
             estrelas: 4.7,
             cargo: 'Biólogo',
-            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo ...',
+            descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
             imagem: '/assets/user.png',
         },
     ]

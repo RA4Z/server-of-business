@@ -4,6 +4,7 @@ import styles from './Info.module.scss'
 import Voltar from 'images/voltar.png'
 
 import Obra from 'images/obra-temp.png'
+import Estrela from 'images/estrela.svg'
 import { info_servicos, info_especialistas } from 'pages/Pesquisa/infos';
 
 import { useNavigate } from 'react-router-dom';
@@ -12,12 +13,19 @@ import { useParams } from 'react-router-dom'
 export default function Info() {
     const { categoria, id } = useParams();
     const navigate = useNavigate();
-    const aba_atual = categoria === 'users' ? info_especialistas.cards[Number(id)-1] : info_servicos.cards[Number(id)-1]
+    const aba_atual = categoria === 'users' ? info_especialistas.cards[Number(id) - 1] : info_servicos.cards[Number(id) - 1]
 
     const info = {
         titulo: aba_atual.titulo,
         descricao: aba_atual.descricao,
         imagem: aba_atual.imagem,
+        cargo: categoria === 'users' ? info_especialistas.cards[Number(id) - 1].cargo : '',
+        estrelas: categoria === 'users' ? info_especialistas.cards[Number(id) - 1].estrelas : '',
+        data: categoria === 'services' ? info_servicos.cards[Number(id) - 1].diaProcurado : '',
+        hora: categoria === 'services' ? info_servicos.cards[Number(id) - 1].horarioProcurado : '',
+        cidade: categoria === 'services' ? info_servicos.cards[Number(id) - 1].cidade : '',
+        necessario: categoria === 'services' ? info_servicos.cards[Number(id) - 1].necessario : '',
+        solicitante: categoria === 'services' ? info_servicos.cards[Number(id) - 1].solicitadoPor : ''
     }
 
     return (
@@ -26,14 +34,25 @@ export default function Info() {
             <div className={styles.info}>
                 <div className={styles.info__titulo} >{info.titulo}</div>
                 <div className={styles.info__desc}>
-                    <img src={Obra} alt='Imagem do serviço solicitado' />
-                    <p>Obra em Schroeder na rua Germano Muller, bairro Centro Norte, expectativa de 6 meses de obra.
-                        Registrado para início em 27/01/2024 às 08:00.
-                        Trabalho para autônomos
-                        Trabalho solicitado por Robert Aron Zimmermann.</p>
+                    {categoria === 'services' ?
+                        <>
+                            <img src={Obra} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
+                            <p>{info.descricao} registrado para início em {info.data} às {info.hora}. Trabalho exclusivo para um {info.necessario}, solicitado por {info.solicitante}.</p>
+                        </>
+                        :
+                        <>
+                            <div>
+                                <img src={Estrela} alt='Classificação em estrelas' />
+                                {info.estrelas}
+                            </div>
+                            <img src={info.imagem} alt='Imagem de perfil do usuário' />
+                            <div>{info.cargo}</div>
+                        </>
+                    }
                 </div>
+                {categoria === 'users' ? <p>{info.descricao}</p> : ''}
             </div>
-            <Button texto='Candidatar-se ao serviço' dark={true} />
+            <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} />
         </div>
     )
 }

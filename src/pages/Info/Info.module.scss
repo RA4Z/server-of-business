@@ -6,6 +6,7 @@
     justify-self: start;
     position: relative;
     width: 36px;
+    height: 36px;
     cursor: pointer;
 }
 
@@ -30,6 +31,7 @@
         padding: 20px;
         font-size: calc(30px + 1vmin);
         color: $secondary;
+
         @media(max-width: $mobile) {
             font-size: calc(15px + 3vmin);
         }
@@ -42,23 +44,26 @@
         margin: 25px;
         gap: 30px;
 
-        img {
+        &__serviceImg {
             width: calc(500px + 15vmin);
             height: auto;
             border-radius: 25px;
+
             @media(max-width: $mobile) {
                 width: 110%
             }
         }
 
-        p {
-            text-align: center;
-            color: $texto_secundario;
-            max-width: 650px;
-            font-size: calc(20px + 1vmin);
-            @media(max-width: $mobile) {
-                font-size: calc(10px + 2vmin);
-            }
+    }
+
+    p {
+        text-align: center;
+        color: $texto_secundario;
+        max-width: 650px;
+        font-size: calc(20px + 1vmin);
+
+        @media(max-width: $mobile) {
+            font-size: calc(10px + 2vmin);
         }
     }
 }
