@@ -21,8 +21,8 @@ export default function OptionMenu(props: Props) {
             {props.logado ?
                 <>
                     <Button texto='Tornar-se Premium' dark={false} />
-                    <Button texto='Procurar Especialistas' dark={false} />
-                    <Button texto='Solicitações em aberto' dark={false} />
+                    <Button texto='Procurar Especialistas' dark={false} onClick={() => navigate('/pesquisa/1')} />
+                    <Button texto='Solicitações em aberto' dark={false} onClick={() => navigate('/pesquisa/2')} />
                     <Button texto='Perfil de Usuário' dark={false} />
                     <Button texto='Logout' onClick={() => deslogar} dark={true} />
                 </>
@@ -30,8 +30,8 @@ export default function OptionMenu(props: Props) {
                 <>
                     <Button texto='Crie sua conta' dark={true} onClick={() => navigate('/cadastro')} />
                     <Divider style={{ background: '#7C7C7C', width: '100%', margin: 5 }}></Divider>
-                    <Button texto='Especialistas Cadastrados' dark={false} />
-                    <Button texto='Serviços Solicitados em aberto' dark={false} />
+                    <Button texto='Especialistas Cadastrados' dark={false} onClick={() => navigate('/pesquisa/1')} />
+                    <Button texto='Serviços Solicitados em aberto' dark={false} onClick={() => navigate('/pesquisa/2')} />
                     <Button texto='Fazer Login' dark={false} onClick={() => navigate('/login')} />
                 </>
             }
