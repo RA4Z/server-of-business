@@ -3,7 +3,7 @@ import styles from './Login.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import Button from 'components/Button';
-import ForgotPassword from 'components/ForgotPassword';
+import ForgotPassword from 'pages/Login/ForgotPassword';
 import { useState } from 'react';
 
 export default function Login() {

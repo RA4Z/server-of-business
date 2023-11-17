@@ -2,9 +2,9 @@ import Button from "components/Button";
 import styles from './Candidatar.module.scss';
 
 export default function Candidatar({ visible }: any) {
-    if(visible) {
+    if (visible) {
         document.body.style.overflow = "hidden";
-    } 
+    }
     function sair() {
         document.body.style.overflow = "visible";
         visible(false)
