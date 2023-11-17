@@ -41,6 +41,10 @@ export default function Header({ logado = false, selected, childToParent }: any)
             childToParent(selecionado)
         }
     }
+    
+    if(window.location.pathname === '/cadastro') {
+        selected = 0
+    }
 
     return (
         <>
