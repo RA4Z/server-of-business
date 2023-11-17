@@ -7,6 +7,7 @@ import ForgotPassword from 'components/ForgotPassword';
 import { useState } from 'react';
 
 export default function Login() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const [forgotPassWordVisible, setForgotPassWordVisible] = useState(false)
     const navigate = useNavigate();
 

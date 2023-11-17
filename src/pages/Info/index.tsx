@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
 
 export default function Info() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const { categoria, id } = useParams();
     const navigate = useNavigate();
     const aba_atual = categoria === 'users' ? info_especialistas.cards[Number(id) - 1] : info_servicos.cards[Number(id) - 1]

@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import Card from 'components/Card'
 
 export default function Pesquisa({ childToParent }: any) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const { categoria, especifico } = useParams();
     const navigate = useNavigate()
 

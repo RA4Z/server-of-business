@@ -5,6 +5,7 @@ import styles from './Home.module.scss';
 import Button from 'components/Button';
 
 export default function Home({ pagina = 1, childToParent }: any) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const navigate = useNavigate()
     function direcionamento(destino: string) {
         switch (destino) {

@@ -8,6 +8,7 @@ import Imagem from 'images/tela-cadastro.png'
 import Button from 'components/Button'
 
 export default function Cadastro() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const [country, setCountry] = useState('');
     const [region, setRegion] = useState('');
 
