@@ -12,6 +12,10 @@ export default function Header({ logado = false, selected, childToParent }: any)
     const [option, setOption] = useState(false)
     const navigate = useNavigate();
 
+    const mostrarOption = (childdata: boolean) => {
+        setOption(childdata)
+    }
+
     const rotas = [{
         label: (window.location.pathname) === '/' ? 'Contratar' : 'Especialistas',
         selected: 1,
@@ -78,7 +82,7 @@ export default function Header({ logado = false, selected, childToParent }: any)
             </div>
 
             {option ? <div className={styles.container}>
-                <OptionMenu logado={logado} />
+                <OptionMenu logado={logado} mostrarOption={mostrarOption} />
             </div> : ''}
 
             <Outlet />
