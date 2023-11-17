@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 import styles from './Cadastro.module.scss'
 import Imagem from 'images/tela-cadastro.png'
-import Header from 'components/Header'
 import Button from 'components/Button'
 
 export default function Cadastro() {
@@ -15,7 +14,6 @@ export default function Cadastro() {
     const navigate = useNavigate();
     return (
         <>
-            <Header />
             <div className={styles.container}>
                 <form className={styles.container__left}>
                     <p>Criação de conta</p>
