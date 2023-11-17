@@ -1,28 +1,44 @@
 import Button from 'components/Button'
 import styles from './OptionMenu.module.scss'
 import Divider from '@mui/material/Divider'
-
 import { useNavigate } from 'react-router-dom'
+import { useRef, useEffect } from "react";
 
 interface Props {
     logado: boolean,
-    mostrarOption:any
+    mostrarOption: any
 }
 
 export default function OptionMenu(props: Props) {
     const navigate = useNavigate();
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+
+    function useOutsideAlerter(ref: any) {
+        useEffect(() => {
+            function handleClickOutside(event: any) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    props.mostrarOption(false)
+                }
+            }
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
 
     function deslogar() {
         navigate('/login')
     }
 
-    function navegar(path:string) {
+    function navegar(path: string) {
         props.mostrarOption(false)
         navigate(path)
     }
 
     return (
-        <div className={styles.container}>
+        <div ref={wrapperRef} className={styles.container}>
             <div className={styles.titulo}>Informações Adicionais</div>
             {props.logado ?
                 <>
