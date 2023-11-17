@@ -13,7 +13,6 @@ import { useParams } from 'react-router-dom'
 import Candidatar from './Candidatar';
 
 export default function Info() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     const [askCandidatar, setAskCandidatar] = useState(false)
     const { categoria, id } = useParams();
     const navigate = useNavigate();
