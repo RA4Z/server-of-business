@@ -7,14 +7,29 @@ import Obra from 'images/obra-temp.png'
 import Estrela from 'images/estrela.svg'
 import { info_servicos, info_especialistas } from 'pages/Pesquisa/infos';
 
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
+import Candidatar from './Candidatar';
 
 export default function Info() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    const [askCandidatar, setAskCandidatar] = useState(false)
     const { categoria, id } = useParams();
     const navigate = useNavigate();
     const aba_atual = categoria === 'users' ? info_especialistas.cards[Number(id) - 1] : info_servicos.cards[Number(id) - 1]
+
+    const visible = (childdata: boolean) => {
+        setAskCandidatar(childdata)
+    }
+
+    function direcionarTarefa(categoria:any) {
+        if(categoria === 'services') {
+            setAskCandidatar(true)
+        } else {
+            console.log('Direcionar a um chat')
+        }
+    }
 
     const info = {
         titulo: aba_atual.titulo,
@@ -34,7 +49,7 @@ export default function Info() {
         <div className={styles.container}>
             <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
             <div className={styles.info}>
-                <div className={styles.info__titulo} >{info.titulo}</div>
+                <div className={styles.info__titulo}>{info.titulo}</div>
                 <div className={styles.info__desc}>
                     {categoria === 'services' ?
                         <>
@@ -54,7 +69,8 @@ export default function Info() {
                 </div>
                 {categoria === 'users' ? <p>{info.descricao}</p> : ''}
             </div>
-            <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} />
+            {askCandidatar ? <Candidatar visible={visible} /> : ''}
+            <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} onClick={() => direcionarTarefa(categoria)} />
         </div>
     )
 }
