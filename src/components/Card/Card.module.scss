@@ -1,19 +1,27 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
+.premium{
+    position: absolute;
+    z-index: 2;
+    height: 50px;
+}
+
 .corpo {
     background-color: $backgrounds;
     border-radius: 25px;
     box-shadow: 5px 5px 7px #888888;
     height: auto;
     padding: 15px;
-    max-width: 500px;
+    max-width: 400px;
     text-align: center;
 }
+
 .top{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    text-align: center;
     &__img {
         @media(max-width: $tablet) {
             height: 88px;
@@ -35,6 +43,7 @@
     &__text {
         color: $texto;
         max-width: 300px;
+        font-size: calc(12px + 1vmin);
         font-weight: bold;
     }
 }

@@ -51,6 +51,7 @@ export default function Pesquisa({ childToParent }: any) {
                             subtitulo={`${card.estrelas} - ${card.cargo}`}
                             descricao={card.descricao}
                             imagem={card.imagem}
+                            premium={card.premium}
                             onClick={() => navigate(`/info/users/${card.id}`)}
                             buttonText='Ver mais informações'
                         />
@@ -62,6 +63,7 @@ export default function Pesquisa({ childToParent }: any) {
                             titulo={card.titulo}
                             descricao={card.descricao}
                             imagem={card.imagem}
+                            premium={card.premium}
                             onClick={() => navigate(`/info/services/${card.id}`)}
                             buttonText='Ver mais informações'
                         />
