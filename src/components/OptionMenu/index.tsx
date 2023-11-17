@@ -45,7 +45,7 @@ export default function OptionMenu(props: Props) {
                     <Button texto='Tornar-se Premium' dark={false} />
                     <Button texto='Procurar Especialistas' dark={false} onClick={() => navegar('/pesquisa/1')} />
                     <Button texto='Solicitações em aberto' dark={false} onClick={() => navegar('/pesquisa/2')} />
-                    <Button texto='Perfil de Usuário' dark={false} />
+                    <Button texto='Perfil de Usuário' dark={false} onClick={() => navegar('/perfil')} />
                     <Button texto='Logout' onClick={() => deslogar} dark={true} />
                 </>
                 :

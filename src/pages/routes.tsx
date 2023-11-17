@@ -9,6 +9,7 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Pesquisa from './Pesquisa';
 import Info from './Info';
+import Perfil from './Perfil';
 
 export default function AppRouter() {
     const [pagina, setPagina] = useState(1)
@@ -24,6 +25,7 @@ export default function AppRouter() {
                     <Route path='/cadastro' element={<Cadastro />} />
                     <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} />} />
                     <Route path='info/:categoria/:id' element={<Info />} />
+                    <Route path='/perfil' element={<Perfil />} />
                 </Route>
                 <Route path='/login' element={<Login />} />
             </Routes>

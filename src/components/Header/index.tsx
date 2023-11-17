@@ -42,7 +42,7 @@ export default function Header({ logado = false, selected, childToParent }: any)
         }
     }
     
-    if(window.location.pathname === '/cadastro') {
+    if(window.location.pathname === '/cadastro' || window.location.pathname === '/perfil') {
         selected = 0
     }
 
