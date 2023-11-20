@@ -5,22 +5,52 @@
     display: flex;
     justify-content: space-between;
     margin: 50px;
+    flex-wrap: wrap;
+
+    @media(max-width: $tablet) {
+        justify-content: space-around;
+    }
+
+    @media(max-width: $mobile) {
+        text-align: center;
+    }
 }
 
 .user {
+    text-align: center;
 
     &__editar {
-        text-decoration: none;
-        border: none;
-        background: none;
-        padding: 0;
         color: $texto-secundario;
-        margin: 0;
         cursor: pointer;
-        
+        transition: 0.5s;
 
         &:hover {
-
+            color: $primary;
         }
     }
+}
+
+.info {
+
+    &__nome {
+        font-size: calc(15px + 1vmin);
+    }
+
+    &__especialidade {
+        font-size: calc(10px + 1vmin);
+
+        img {
+            height: calc(10px + 1vmin);
+        }
+    }
+
+    &__regiao {
+        font-size: calc(10px + 1vmin);
+    }
+}
+
+.titulo_solicita {
+    color: $secondary;
+    text-align: center;
+    font-size: calc(15px + 1vmin);
 }
