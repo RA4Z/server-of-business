@@ -1,19 +1,18 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
+.conjunto {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .premium {
     position: absolute;
     z-index: 2;
     height: 50px;
-    transform: translate(-210%, 175%);
-
-    @media(max-width: $tablet) {
-        transform: translate(-170%, 120%);
-    }
-
-    @media(max-width: $mobile) {
-        transform: translate(-150%, 100%);
-    }
+    transform: translateY(50%);
 }
 
 .corpo {

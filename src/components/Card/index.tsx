@@ -17,7 +17,7 @@ export default function Card(props: Props) {
     return (
         <div className={styles.corpo}>
             <div className={styles.top}>
-                <div>
+                <div className={styles.conjunto}>
                     <img src={props.imagem} className={styles.top__img} alt='Imagem do Card' style={props.subtitulo !== '' ? { width: 'auto' } : {}} />
                     <img src={Premium} className={styles.premium} alt='Indicativo User Premium' style={props.premium? {opacity:1} : {opacity:0}} />
                 </div>
