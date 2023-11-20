@@ -21,6 +21,7 @@ export default function Editar({ visible }: any) {
             <div className={styles.container}>
                 <TextField id="outlined-username" label="Nome" variant="outlined" autoComplete="username" className={styles.input} />
                 <TextField id="outlined-email" label="E-mail" variant="outlined" autoComplete="email" className={styles.input} />
+                <TextField id="outlined-phone" label="Telefone" variant="outlined" autoComplete="phone" className={styles.input} />
                 <div className={styles.countries}>
                     <CountryDropdown
                         classes={styles.selection}
@@ -34,9 +35,11 @@ export default function Editar({ visible }: any) {
                         value={region}
                         onChange={(val) => setRegion(val)} />
                 </div>
-                <TextField id="outlined-about" label="Sobre você" variant="outlined" autoComplete="text" className={styles.input} />
-                <Button texto='Cancelar' dark={false} onClick={() => sair()} />
-                <Button texto='Salvar' dark={true} />
+                <TextField id="outlined-multiline-static" label="Sobre você" multiline rows={4} variant="outlined" autoComplete="text" className={styles.input} />
+                <div className={styles.buttons}>
+                    <Button texto='Cancelar' dark={false} onClick={() => sair()} />
+                    <Button texto='Salvar' dark={true} />
+                </div>
             </div>
         </>
     )
