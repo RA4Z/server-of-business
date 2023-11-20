@@ -3,6 +3,18 @@
 
 .input {
     width: calc(100px + 50vmin);
+
+    &__mail {
+        width: calc(100px + 25vmin);
+    }
+
+    &__phone {
+        width: calc(50px + 25vmin);
+    }
+
+    &__about {
+        width: calc(150px + 50vmin);
+    }
 }
 
 .buttons {
@@ -34,6 +46,9 @@
     padding: 50px;
     z-index: 6;
     gap: 10px;
+    @media(max-width: $tablet) {
+        justify-content: center;
+    }
 }
 
 .countries {
