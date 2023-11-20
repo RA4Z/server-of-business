@@ -22,8 +22,8 @@ export default function Info() {
         setAskCandidatar(childdata)
     }
 
-    function direcionarTarefa(categoria:any) {
-        if(categoria === 'services') {
+    function direcionarTarefa(categoria: any) {
+        if (categoria === 'services') {
             setAskCandidatar(true)
         } else {
             console.log('Direcionar a um chat')
@@ -45,31 +45,37 @@ export default function Info() {
     }
 
     return (
-        <div className={styles.container}>
-            <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
-            <div className={styles.info}>
-                <div className={styles.info__titulo}>{info.titulo}</div>
-                <div className={styles.info__desc}>
-                    {categoria === 'services' ?
-                        <>
-                            <img src={Obra} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
-                            <p>{info.descricao} registrado para início em {info.data} às {info.hora}. Trabalho exclusivo para um {info.necessario}, solicitado por {info.solicitante}.</p>
-                        </>
-                        :
-                        <>
-                            <div className={styles.textos}>
-                                <img src={Estrela} alt='Classificação em estrelas' />
-                                {info.estrelas}
-                            </div>
-                            <img src={info.imagem} alt='Imagem de perfil do usuário' className={styles.logotipo} />
-                            <div className={styles.textos}>{info.cargo}</div>
-                        </>
-                    }
+        <>
+            {askCandidatar ?
+                <div className={styles.certeza_candidatar}>
+                    <Candidatar visible={visible} />
                 </div>
-                {categoria === 'users' ? <p>{info.descricao}</p> : ''}
+                : ''}
+            <div className={styles.container}>
+                <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
+                <div className={styles.info}>
+                    <div className={styles.info__titulo}>{info.titulo}</div>
+                    <div className={styles.info__desc}>
+                        {categoria === 'services' ?
+                            <>
+                                <img src={Obra} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
+                                <p>{info.descricao} registrado para início em {info.data} às {info.hora}. Trabalho exclusivo para um {info.necessario}, solicitado por {info.solicitante}.</p>
+                            </>
+                            :
+                            <>
+                                <div className={styles.textos}>
+                                    <img src={Estrela} alt='Classificação em estrelas' />
+                                    {info.estrelas}
+                                </div>
+                                <img src={info.imagem} alt='Imagem de perfil do usuário' className={styles.logotipo} />
+                                <div className={styles.textos}>{info.cargo}</div>
+                            </>
+                        }
+                    </div>
+                    {categoria === 'users' ? <p>{info.descricao}</p> : ''}
+                </div>
+                <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} onClick={() => direcionarTarefa(categoria)} />
             </div>
-            {askCandidatar ? <Candidatar visible={visible} /> : ''}
-            <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} onClick={() => direcionarTarefa(categoria)} />
-        </div>
+        </>
     )
 }

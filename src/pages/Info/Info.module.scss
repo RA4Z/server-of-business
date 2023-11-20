@@ -1,6 +1,11 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
+.certeza_candidatar {
+    display: flex;
+    justify-content: center;
+}
+
 .seta_volta {
     display: flex;
     justify-self: start;
