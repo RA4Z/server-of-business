@@ -1,10 +1,19 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
-.premium{
+.premium {
     position: absolute;
     z-index: 2;
     height: 50px;
+    transform: translate(-210%, 175%);
+
+    @media(max-width: $tablet) {
+        transform: translate(-170%, 120%);
+    }
+
+    @media(max-width: $mobile) {
+        transform: translate(-150%, 100%);
+    }
 }
 
 .corpo {
@@ -17,29 +26,34 @@
     text-align: center;
 }
 
-.top{
+.top {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     text-align: center;
+
     &__img {
         @media(max-width: $tablet) {
             height: 88px;
             width: 155px;
         }
+
         @media(max-width: $mobile) {
             max-height: 78px;
             max-width: 140px;
         }
+
         height: 114px;
         width: 175px;
         border-radius: 30px;
     }
+
     &__textos {
         display: flex;
         text-wrap: wrap;
         flex-direction: column;
     }
+
     &__text {
         color: $texto;
         max-width: 300px;
@@ -47,11 +61,13 @@
         font-weight: bold;
     }
 }
+
 .descricao {
     color: $texto_secundario;
     font-size: calc(8px + 1vmin);
     min-height: 50px;
 }
+
 .classification {
     display: flex;
     align-items: center;
