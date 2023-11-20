@@ -1,6 +1,11 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
+.pagina_editar {
+    display: flex;
+    justify-content: center;
+}
+
 .container {
     display: flex;
     justify-content: space-between;
