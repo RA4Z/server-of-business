@@ -1,3 +1,26 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px;
+}
+
+.user {
+
+    &__editar {
+        text-decoration: none;
+        border: none;
+        background: none;
+        padding: 0;
+        color: $texto-secundario;
+        margin: 0;
+        cursor: pointer;
+        
+
+        &:hover {
+
+        }
+    }
+}
