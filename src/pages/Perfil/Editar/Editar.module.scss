@@ -5,7 +5,7 @@
     width: calc(100px + 50vmin);
 
     &__mail {
-        width: calc(100px + 25vmin);
+        width: calc(90px + 25vmin);
     }
 
     &__phone {
@@ -15,6 +15,11 @@
     &__about {
         width: calc(150px + 50vmin);
     }
+}
+
+.check {
+    color: $texto-secundario;
+    max-width: calc(50px + 50vmin);
 }
 
 .buttons {
@@ -46,9 +51,8 @@
     padding: 50px;
     z-index: 6;
     gap: 10px;
-    @media(max-width: $tablet) {
-        justify-content: center;
-    }
+    justify-content: center;
+    margin: 50px;
 }
 
 .countries {
@@ -56,4 +60,22 @@
     flex-direction: column;
     gap: 5px;
     width: calc(100px + 50vmin);
+}
+
+.bloco_servicos {
+    padding: 20px;
+    position: absolute;
+    z-index: 1;
+    background-color: $color;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 390px;
+    box-shadow: 5px 5px 7px #888888;
+
+    &__input {
+        width: calc(75px + 10vmin);
+    }
 }
