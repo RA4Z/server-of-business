@@ -41,7 +41,7 @@
 
 .container {
     display: flex;
-    position: fixed;
+    position: absolute;
     align-items: center;
     flex-wrap: wrap;
     background-color: $color;

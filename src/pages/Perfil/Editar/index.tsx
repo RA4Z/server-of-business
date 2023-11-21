@@ -11,13 +11,6 @@ export default function Editar({ visible }: any) {
     const [country, setCountry] = useState('')
     const [region, setRegion] = useState('')
 
-    if (visible) {
-        document.body.style.overflow = "hidden";
-    }
-    function sair() {
-        document.body.style.overflow = "visible";
-        visible(false)
-    }
     function useOutsideAlerter(ref: any) {
         useEffect(() => {
             function handleClickOutside(event: any) {
@@ -34,7 +27,7 @@ export default function Editar({ visible }: any) {
 
     return (
         <>
-            <div className={styles.overlay} onClick={() => sair()} />
+            <div className={styles.overlay} onClick={() => visible(false)} />
             <div className={styles.container}>
                 <TextField id="outlined-username" label="Nome" variant="outlined" autoComplete="username" className={styles.input} />
                 <TextField id="outlined-email" label="E-mail" variant="outlined" autoComplete="email" className={styles.input__mail} />
@@ -56,7 +49,7 @@ export default function Editar({ visible }: any) {
                 <TextField id="outlined-multiline-static" label="Sobre você" multiline rows={4} variant="outlined" autoComplete="text" className={styles.input__about} />
 
                 <div className={styles.buttons}>
-                    <Button texto='Cancelar' dark={false} onClick={() => sair()} />
+                    <Button texto='Cancelar' dark={false} onClick={() => visible(false)} />
                     <Button texto='Salvar' dark={true} />
                 </div>
 
