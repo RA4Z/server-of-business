@@ -75,6 +75,10 @@
         width: 82%;
         height: 300px;
         box-shadow: 5px 5px 7px #888888;
+
+        @media(max-width:$mobile) {
+            width: 100%;
+        }
     }
 
     &__upload {
