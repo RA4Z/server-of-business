@@ -29,3 +29,30 @@
     box-shadow: 5px 5px 7px #888888;
     height: 545px;
 }
+
+.especializacoes {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+
+    &__especializacao {
+        color: $color;
+        display: flex;
+        background-color: $secondary;
+        min-width: 150px;
+        gap: 10px;
+        padding: 4px 8px 4px 8px;
+        text-align: left;
+        border-radius: 25px;
+        justify-content: space-between;
+        list-style-type: none;
+
+        img {
+            height: 20px;
+            cursor: pointer;
+        }
+    }
+
+}
