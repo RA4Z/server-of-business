@@ -17,8 +17,10 @@ export default function Solicitar({ visible }: any) {
                     </div>
                     <div className={styles.right}>
                         <Button texto='Possíveis Especializações' dark={false} />
-                        <TextField id="solicitation-date" label="Data" variant="outlined" autoComplete="date" className={styles.input__bloco} />
-                        <TextField id="solicitation-time" label="Hora" variant="outlined" autoComplete="hour" className={styles.input__bloco} />
+                        <div className={styles.right__blocosdados}>
+                            <TextField id="solicitation-date" label="Data" variant="outlined" autoComplete="date" className={styles.input__bloco} />
+                            <TextField id="solicitation-time" label="Hora" variant="outlined" autoComplete="hour" className={styles.input__bloco} />
+                        </div>
                         <div className={styles.right__local}>Localização</div>
                         <div className={styles.right__upload}><img src={UploadIco} alt='Ícone de Upload' />Upload Imagem</div>
                         <>
