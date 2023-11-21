@@ -3,11 +3,13 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './Editar.module.scss'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 import Button from 'components/Button'
+import Adicionar from '../Adicionar'
 
 export default function Editar({ visible }: any) {
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
     const [showEspecialista, setShowEspecialista] = useState(false)
+    const [adicionar, setAdicionar] = useState(false)
     const [country, setCountry] = useState('')
     const [region, setRegion] = useState('')
 
@@ -23,6 +25,10 @@ export default function Editar({ visible }: any) {
                 document.removeEventListener("mousedown", handleClickOutside);
             };
         }, [ref]);
+    }
+
+    const addEspecialista = (childdata: boolean) => {
+        setAdicionar(childdata)
     }
 
     return (
@@ -55,13 +61,16 @@ export default function Editar({ visible }: any) {
 
                 {showEspecialista ? <div ref={wrapperRef} className={styles.bloco_servicos}>
                     <TextField id="outlined-especialist" label="Especialista?" variant="outlined" autoComplete="yes/no" className={styles.bloco_servicos__input} />
-                    <Button dark={false} texto='Especializações' />
+                    <Button dark={false} texto='Especializações' onClick={() => setAdicionar(true)} />
                     <TextField id="outlined-hour-value" label="Valor hora" variant="outlined" autoComplete="money" className={styles.bloco_servicos__input} />
                     <TextField id="outlined-exibition" label="Em exibição" variant="outlined" autoComplete="exibition" className={styles.bloco_servicos__input} />
                     <>
                         <FormControlLabel control={<Checkbox />} label="Autônomo" className={styles.check} />
                         <FormControlLabel control={<Checkbox />} label="Freelancer" className={styles.check} />
                     </>
+                </div> : ''}
+                {adicionar ? <div className={styles.bloco_servicos}>
+                    <Adicionar visible={addEspecialista} />
                 </div> : ''}
             </div>
         </>
