@@ -4,9 +4,17 @@ import styles from './Solicitar.module.scss'
 import Button from 'components/Button'
 
 export default function Solicitar({ visible }: any) {
+    
+    if (visible) {
+        document.body.style.overflow = "hidden";
+    }
+    function sair() {
+        document.body.style.overflow = "visible";
+        visible(false)
+    }
     return (
         <>
-            <div className={styles.overlay} onClick={() => visible(false)} />
+            <div className={styles.overlay} onClick={() => sair()} />
             <div className={styles.container}>
                 <div className={styles.lados}>
                     <div className={styles.left}>
