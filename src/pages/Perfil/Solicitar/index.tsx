@@ -18,15 +18,15 @@ export default function Solicitar({ visible }: any) {
             <div className={styles.container}>
                 <div className={styles.lados}>
                     <div className={styles.left}>
-                        <TextField id="outlined-title" label="Título da solicitação" variant="outlined" autoComplete="title" className={styles.input} />
-                        <TextField id="outlined-title" label="Nome do solicitante" variant="outlined" autoComplete="username" className={styles.input} />
-                        <TextField id="outlined-multiline-static" label="Descrição sobre a solicitação" multiline rows={8} variant="outlined" autoComplete="text" className={styles.input} />
+                        <TextField id="outlined-solicitation-title" label="Título da solicitação" variant="outlined" autoComplete="title" className={styles.input} />
+                        <TextField id="outlined-solicitation-username" label="Nome do solicitante" variant="outlined" autoComplete="username" className={styles.input} />
+                        <TextField id="outlined-solicitation-description" label="Descrição sobre a solicitação" multiline rows={8} variant="outlined" autoComplete="text" className={styles.input} />
 
                     </div>
                     <div className={styles.right}>
                         <Button texto='Possíveis Especializações' dark={false} />
-                        <TextField id="outlined-date" label="Data:" variant="outlined" autoComplete="date" className={styles.input__bloco} />
-                        <TextField id="outlined-time" label="Hora" variant="outlined" autoComplete="hour" className={styles.input__bloco} />
+                        <TextField id="solicitation-date" label="Data:" variant="outlined" autoComplete="date" className={styles.input__bloco} />
+                        <TextField id="solicitation-time" label="Hora" variant="outlined" autoComplete="hour" className={styles.input__bloco} />
                         <div className={styles.right__local}>Localização</div>
                         <div className={styles.right__upload}><img src={UploadIco} alt='Ícone de Upload' />Upload Imagem</div>
                         <>
