@@ -8,17 +8,26 @@ import styles from './Perfil.module.scss'
 import { useState } from 'react'
 import { Divider } from '@mui/material'
 import Editar from './Editar'
+import Solicitar from './Solicitar'
 
 export default function Perfil() {
     const [editar, setEditar] = useState(false)
+    const [solicitar, setSolicitar] = useState(false)
     const visible = (childdata: boolean) => {
         setEditar(childdata)
+    }
+    const service = (childdata: boolean) => {
+        setSolicitar(childdata)
     }
     return (
         <>
             {editar ? <div className={styles.pagina_editar}>
                 <Editar visible={visible} />
             </div> : ''}
+            {solicitar ? <div className={styles.pagina_editar}>
+                <Solicitar visible={service} />
+            </div> : ''}
+
             <div className={styles.container}>
                 <div className={styles.user}>
                     <img src={UserImg} alt='Imagem do perfil de usuário' />
@@ -34,6 +43,7 @@ export default function Perfil() {
                     titulo='Gostaria de agendar uma solicitação?'
                     descricao='Abra um chamado em algum horário para qualquer categoria de serviço, diversas pessoas de sua região serão notificadas para atendimento.'
                     imagem={Calendario}
+                    onClick={() => setSolicitar(true)}
                 />
             </div>
             <Divider style={{ margin: 50 }} />
