@@ -7,16 +7,20 @@ import Adicionar from '../Adicionar'
 
 export default function Solicitar({ visible }: any) {
     const [adicionar, setAdicionar] = useState(false)
+    const [especializacoes, setEspecializacoes] = useState(['Engenheiro', 'Pedreiro'])
 
     const addEspecialista = (childdata: boolean) => {
         setAdicionar(childdata)
+    }
+    const addEspecializacao = (childdata: any) => {
+        setEspecializacoes(childdata)
     }
     return (
         <>
             <div className={styles.overlay} onClick={() => visible(false)} />
             <div className={styles.container}>
                 {adicionar ? <div className={styles.bloco_servicos}>
-                    <Adicionar visible={addEspecialista} />
+                    <Adicionar visible={addEspecialista} especialistasCadastrados={addEspecializacao} defaultList={especializacoes} />
                 </div> : ''}
                 <div className={styles.lados}>
                     <div className={styles.left}>
