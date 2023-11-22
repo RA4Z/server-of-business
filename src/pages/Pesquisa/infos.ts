@@ -12,8 +12,8 @@ export const info_especialistas =
         },
         {
             id: 2,
-            titulo: 'Jotaro Kujo',
-            estrelas: 4.7,
+            titulo: 'Joseph Joestar',
+            estrelas: 3.7,
             cargo: 'Biólogo',
             premium: true,
             descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
@@ -30,8 +30,8 @@ export const info_especialistas =
         },
         {
             id: 4,
-            titulo: 'Jotaro Kujo',
-            estrelas: 4.7,
+            titulo: 'Dio Brando',
+            estrelas: 1.2,
             cargo: 'Biólogo',
             premium: true,
             descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
@@ -63,6 +63,7 @@ export const info_servicos =
             premium: true,
             descricao: 'Obra em Schroeder na rua Germano Muller, bairro Centro Norte, expectativa de 6 meses de obra.',
             imagem: '/assets/contratar_freelancer.jpg',
+            inscritos: [2,4]
         },
         {
             id: 2,
@@ -75,6 +76,7 @@ export const info_servicos =
             premium: true,
             descricao: 'Possuo um jardim de 500m² e quero alguém para cuidar dele',
             imagem: '/assets/contratar_freelancer.jpg',
+            inscritos: [1,2]
         },
         {
             id: 3,
@@ -87,6 +89,7 @@ export const info_servicos =
             premium: false,
             descricao: 'Preciso de um carpinteiro para arrumar uma porta rachada',
             imagem: '/assets/contratar_freelancer.jpg',
+            inscritos: [3,4]
         },
         {
             id: 4,
@@ -99,6 +102,7 @@ export const info_servicos =
             premium: true,
             descricao: 'Tenho um terreno de 3000m² para ser roçado',
             imagem: '/assets/contratar_freelancer.jpg',
+            inscritos: [1,5]
         }
     ]
 }

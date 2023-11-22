@@ -1,0 +1,123 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin: 25px;
+    gap: 20px;
+    justify-content: center;
+}
+
+.seta_volta {
+    display: flex;
+    justify-self: start;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+}
+
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &__titulo {
+        max-width: 500px;
+        text-align: center;
+        padding: 20px;
+        font-size: calc(30px + 1vmin);
+        color: $secondary;
+
+        @media(max-width: $mobile) {
+            font-size: calc(15px + 3vmin);
+        }
+    }
+
+    &__desc {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 25px;
+        gap: 30px;
+
+        &__serviceImg {
+            width: calc(500px + 15vmin);
+            height: auto;
+            border-radius: 25px;
+
+            @media(max-width: $mobile) {
+                width: 110%
+            }
+        }
+
+        @media(max-width: $mobile) {
+            flex-direction: column;
+        }
+
+    }
+
+    p {
+        text-align: center;
+        color: $texto_secundario;
+        max-width: 650px;
+        font-size: calc(20px + 1vmin);
+
+        @media(max-width: $mobile) {
+            font-size: calc(10px + 2vmin);
+        }
+    }
+}
+
+.especialistas {
+    display: flex;
+    text-align: center;
+
+    &__title {
+        text-align: center;
+        font-size: calc(15px + 1vmin);
+        color: $secondary;
+
+        @media(max-width: $mobile) {
+            font-size: calc(12px + 3vmin);
+        }
+    }
+
+    &__cards {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin: 50px;
+    }
+
+    &__card {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        min-width: 350px;
+        border-radius: 10px;
+        padding: 0 40px 0 0;
+        box-shadow: 5px 5px 7px #888888;
+
+        p {
+            img {
+                height: 20px;
+            }
+        }
+
+        @media(max-width: $mobile) {
+            min-width: auto;
+        }
+
+        img {
+            height: calc(30px + 20vmin);
+            max-height: 100px;
+        }
+    }
+
+}
