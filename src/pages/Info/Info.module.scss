@@ -87,6 +87,7 @@
 }
 .logotipo {
     @media(max-width: $mobile) {
-        height: calc(40px + 10vmin);
+        align-self: center;
+        width: calc(50px + 10vmin);
     }
 }
