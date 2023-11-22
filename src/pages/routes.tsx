@@ -27,8 +27,7 @@ export default function AppRouter() {
                     <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} />} />
                     <Route path='info/:categoria/:id' element={<Info />} />
                     <Route path='/perfil' element={<Perfil />} />
-                    <Route path='/trabalho' element={<Trabalho />} />
-                    {/* /:userId/:jobId */}
+                    <Route path='/trabalho/:userId/:jobId' element={<Trabalho  />} />
                 </Route>
                 <Route path='/login' element={<Login />} />
             </Routes>

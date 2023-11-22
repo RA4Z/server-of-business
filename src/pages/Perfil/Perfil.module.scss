@@ -59,3 +59,15 @@
     text-align: center;
     font-size: calc(15px + 1vmin);
 }
+
+.cards_solicitados {
+    display: flex;
+    margin: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+
+    @media(max-width:$tablet) {
+        justify-content: center;
+    }
+}

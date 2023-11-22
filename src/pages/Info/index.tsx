@@ -16,7 +16,7 @@ export default function Info() {
     const [askCandidatar, setAskCandidatar] = useState(false)
     const { categoria, id } = useParams();
     const navigate = useNavigate();
-    const aba_atual = categoria === 'users' ? info_especialistas.cards[Number(id) - 1] : info_servicos.cards[Number(id) - 1]
+    const aba_atual = categoria === 'users' ? info_especialistas[Number(id) - 1] : info_servicos[Number(id) - 1]
 
     const visible = (childdata: boolean) => {
         setAskCandidatar(childdata)
@@ -35,13 +35,13 @@ export default function Info() {
         descricao: aba_atual.descricao,
         imagem: aba_atual.imagem,
         premium: aba_atual.premium,
-        cargo: categoria === 'users' ? info_especialistas.cards[Number(id) - 1].cargo : '',
-        estrelas: categoria === 'users' ? info_especialistas.cards[Number(id) - 1].estrelas : '',
-        data: categoria === 'services' ? info_servicos.cards[Number(id) - 1].diaProcurado : '',
-        hora: categoria === 'services' ? info_servicos.cards[Number(id) - 1].horarioProcurado : '',
-        cidade: categoria === 'services' ? info_servicos.cards[Number(id) - 1].cidade : '',
-        necessario: categoria === 'services' ? info_servicos.cards[Number(id) - 1].necessario : '',
-        solicitante: categoria === 'services' ? info_servicos.cards[Number(id) - 1].solicitadoPor : ''
+        cargo: categoria === 'users' ? info_especialistas[Number(id) - 1].cargo : '',
+        estrelas: categoria === 'users' ? info_especialistas[Number(id) - 1].estrelas : '',
+        data: categoria === 'services' ? info_servicos[Number(id) - 1].diaProcurado : '',
+        hora: categoria === 'services' ? info_servicos[Number(id) - 1].horarioProcurado : '',
+        cidade: categoria === 'services' ? info_servicos[Number(id) - 1].cidade : '',
+        necessario: categoria === 'services' ? info_servicos[Number(id) - 1].necessario : '',
+        solicitante: categoria === 'services' ? info_servicos[Number(id) - 1].solicitadoPor : ''
     }
 
     return (

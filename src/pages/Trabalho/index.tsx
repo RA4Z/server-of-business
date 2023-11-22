@@ -9,6 +9,7 @@ import Estrela from 'images/estrela.svg'
 import { Divider } from '@mui/material'
 
 export default function Trabalho() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const navigate = useNavigate()
     const info = {
         descricao: 'Trabalho',

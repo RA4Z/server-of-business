@@ -44,7 +44,7 @@ export default function Pesquisa({ childToParent }: any) {
 
             <div id='card_container' className={styles.container}>
                 {categoria === '1' ?
-                    info_especialistas.cards.map((card) => (
+                    info_especialistas.map((card) => (
                         <Card
                             key={card.id}
                             titulo={card.titulo}
@@ -57,7 +57,7 @@ export default function Pesquisa({ childToParent }: any) {
                         />
                     ))
                     :
-                    info_servicos.cards.map((card) => (
+                    info_servicos.map((card) => (
                         <Card
                             key={card.id}
                             titulo={card.titulo}

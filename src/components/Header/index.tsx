@@ -41,8 +41,8 @@ export default function Header({ logado = false, selected, childToParent }: any)
             childToParent(selecionado)
         }
     }
-    
-    if(window.location.pathname === '/cadastro' || window.location.pathname === '/perfil') {
+
+    if ( window.location.pathname.indexOf('cadastro') > 0 || window.location.pathname.indexOf('perfil') > 0 || window.location.pathname.indexOf('trabalho') > 0) {
         selected = 0
     }
 
