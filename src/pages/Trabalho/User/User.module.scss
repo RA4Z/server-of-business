@@ -1,0 +1,20 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.overlay {
+    background-color: $background-footer;
+    opacity: 0.3;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    z-index: 5;
+    transition: all .5s;
+}
+
+.container {
+    background-color: $color;
+    z-index: 6;
+    box-shadow: 5px 5px 7px #888888;
+}

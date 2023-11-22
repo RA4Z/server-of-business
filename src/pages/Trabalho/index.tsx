@@ -1,11 +1,12 @@
 import styles from './Trabalho.module.scss'
 import { useNavigate, useParams } from 'react-router-dom'
-
+import { useState } from 'react'
 import { info_servicos, info_especialistas } from 'pages/Pesquisa/infos'
 
 import Voltar from 'images/voltar.png'
 import Obra from 'images/obra-temp.png'
-import User from 'images/user.png'
+import UserIMG from 'images/user.png'
+import User from './User'
 import Estrela from 'images/estrela.svg'
 
 import { Divider } from '@mui/material'
@@ -13,12 +14,28 @@ import { Divider } from '@mui/material'
 export default function Trabalho() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const { userId, jobId } = useParams();
+    const [userVisibility, setUserVisibility] = useState(false)
     const navigate = useNavigate()
 
     var info = info_servicos.filter(service => service.idSolicitante === Number(userId) && service.id === Number(jobId))
     var inscritos = info_especialistas.filter(especialista => info[0].inscritos.indexOf(especialista.id) > -1)
+
+    const userVisible = (childdata: boolean) => {
+        setUserVisibility(childdata)
+    }
+
     return (
         <div className={styles.container}>
+            {userVisibility ?
+                <User
+                    visible={userVisible}
+                    titulo={'string'}
+                    estrelas={'string'}
+                    imagem={''}
+                    cargo={'string'}
+                    descricao={'string'}
+                />
+                : ''}
             <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
             <div className={styles.info}>
                 <div className={styles.info__titulo}>{info[0].titulo}</div>
@@ -33,7 +50,7 @@ export default function Trabalho() {
                 <div className={styles.especialistas__cards}>
                     {inscritos.map(inscrito => (
                         <div className={styles.especialistas__card} key={inscrito.id}>
-                            <img src={User} alt='Perfil de usuário' />
+                            <img src={UserIMG} alt='Perfil de usuário' />
                             <div>
                                 <p>{inscrito.titulo}</p>
                                 <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas}</p>
