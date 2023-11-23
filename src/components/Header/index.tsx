@@ -55,7 +55,7 @@ export default function Header({ selected, childToParent }: any) {
         }
     }
 
-    if (window.location.pathname.indexOf('cadastro') > 0 || window.location.pathname.indexOf('perfil') > 0 || window.location.pathname.indexOf('trabalho') > 0) {
+    if (window.location.pathname.toLowerCase().indexOf('cadastro') > 0 || window.location.pathname.toLowerCase().indexOf('perfil') > 0 || window.location.pathname.toLowerCase().indexOf('trabalho') > 0) {
         selected = 0
     }
 
