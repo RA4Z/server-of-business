@@ -4,6 +4,9 @@ import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
 import { useRef, useEffect } from "react";
 
+import { signOut } from 'firebase/auth';
+import { auth } from 'config/firebase';
+
 interface Props {
     logado: boolean,
     mostrarOption: any
@@ -13,6 +16,16 @@ export default function OptionMenu(props: Props) {
     const navigate = useNavigate();
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
+
+    const handleLogout = () => {               
+        signOut(auth).then(() => {
+        // Sign-out successful.
+            navigate("/login");
+            console.log("Signed out successfully")
+        }).catch((error) => {
+        // An error happened.
+        });
+    }
 
     function useOutsideAlerter(ref: any) {
         useEffect(() => {
@@ -26,10 +39,6 @@ export default function OptionMenu(props: Props) {
                 document.removeEventListener("mousedown", handleClickOutside);
             };
         }, [ref]);
-    }
-
-    function deslogar() {
-        navigate('/login')
     }
 
     function navegar(path: string) {
@@ -46,7 +55,7 @@ export default function OptionMenu(props: Props) {
                     <Button texto='Procurar Especialistas' dark={false} onClick={() => navegar('/pesquisa/1')} />
                     <Button texto='Solicitações em aberto' dark={false} onClick={() => navegar('/pesquisa/2')} />
                     <Button texto='Perfil de Usuário' dark={false} onClick={() => navegar('/perfil')} />
-                    <Button texto='Logout' onClick={() => deslogar} dark={true} />
+                    <Button texto='Logout' onClick={() => handleLogout()} dark={true} />
                 </>
                 :
                 <>

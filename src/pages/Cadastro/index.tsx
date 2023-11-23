@@ -1,16 +1,27 @@
 import { Checkbox, FormControlLabel, TextField } from '@mui/material'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import styles from './Cadastro.module.scss'
 import Imagem from 'images/tela-cadastro.png'
 import Button from 'components/Button'
+import { auth } from 'config/firebase';
 
 export default function Cadastro() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const [country, setCountry] = useState('');
     const [region, setRegion] = useState('');
+
+    //VERIFICAR SE ESTÁ LOGADO
+    useEffect(() => {
+        const estadoUsuario = auth.onAuthStateChanged(usuario => {
+            if (usuario) {
+                navigate('/Perfil')
+            }
+        })
+        return () => estadoUsuario();
+    }, [])
 
     const navigate = useNavigate();
     return (

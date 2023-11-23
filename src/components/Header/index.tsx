@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import logo from 'images/logo.svg'
 import hamburguer from 'images/hamburguer.png'
@@ -8,9 +8,22 @@ import Button from 'components/Button'
 import styles from './Header.module.scss'
 import OptionMenu from 'components/OptionMenu'
 
-export default function Header({ logado = false, selected, childToParent }: any) {
+import { auth } from 'config/firebase';
+
+export default function Header({ selected, childToParent }: any) {
     const [option, setOption] = useState(false)
+    const [logado, setLogado] = useState(false)
     const navigate = useNavigate();
+
+    //VERIFICAR SE ESTÁ LOGADO
+    useEffect(() => {
+        const estadoUsuario = auth.onAuthStateChanged(usuario => {
+            if (usuario) {
+                setLogado(true)
+            }
+        })
+        return () => estadoUsuario();
+    }, [])
 
     const mostrarOption = (childdata: boolean) => {
         setOption(childdata)
@@ -42,7 +55,7 @@ export default function Header({ logado = false, selected, childToParent }: any)
         }
     }
 
-    if ( window.location.pathname.indexOf('cadastro') > 0 || window.location.pathname.indexOf('perfil') > 0 || window.location.pathname.indexOf('trabalho') > 0) {
+    if (window.location.pathname.indexOf('cadastro') > 0 || window.location.pathname.indexOf('perfil') > 0 || window.location.pathname.indexOf('trabalho') > 0) {
         selected = 0
     }
 

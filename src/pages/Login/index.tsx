@@ -4,19 +4,30 @@ import { useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import Button from 'components/Button';
 import ForgotPassword from 'pages/Login/ForgotPassword';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { logar } from 'services/requisitions';
+import { auth } from 'config/firebase';
 import { verificaSeTemEntradaVazia } from 'utils/common';
 
 export default function Login() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    const navigate = useNavigate();
     const [forgotPassWordVisible, setForgotPassWordVisible] = useState(false)
-
     const [dados, setDados] = useState({
         email: '',
         senha: ''
     });
+
+    //VERIFICAR SE ESTÁ LOGADO
+    useEffect(() => {
+        const estadoUsuario = auth.onAuthStateChanged(usuario => {
+            if (usuario) {
+                navigate('/Perfil')
+            }
+        })
+        return () => estadoUsuario();
+    }, [])
 
     async function realizarLogin() {
         if (verificaSeTemEntradaVazia(dados, setDados)) return
@@ -27,7 +38,6 @@ export default function Login() {
         navigate('/Perfil')
     }
 
-    const navigate = useNavigate();
 
     const childToParent = (childdata: boolean) => {
         setForgotPassWordVisible(childdata)
