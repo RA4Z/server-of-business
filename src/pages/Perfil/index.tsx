@@ -11,15 +11,23 @@ import { useState } from 'react'
 import { Divider } from '@mui/material'
 import Editar from './Editar'
 import Solicitar from './Solicitar'
+import { infoUsuario } from 'services/firestore'
 
 export default function Perfil() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const userId = 1
-    const infoUser = info_especialistas.filter(info => info.id === userId)
-    const solicitados = info_servicos.filter(info => info.solicitadoPor === infoUser[0].titulo)
+    const [infoUser, setInfoUser] = useState({ email: '', nome: '', estrelas: 0, cargos: [], estado: '', pais: '' })
+    pegarDadosUsuario()
+    const solicitados = info_servicos.filter(info => info.solicitadoPor === infoUser.email)
     const [editar, setEditar] = useState(false)
     const [solicitar, setSolicitar] = useState(false)
     const navigate = useNavigate()
+
+    async function pegarDadosUsuario() {
+        const usuario = await infoUsuario('rraz639@gmail.com')
+        if (usuario) {
+            setInfoUser(usuario[0])
+        }
+    }
 
     const visible = (childdata: boolean) => {
         setEditar(childdata)
@@ -42,9 +50,9 @@ export default function Perfil() {
                     <p className={styles.user__editar} onClick={() => setEditar(true)}>Editar perfil</p>
                 </div>
                 <div>
-                    <p className={styles.info__nome}>{infoUser[0].titulo}</p>
-                    <p className={styles.info__especialidade}><img src={Estrela} alt='Estrela' />{infoUser[0].estrelas} {infoUser[0].cargo}</p>
-                    <p className={styles.info__regiao}>Schroeder, Santa Catarina, Brazil</p>
+                    <p className={styles.info__nome}>{infoUser.nome}</p>
+                    <p className={styles.info__especialidade}><img src={Estrela} alt='Estrela' />{infoUser.estrelas} {infoUser.cargos[0]}</p>
+                    <p className={styles.info__regiao}>{infoUser.estado}, {infoUser.pais}</p>
                 </div>
                 <Card
                     buttonText='Abrir solicitação de serviço'
@@ -64,7 +72,7 @@ export default function Perfil() {
                         imagem={solicitado.imagem}
                         buttonText='Ver mais informações'
                         descricao={solicitado.descricao}
-                        onClick={() => navigate(`/trabalho/${infoUser[0].id}/${solicitado.id}`)}
+                        onClick={() => navigate(`/trabalho/${infoUser.email}/${solicitado.id}`)}
                     />
                 ))}
             </div>
