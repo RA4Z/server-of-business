@@ -3,29 +3,45 @@ import Calendario from 'images/calendario.jpg'
 import Estrela from 'images/estrela.svg'
 
 import Card from 'components/Card'
-import { info_servicos, info_especialistas } from 'pages/Pesquisa/infos'
+import { info_servicos } from 'pages/Pesquisa/infos'
 
 import { useNavigate } from 'react-router-dom'
 import styles from './Perfil.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Divider } from '@mui/material'
 import Editar from './Editar'
 import Solicitar from './Solicitar'
 import { infoUsuario } from 'services/firestore'
 
+import { auth } from 'config/firebase'
+
 export default function Perfil() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const [infoUser, setInfoUser] = useState({ email: '', nome: '', estrelas: 0, cargos: [], estado: '', pais: '' })
-    pegarDadosUsuario()
-    const solicitados = info_servicos.filter(info => info.solicitadoPor === infoUser.email)
+    const [email, setEmail] = useState('')
     const [editar, setEditar] = useState(false)
     const [solicitar, setSolicitar] = useState(false)
+    const solicitados = info_servicos.filter(info => info.solicitadoPor === infoUser.email)
     const navigate = useNavigate()
 
+    useEffect(() => {
+        auth.onAuthStateChanged(usuario => {
+            if (usuario) {
+                let emailAdress = auth.currentUser!.email
+                if (emailAdress) {
+                    setEmail(emailAdress)
+                    pegarDadosUsuario()
+                }
+            } else navigate('/login')
+        })
+    })
+
     async function pegarDadosUsuario() {
-        const usuario = await infoUsuario('rraz639@gmail.com')
-        if (usuario) {
-            setInfoUser(usuario[0])
+        if (email) {
+            const user = await infoUsuario(email)
+            if (user) {
+                setInfoUser(user[0])
+            }
         }
     }
 
