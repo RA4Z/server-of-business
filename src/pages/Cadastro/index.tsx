@@ -7,11 +7,27 @@ import styles from './Cadastro.module.scss'
 import Imagem from 'images/tela-cadastro.png'
 import Button from 'components/Button'
 import { auth } from 'config/firebase';
+import { cadastrar } from 'services/requisitions';
+import { salvarInfoUser } from 'services/firestore';
 
 export default function Cadastro() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    const [country, setCountry] = useState('');
-    const [region, setRegion] = useState('');
+    const navigate = useNavigate();
+    const form = document.getElementById('cadastro')
+    const [extras, setExtras] = useState({ repeatPassword: '', termos: false, senha: '' })
+    form?.addEventListener('submit', e => {
+        e.preventDefault()
+    })
+
+    const [data, setData] = useState({
+        nome: '',
+        email: '',
+        pais: '',
+        estado: '',
+        premium: false,
+        estrelas: 5.0,
+        cargos: [],
+        descricao: ''
+    })
 
     //VERIFICAR SE ESTÁ LOGADO
     useEffect(() => {
@@ -23,32 +39,71 @@ export default function Cadastro() {
         return () => estadoUsuario();
     })
 
-    const navigate = useNavigate();
+    async function criarConta() {
+        if (extras.senha !== extras.repeatPassword) return alert('As senhas não conferem!')
+        if (data.nome === '') return alert('O nome de usuário está em branco!')
+        if (data.pais === '' || data.estado === '') return alert('Selecione um país e um estado válidos!')
+        if (!extras.termos) return alert('Os termos de serviço e a política de privacidade não foram aceitas!')
+        const response = await cadastrar(data.email, extras.senha)
+        if (response === 'sucesso') {
+            salvarInfoUser(data)
+        } else {
+            alert(response)
+        }
+    }
+
     return (
         <>
             <div className={styles.container}>
-                <form className={styles.container__left}>
+                <form id='cadastro' className={styles.container__left}>
                     <p>Criação de conta</p>
-                    <TextField id="outlined-username" label="Nome completo" variant="outlined" autoComplete="username" className={styles.input} />
-                    <TextField id="outlined-email" label="E-mail" variant="outlined" autoComplete="email" className={styles.input} />
-                    <TextField id="outlined-password-input" label="Senha" variant="outlined" type='password' autoComplete="current-password" className={styles.input} />
+                    <TextField id="outlined-username"
+                        label="Nome completo"
+                        autoComplete="username"
+                        value={data.nome}
+                        onChange={e => setData({ ...data, nome: e.target.value })}
+                        className={styles.input}
+                    />
+                    <TextField id="outlined-email"
+                        label="E-mail"
+                        autoComplete="email"
+                        value={data.email}
+                        onChange={e => setData({ ...data, email: e.target.value })}
+                        className={styles.input}
+                    />
+                    <TextField id="outlined-password-input"
+                        label="Senha"
+                        type='password'
+                        autoComplete="current-password"
+                        value={extras.senha}
+                        onChange={e => setExtras({ ...extras, senha: e.target.value })}
+                        className={styles.input}
+                    />
+                    <TextField id="outlined-password-repeat"
+                        label="Repetir Senha"
+                        type='password'
+                        autoComplete="current-password"
+                        value={extras.repeatPassword}
+                        onChange={e => setExtras({ ...extras, repeatPassword: e.target.value })}
+                        className={styles.input}
+                    />
 
                     <div className={styles.container__left__countries}>
                         <CountryDropdown
                             classes={styles.selection}
                             defaultOptionLabel='Selecionar País'
-                            value={country}
-                            onChange={(val) => setCountry(val)} />
+                            value={data.pais}
+                            onChange={(val) => setData({ ...data, pais: val })} />
                         <RegionDropdown
                             classes={styles.selection}
                             defaultOptionLabel='Selecionar Região'
-                            country={country}
-                            value={region}
-                            onChange={(val) => setRegion(val)} />
+                            country={data.pais}
+                            value={data.estado}
+                            onChange={(val) => setData({ ...data, estado: val })} />
                     </div>
 
-                    <FormControlLabel control={<Checkbox />} label="Ao criar sua conta você estará aceitando os termos de serviço e a política de privacidade da Server of Business." className={styles.check} />
-                    <Button texto='Crie sua conta' dark={true} />
+                    <FormControlLabel control={<Checkbox onChange={e => setExtras({ ...extras, termos: e.target.checked })} />} label="Ao criar sua conta você estará aceitando os termos de serviço e a política de privacidade da Server of Business." className={styles.check} />
+                    <Button texto='Crie sua conta' dark={true} onClick={() => criarConta()} />
 
                     <div className={styles.container__criar}>
                         Já possui uma conta?

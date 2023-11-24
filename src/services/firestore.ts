@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 export async function infoUsuario(emailUser: string, setUser: any) {
     try {
@@ -14,5 +14,15 @@ export async function infoUsuario(emailUser: string, setUser: any) {
         setUser(usuario[0])
     } catch (error) {
         console.log(error)
+    }
+}
+
+export async function salvarInfoUser(data: any) {
+    try {
+        const result = await addDoc(collection(db, 'usuários'), data)
+        return result.id
+    } catch (error) {
+        console.log('Erro add post:', error)
+        return 'erro'
     }
 }
