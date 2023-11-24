@@ -37,7 +37,7 @@ function Perfil(infoUser: User_Interface) {
                 <Editar visible={visible} />
             </div> : ''}
             {solicitar ? <div className={styles.pagina_editar}>
-                <Solicitar visible={service} />
+                <Solicitar visible={service} infoUser={infoUser} />
             </div> : ''}
 
             <div className={styles.container}>

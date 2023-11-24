@@ -5,10 +5,10 @@ import styles from './Solicitar.module.scss'
 import Button from 'components/Button'
 import Adicionar from '../Adicionar'
 
-export default function Solicitar({ visible }: any) {
+export default function Solicitar({ visible, infoUser }: any) {
     const [adicionar, setAdicionar] = useState(false)
     const [especializacoes, setEspecializacoes] = useState(['Engenheiro', 'Pedreiro'])
-
+    console.log(infoUser)
     const addEspecialista = (childdata: boolean) => {
         setAdicionar(childdata)
     }
@@ -25,7 +25,7 @@ export default function Solicitar({ visible }: any) {
                 <div className={styles.lados}>
                     <div className={styles.left}>
                         <TextField id="outlined-solicitation-title" label="Título da solicitação" variant="outlined" autoComplete="title" className={styles.input} />
-                        <TextField id="outlined-solicitation-username" label="Nome do solicitante" variant="outlined" autoComplete="username" className={styles.input} />
+                        <TextField id="outlined-solicitation-username" defaultValue={infoUser.nome} label="Nome do solicitante" variant="outlined" autoComplete="username" className={styles.input} />
                         <TextField id="outlined-solicitation-description" label="Descrição sobre a solicitação" multiline rows={8} variant="outlined" autoComplete="text" className={styles.input} />
 
                     </div>
