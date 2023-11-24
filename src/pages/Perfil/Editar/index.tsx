@@ -4,13 +4,19 @@ import styles from './Editar.module.scss'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 import Button from 'components/Button'
 import Adicionar from '../Adicionar'
+import { User_Interface } from 'types/User'
 
-export default function Editar({ visible }: any) {
-    const [especializacoes, setEspecializacoes] = useState([])
+interface Props {
+    visible: any,
+    infoUser: User_Interface
+}
+
+export default function Editar({ visible, infoUser }: Props) {
+    const [especializacoes, setEspecializacoes] = useState(infoUser.cargos)
     const [adicionar, setAdicionar] = useState(false)
-    const [country, setCountry] = useState('')
-    const [region, setRegion] = useState('')
-
+    const [country, setCountry] = useState(infoUser.pais)
+    const [region, setRegion] = useState(infoUser.estado)
+    
     const addEspecialista = (childdata: boolean) => {
         setAdicionar(childdata)
     }
@@ -22,8 +28,8 @@ export default function Editar({ visible }: any) {
         <>
             <div className={styles.overlay} onClick={() => visible(false)} />
             <div className={styles.container}>
-                <TextField id="outlined-username" label="Nome" variant="outlined" autoComplete="username" className={styles.input} />
-                <TextField id="outlined-email" label="E-mail" variant="outlined" autoComplete="email" className={styles.input__mail} />
+                <TextField id="outlined-username" label="Nome" defaultValue={infoUser.nome} variant="outlined" autoComplete="username" className={styles.input} />
+                <TextField id="outlined-email" label="E-mail" defaultValue={infoUser.email} variant="outlined" autoComplete="email" className={styles.input__mail} />
                 <TextField id="outlined-phone" label="Telefone" variant="outlined" autoComplete="phone" className={styles.input__phone} />
                 <div className={styles.countries}>
                     <CountryDropdown

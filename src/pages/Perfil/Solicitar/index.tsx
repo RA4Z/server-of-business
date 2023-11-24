@@ -4,11 +4,17 @@ import UploadIco from 'images/upload.png'
 import styles from './Solicitar.module.scss'
 import Button from 'components/Button'
 import Adicionar from '../Adicionar'
+import { User_Interface } from 'types/User'
 
-export default function Solicitar({ visible, infoUser }: any) {
+interface Props {
+    visible: any,
+    infoUser: User_Interface
+}
+
+export default function Solicitar({ visible, infoUser }: Props) {
     const [adicionar, setAdicionar] = useState(false)
     const [especializacoes, setEspecializacoes] = useState(['Engenheiro', 'Pedreiro'])
-    console.log(infoUser)
+
     const addEspecialista = (childdata: boolean) => {
         setAdicionar(childdata)
     }
