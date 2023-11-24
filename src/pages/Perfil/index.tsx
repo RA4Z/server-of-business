@@ -7,33 +7,24 @@ import { info_servicos } from 'pages/Pesquisa/infos'
 
 import { useNavigate } from 'react-router-dom'
 import styles from './Perfil.module.scss'
-import { useEffect, useState } from 'react'
+import { useState, memo } from 'react'
 import { Divider } from '@mui/material'
 import Editar from './Editar'
 import Solicitar from './Solicitar'
-import { infoUsuario } from 'services/firestore'
-
+import { User_Interface } from 'types/User'
 import { auth } from 'config/firebase'
 
-export default function Perfil() {
+function Perfil(infoUser: User_Interface) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const [infoUser, setInfoUser] = useState({ email: '', nome: '', estrelas: 0, cargos: [], estado: '', pais: '' })
+    const navigate = useNavigate()
+    auth.onAuthStateChanged(usuario => {
+        if (!usuario) navigate('/login')
+    })
+
     const [editar, setEditar] = useState(false)
     const [solicitar, setSolicitar] = useState(false)
     const solicitados = info_servicos.filter(info => info.solicitadoPor === infoUser.email)
-    const navigate = useNavigate()
 
-    useEffect(() => {
-        auth.onAuthStateChanged(usuario => {
-            if (usuario) {
-                let emailAdress = auth.currentUser!.email
-                if (emailAdress) {
-                    infoUsuario(emailAdress, setInfoUser)
-                }
-            } else navigate('/login')
-        })
-    },[navigate])
-    console.log('perfil')
     const visible = (childdata: boolean) => {
         setEditar(childdata)
     }
@@ -84,3 +75,4 @@ export default function Perfil() {
         </>
     )
 }
+export default memo(Perfil)
