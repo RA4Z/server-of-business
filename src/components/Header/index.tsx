@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import logo from 'images/logo.svg'
 import hamburguer from 'images/hamburguer.png'
@@ -10,7 +10,7 @@ import OptionMenu from 'components/OptionMenu'
 
 import { auth } from 'config/firebase';
 
-export default function Header({ selected, childToParent }: any) {
+function Header({ selected, childToParent }: any) {
     const [option, setOption] = useState(false)
     const [logado, setLogado] = useState(false)
     const navigate = useNavigate();
@@ -106,3 +106,4 @@ export default function Header({ selected, childToParent }: any) {
         </>
     )
 }
+export default memo(Header)

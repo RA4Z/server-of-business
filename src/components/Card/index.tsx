@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import Button from 'components/Button'
 import Estrela from 'images/estrela.svg'
 import Premium from 'images/premium.png'
@@ -13,13 +14,13 @@ interface Props {
     onClick?: (_: any) => any;
 }
 
-export default function Card(props: Props) {
+function Card(props: Props) {
     return (
         <div className={styles.corpo}>
             <div className={styles.top}>
                 <div className={styles.conjunto}>
                     <img src={props.imagem} className={styles.top__img} alt='Imagem do Card' style={props.subtitulo !== '' ? { width: 'auto' } : {}} />
-                    <img src={Premium} className={styles.premium} alt='Indicativo User Premium' style={props.premium? {opacity:1} : {opacity:0}} />
+                    <img src={Premium} className={styles.premium} alt='Indicativo User Premium' style={props.premium ? { opacity: 1 } : { opacity: 0 }} />
                 </div>
                 <div className={styles.top__textos}>
                     <p className={styles.top__text}>{props.titulo}</p>
@@ -38,3 +39,4 @@ export default function Card(props: Props) {
         </div>
     )
 }
+export default memo(Card)

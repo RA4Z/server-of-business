@@ -1,4 +1,5 @@
 import { Checkbox, Divider, FormControlLabel, TextField } from '@mui/material'
+import { memo } from 'react'
 import { info_especialistas, info_servicos } from './infos'
 import { useNavigate } from 'react-router-dom'
 import styles from './Pesquisa.module.scss'
@@ -6,7 +7,7 @@ import Button from 'components/Button'
 import { useParams } from 'react-router-dom'
 import Card from 'components/Card'
 
-export default function Pesquisa({ childToParent }: any) {
+function Pesquisa({ childToParent }: any) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const { categoria, especifico } = useParams();
     const navigate = useNavigate()
@@ -72,3 +73,4 @@ export default function Pesquisa({ childToParent }: any) {
         </>
     )
 }
+export default memo(Pesquisa)

@@ -1,6 +1,7 @@
 import styles from './Footer.module.scss'
+import { memo } from 'react'
 
-export default function Footer() {
+function Footer() {
     return (
         <div className={styles.background}>
             <button>Server of Business</button>
@@ -8,3 +9,4 @@ export default function Footer() {
         </div>
     )
 }
+export default memo(Footer)

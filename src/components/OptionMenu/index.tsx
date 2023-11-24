@@ -2,7 +2,7 @@ import Button from 'components/Button'
 import styles from './OptionMenu.module.scss'
 import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, memo } from "react";
 
 import { signOut } from 'firebase/auth';
 import { auth } from 'config/firebase';
@@ -12,7 +12,7 @@ interface Props {
     mostrarOption: any
 }
 
-export default function OptionMenu(props: Props) {
+function OptionMenu(props: Props) {
     const navigate = useNavigate();
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
@@ -69,3 +69,4 @@ export default function OptionMenu(props: Props) {
         </div>
     )
 }
+export default memo(OptionMenu)
