@@ -22,7 +22,6 @@ export default function AppRouter() {
             if (usuario) {
                 let emailAdress = auth.currentUser!.email
                 if (emailAdress && infoUser.email === '') {
-                    console.log('coletando dados user....')
                     infoUsuario(emailAdress, setInfoUser)
                 }
             }

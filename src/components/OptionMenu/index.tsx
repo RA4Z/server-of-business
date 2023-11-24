@@ -17,13 +17,12 @@ function OptionMenu(props: Props) {
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
 
-    const handleLogout = () => {               
+    const handleLogout = () => {
         signOut(auth).then(() => {
-        // Sign-out successful.
             navigate("/login");
-            console.log("Signed out successfully")
+            window.location.reload()
         }).catch((error) => {
-        // An error happened.
+            // An error happened.
         });
     }
 
