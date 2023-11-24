@@ -21,7 +21,7 @@ export default function Cadastro() {
             }
         })
         return () => estadoUsuario();
-    }, [])
+    })
 
     const navigate = useNavigate();
     return (

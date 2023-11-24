@@ -18,7 +18,6 @@ import { auth } from 'config/firebase'
 export default function Perfil() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const [infoUser, setInfoUser] = useState({ email: '', nome: '', estrelas: 0, cargos: [], estado: '', pais: '' })
-    const [email, setEmail] = useState('')
     const [editar, setEditar] = useState(false)
     const [solicitar, setSolicitar] = useState(false)
     const solicitados = info_servicos.filter(info => info.solicitadoPor === infoUser.email)
@@ -29,21 +28,11 @@ export default function Perfil() {
             if (usuario) {
                 let emailAdress = auth.currentUser!.email
                 if (emailAdress) {
-                    setEmail(emailAdress)
-                    pegarDadosUsuario()
+                    infoUsuario(emailAdress, setInfoUser)
                 }
             } else navigate('/login')
         })
-    })
-
-    async function pegarDadosUsuario() {
-        if (email) {
-            const user = await infoUsuario(email)
-            if (user) {
-                setInfoUser(user[0])
-            }
-        }
-    }
+    },[navigate])
 
     const visible = (childdata: boolean) => {
         setEditar(childdata)

@@ -27,7 +27,7 @@ export default function Login() {
             }
         })
         return () => estadoUsuario();
-    }, [])
+    })
 
     async function realizarLogin() {
         if (verificaSeTemEntradaVazia(dados, setDados)) return

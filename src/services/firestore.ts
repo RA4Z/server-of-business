@@ -1,7 +1,7 @@
 import { db } from '../config/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
-export async function infoUsuario(emailUser: string) {
+export async function infoUsuario(emailUser: string, setUser: any) {
     try {
         let usuario: any[] = []
         const userRef = collection(db, 'usuários');
@@ -11,9 +11,8 @@ export async function infoUsuario(emailUser: string) {
             let info = { id: doc.id, ...doc.data() }
             usuario.push(info)
         });
-        return usuario
+        setUser(usuario[0])
     } catch (error) {
         console.log(error)
-        //return 'error'
     }
 }
