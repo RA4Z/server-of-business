@@ -1,16 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 
-import Home from './Home';
-import Login from './Login';
-import Cadastro from './Cadastro';
+const Home = lazy(() => import('pages/Home'));
+const Login = lazy(() => import('pages/Login'));
+const Cadastro = lazy(() => import('pages/Cadastro'));
 
-import Header from 'components/Header';
-import Footer from 'components/Footer';
-import Pesquisa from './Pesquisa';
-import Info from './Info';
-import Perfil from './Perfil';
-import Trabalho from './Trabalho'
+const Header = lazy(() => import('components/Header'));
+const Footer = lazy(() => import('components/Footer'));
+
+const Pesquisa = lazy(() => import('pages/Pesquisa'));
+const Info = lazy(() => import('pages/Info'));
+const Perfil = lazy(() => import('pages/Perfil'));
+const Trabalho = lazy(() => import('pages/Trabalho'));
 
 export default function AppRouter() {
     const [pagina, setPagina] = useState(1)
@@ -20,17 +21,19 @@ export default function AppRouter() {
     }
     return (
         <Router>
-            <Routes>
-                <Route path='/' element={<Header selected={pagina} childToParent={childToParent} />}>
-                    <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
-                    <Route path='/cadastro' element={<Cadastro />} />
-                    <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} />} />
-                    <Route path='info/:categoria/:id' element={<Info />} />
-                    <Route path='/perfil' element={<Perfil />} />
-                    <Route path='/trabalho/:userId/:jobId' element={<Trabalho  />} />
-                </Route>
-                <Route path='/login' element={<Login />} />
-            </Routes>
+            <Suspense fallback={<p>Carregando...</p>}>
+                <Routes>
+                    <Route path='/' element={<Header selected={pagina} childToParent={childToParent} />}>
+                        <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
+                        <Route path='/cadastro' element={<Cadastro />} />
+                        <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} />} />
+                        <Route path='info/:categoria/:id' element={<Info />} />
+                        <Route path='/perfil' element={<Perfil />} />
+                        <Route path='/trabalho/:userId/:jobId' element={<Trabalho />} />
+                    </Route>
+                    <Route path='/login' element={<Login />} />
+                </Routes>
+            </Suspense>
             <Footer />
         </Router>
     )

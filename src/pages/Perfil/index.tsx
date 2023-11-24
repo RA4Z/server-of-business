@@ -33,7 +33,7 @@ export default function Perfil() {
             } else navigate('/login')
         })
     },[navigate])
-
+    console.log('perfil')
     const visible = (childdata: boolean) => {
         setEditar(childdata)
     }
