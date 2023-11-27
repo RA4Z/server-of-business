@@ -18,6 +18,7 @@ export default function Editar({ visible, infoUser }: Props) {
         nome: infoUser.nome,
         email: infoUser.email,
         telefone: infoUser.telefone,
+        descricao: infoUser.descricao,
         especializacoes: infoUser.cargos,
         pais: infoUser.pais,
         estado: infoUser.estado,
@@ -70,7 +71,10 @@ export default function Editar({ visible, infoUser }: Props) {
                         onChange={(val) => setInfoTemp({ ...infoTemp, estado: val })} />
                     <Button texto='Minhas Especializações' dark={false} onClick={() => setAdicionar(true)} />
                 </div>
-                <TextField id="outlined-multiline-static" label="Sobre você" multiline rows={4} variant="outlined" autoComplete="text" className={styles.input__about} />
+                <TextField id="outlined-multiline-static"
+                    defaultValue={infoTemp.descricao}
+                    onChange={e => setInfoTemp({ ...infoTemp, descricao: e.target.value })}
+                    label="Sobre você" multiline rows={4} variant="outlined" autoComplete="text" className={styles.input__about} />
 
                 <div className={styles.buttons}>
                     <Button texto='Cancelar' dark={false} onClick={() => visible(false)} />

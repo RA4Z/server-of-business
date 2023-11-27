@@ -15,7 +15,7 @@ const Trabalho = lazy(() => import('pages/Trabalho'));
 
 export default function AppRouter() {
     const [pagina, setPagina] = useState(1)
-    const [infoUser, setInfoUser] = useState({ email: '', nome: '', estrelas: 0, cargos: [], estado: '', pais: '', telefone: '' })
+    const [infoUser, setInfoUser] = useState({ email: '', nome: '', estrelas: 0, cargos: [], estado: '', pais: '', telefone: '', descricao:'' })
 
     useEffect(() => (
         auth.onAuthStateChanged(usuario => {
