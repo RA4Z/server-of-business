@@ -5,7 +5,7 @@ import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 import Button from 'components/Button'
 import Adicionar from '../Adicionar'
 import { User_Interface } from 'types/User'
-import { TextMaskCustom } from 'services/genericos';
+import { TextMaskCustom } from 'utils/genericos';
 import { atualizarInfoUser } from 'services/firestore'
 
 interface Props {

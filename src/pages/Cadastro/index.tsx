@@ -9,7 +9,7 @@ import Button from 'components/Button'
 import { auth } from 'config/firebase';
 import { cadastrar } from 'services/requisitions';
 import { salvarInfoUser } from 'services/firestore';
-import { TextMaskCustom } from 'services/genericos';
+import { TextMaskCustom } from 'utils/genericos';
 
 export default function Cadastro() {
     const navigate = useNavigate();
