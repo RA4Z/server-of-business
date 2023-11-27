@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel, TextField } from '@mui/material'
+import { Checkbox, FormControl, FormControlLabel, Input, InputLabel, TextField } from '@mui/material'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -9,6 +9,7 @@ import Button from 'components/Button'
 import { auth } from 'config/firebase';
 import { cadastrar } from 'services/requisitions';
 import { salvarInfoUser } from 'services/firestore';
+import { TextMaskCustom } from 'services/genericos';
 
 export default function Cadastro() {
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ export default function Cadastro() {
         email: '',
         pais: '',
         estado: '',
+        telefone: '',
         premium: false,
         estrelas: 5.0,
         cargos: [],
@@ -87,7 +89,17 @@ export default function Cadastro() {
                         onChange={e => setExtras({ ...extras, repeatPassword: e.target.value })}
                         className={styles.input}
                     />
-
+                    <FormControl>
+                        <InputLabel htmlFor="outlined-formatted-text-mask-input">Telefone</InputLabel>
+                        <Input
+                            value={data.telefone}
+                            onChange={e => setData({ ...data, telefone: e.target.value })}
+                            name="textmask"
+                            className={styles.input}
+                            id="outlined-formatted-text-mask-input"
+                            inputComponent={TextMaskCustom as any}
+                        />
+                    </FormControl>
                     <div className={styles.container__left__countries}>
                         <CountryDropdown
                             classes={styles.selection}

@@ -5,5 +5,6 @@ export interface User_Interface {
     cargos: string[],
     estado: string,
     pais: string,
+    telefone: string,
     setInfoUser: any
 }

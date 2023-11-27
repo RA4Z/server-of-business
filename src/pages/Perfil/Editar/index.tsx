@@ -1,10 +1,11 @@
-import { TextField } from '@mui/material'
+import { FormControl, Input, InputLabel, TextField } from '@mui/material'
 import { useState } from 'react'
 import styles from './Editar.module.scss'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 import Button from 'components/Button'
 import Adicionar from '../Adicionar'
 import { User_Interface } from 'types/User'
+import { TextMaskCustom } from 'services/genericos';
 
 interface Props {
     visible: any,
@@ -16,7 +17,7 @@ export default function Editar({ visible, infoUser }: Props) {
     const [adicionar, setAdicionar] = useState(false)
     const [country, setCountry] = useState(infoUser.pais)
     const [region, setRegion] = useState(infoUser.estado)
-    
+
     const addEspecialista = (childdata: boolean) => {
         setAdicionar(childdata)
     }
@@ -30,7 +31,18 @@ export default function Editar({ visible, infoUser }: Props) {
             <div className={styles.container}>
                 <TextField id="outlined-username" label="Nome" defaultValue={infoUser.nome} variant="outlined" autoComplete="username" className={styles.input} />
                 <TextField id="outlined-email" label="E-mail" defaultValue={infoUser.email} variant="outlined" autoComplete="email" className={styles.input__mail} />
-                <TextField id="outlined-phone" label="Telefone" variant="outlined" autoComplete="phone" className={styles.input__phone} />
+                
+                <FormControl>
+                        <InputLabel htmlFor="outlined-formatted-text-mask-input">Telefone</InputLabel>
+                        <Input
+                            defaultValue={infoUser.telefone}
+                            name="textmask"
+                            className={styles.input__phone}
+                            id="outlined-formatted-text-mask-input"
+                            inputComponent={TextMaskCustom as any}
+                        />
+                    </FormControl>
+
                 <div className={styles.countries}>
                     <CountryDropdown
                         classes={styles.selection}
