@@ -1,4 +1,5 @@
 export interface User_Interface {
+    id:any,
     email: string,
     nome: string,
     estrelas: number,

@@ -6,6 +6,7 @@ import Button from 'components/Button'
 import Adicionar from '../Adicionar'
 import { User_Interface } from 'types/User'
 import { TextMaskCustom } from 'services/genericos';
+import { atualizarInfoUser } from 'services/firestore'
 
 interface Props {
     visible: any,
@@ -19,16 +20,24 @@ export default function Editar({ visible, infoUser }: Props) {
         email: infoUser.email,
         telefone: infoUser.telefone,
         descricao: infoUser.descricao,
-        especializacoes: infoUser.cargos,
+        cargos: infoUser.cargos,
         pais: infoUser.pais,
         estado: infoUser.estado,
     })
+
+    async function saveChanges() {
+        const result = await atualizarInfoUser(infoUser.id, infoTemp)
+        if(result) {
+            alert('Informações atualizadas com sucesso!')
+            window.location.reload()
+        }
+    }
 
     const addEspecialista = (childdata: boolean) => {
         setAdicionar(childdata)
     }
     const addEspecializacao = (childdata: any) => {
-        setInfoTemp({ ...infoTemp, especializacoes: childdata })
+        setInfoTemp({ ...infoTemp, cargos: childdata })
     }
 
     return (
@@ -78,11 +87,11 @@ export default function Editar({ visible, infoUser }: Props) {
 
                 <div className={styles.buttons}>
                     <Button texto='Cancelar' dark={false} onClick={() => visible(false)} />
-                    <Button texto='Salvar' dark={true} />
+                    <Button texto='Salvar' dark={true} onClick={() => saveChanges()} />
                 </div>
 
                 {adicionar ? <div className={styles.bloco_servicos}>
-                    <Adicionar visible={addEspecialista} especialistasCadastrados={addEspecializacao} defaultList={infoTemp.especializacoes} />
+                    <Adicionar visible={addEspecialista} especialistasCadastrados={addEspecializacao} defaultList={infoTemp.cargos} />
                 </div> : ''}
             </div>
         </>

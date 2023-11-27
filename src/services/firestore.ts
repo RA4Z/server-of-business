@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 
 export async function infoUsuario(emailUser: string, setUser: any) {
     try {
@@ -26,3 +26,17 @@ export async function salvarInfoUser(data: any) {
         return 'erro'
     }
 }
+
+export async function atualizarInfoUser(userId:string, data:any){
+    try {
+      const postRef = doc(db, "usuários", userId);
+      await updateDoc(postRef, data)
+      return 'ok'
+    }
+    catch(error){
+      console.log(error)
+      return 'error'
+    }
+  }
+
+  
