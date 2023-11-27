@@ -13,48 +13,61 @@ interface Props {
 }
 
 export default function Editar({ visible, infoUser }: Props) {
-    const [especializacoes, setEspecializacoes] = useState(infoUser.cargos)
     const [adicionar, setAdicionar] = useState(false)
-    const [country, setCountry] = useState(infoUser.pais)
-    const [region, setRegion] = useState(infoUser.estado)
+    const [infoTemp, setInfoTemp] = useState({
+        nome: infoUser.nome,
+        email: infoUser.email,
+        telefone: infoUser.telefone,
+        especializacoes: infoUser.cargos,
+        pais: infoUser.pais,
+        estado: infoUser.estado,
+    })
 
     const addEspecialista = (childdata: boolean) => {
         setAdicionar(childdata)
     }
     const addEspecializacao = (childdata: any) => {
-        setEspecializacoes(childdata)
+        setInfoTemp({ ...infoTemp, especializacoes: childdata })
     }
 
     return (
         <>
             <div className={styles.overlay} onClick={() => visible(false)} />
+
             <div className={styles.container}>
-                <TextField id="outlined-username" label="Nome" defaultValue={infoUser.nome} variant="outlined" autoComplete="username" className={styles.input} />
-                <TextField id="outlined-email" label="E-mail" defaultValue={infoUser.email} variant="outlined" autoComplete="email" className={styles.input__mail} />
-                
+                <TextField id="outlined-username" label="Nome"
+                    defaultValue={infoTemp.nome}
+                    onChange={e => setInfoTemp({ ...infoTemp, nome: e.target.value })}
+                    variant="outlined" autoComplete="username" className={styles.input} />
+
+                <TextField id="outlined-email" label="E-mail"
+                    defaultValue={infoTemp.email}
+                    onChange={e => setInfoTemp({ ...infoTemp, email: e.target.value })}
+                    variant="outlined" autoComplete="email" className={styles.input__mail} />
+
                 <FormControl>
-                        <InputLabel htmlFor="outlined-formatted-text-mask-input">Telefone</InputLabel>
-                        <Input
-                            defaultValue={infoUser.telefone}
-                            name="textmask"
-                            className={styles.input__phone}
-                            id="outlined-formatted-text-mask-input"
-                            inputComponent={TextMaskCustom as any}
-                        />
-                    </FormControl>
+                    <InputLabel htmlFor="outlined-formatted-text-mask-input">Telefone</InputLabel>
+                    <Input
+                        defaultValue={infoTemp.telefone}
+                        name="textmask"
+                        className={styles.input__phone}
+                        id="outlined-formatted-text-mask-input"
+                        inputComponent={TextMaskCustom as any}
+                    />
+                </FormControl>
 
                 <div className={styles.countries}>
                     <CountryDropdown
                         classes={styles.selection}
                         defaultOptionLabel='Selecionar País'
-                        value={country}
-                        onChange={(val) => setCountry(val)} />
+                        value={infoTemp.pais}
+                        onChange={(val) => setInfoTemp({ ...infoTemp, pais: val })} />
                     <RegionDropdown
                         classes={styles.selection}
                         defaultOptionLabel='Selecionar Região'
-                        country={country}
-                        value={region}
-                        onChange={(val) => setRegion(val)} />
+                        country={infoTemp.pais}
+                        value={infoTemp.estado}
+                        onChange={(val) => setInfoTemp({ ...infoTemp, estado: val })} />
                     <Button texto='Minhas Especializações' dark={false} onClick={() => setAdicionar(true)} />
                 </div>
                 <TextField id="outlined-multiline-static" label="Sobre você" multiline rows={4} variant="outlined" autoComplete="text" className={styles.input__about} />
@@ -65,7 +78,7 @@ export default function Editar({ visible, infoUser }: Props) {
                 </div>
 
                 {adicionar ? <div className={styles.bloco_servicos}>
-                    <Adicionar visible={addEspecialista} especialistasCadastrados={addEspecializacao} defaultList={especializacoes} />
+                    <Adicionar visible={addEspecialista} especialistasCadastrados={addEspecializacao} defaultList={infoTemp.especializacoes} />
                 </div> : ''}
             </div>
         </>
