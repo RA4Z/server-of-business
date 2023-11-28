@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 
 export async function infoUsuario(emailUser: string, setUser: any) {
     try {
@@ -39,4 +39,14 @@ export async function atualizarInfoUser(userId:string, data:any){
     }
   }
 
+  export async function visualizarUsuarios(setUsers: any) {
+    const ref = query(collection(db, "usuários"))
+    onSnapshot(ref, (querySnapshot) => {
+      const posts: any[] = []
+      querySnapshot.forEach((doc) => {
+        posts.push({ id: doc.id, ...doc.data() })
+      })
+      setUsers(posts)
+    })
+  }
   
