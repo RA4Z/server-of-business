@@ -1,7 +1,7 @@
 import styles from './Trabalho.module.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react'
-import { info_servicos, info_especialistas } from 'pages/Pesquisa/infos'
+import { info_servicos, info_especialistas } from 'utils/infos'
 
 import Voltar from 'images/voltar.png'
 import Obra from 'images/obra-temp.png'

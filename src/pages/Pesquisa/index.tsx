@@ -1,6 +1,6 @@
 import { Checkbox, Divider, FormControlLabel, TextField } from '@mui/material'
 import { memo, useEffect, useState } from 'react'
-import { info_especialistas, info_servicos } from './infos'
+import { info_especialistas, info_servicos } from 'utils/infos'
 import { useNavigate } from 'react-router-dom'
 import styles from './Pesquisa.module.scss'
 import Button from 'components/Button'
@@ -18,7 +18,6 @@ function Pesquisa({ childToParent }: any) {
         async function buscarUsers() {
             if (users.length <= 1 && categoria === '1') {
                 await visualizarUsuarios(setUsers)
-                console.log('esquema')
             }
         }
         buscarUsers()

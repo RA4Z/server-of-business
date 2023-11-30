@@ -1,4 +1,4 @@
-import { info_especialistas } from 'pages/Pesquisa/infos'
+import { info_especialistas } from 'utils/infos'
 import styles from './User.module.scss'
 import Estrela from 'images/estrela.svg'
 import Button from 'components/Button'

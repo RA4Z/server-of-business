@@ -3,7 +3,7 @@ import Calendario from 'images/calendario.jpg'
 import Estrela from 'images/estrela.svg'
 
 import Card from 'components/Card'
-import { info_servicos } from 'pages/Pesquisa/infos'
+import { info_servicos } from 'utils/infos'
 
 import { useNavigate } from 'react-router-dom'
 import styles from './Perfil.module.scss'

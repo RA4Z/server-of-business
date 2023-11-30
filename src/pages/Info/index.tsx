@@ -6,18 +6,30 @@ import Voltar from 'images/voltar.png'
 import Obra from 'images/obra-temp.png'
 import Estrela from 'images/estrela.svg'
 import UserIMG from 'images/user.png'
-import { info_servicos, info_especialistas } from 'pages/Pesquisa/infos';
+import { info_servicos } from 'utils/infos';
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
 import Candidatar from './Candidatar';
+import { infoUser } from 'services/firestore';
 
 export default function Info() {
     const [askCandidatar, setAskCandidatar] = useState(false)
+    const [user, setUser] = useState({
+        id: '', nome: '', email: '', pais: '', estado: '',
+        premium: false, telefone: '', estrelas: 5, descricao: '', imagem: '', cargos: []
+    })
     const { categoria, id } = useParams();
     const navigate = useNavigate();
-    const aba_atual = categoria === 'users' ? info_especialistas[Number(id) - 1] : info_servicos[Number(id) - 1]
+    const aba_atual = categoria === 'users' ? user : info_servicos[Number(id) - 1]
+
+    useEffect(() => {
+        async function addUser() {
+            await infoUser(id, setUser)
+        }
+        addUser()
+    }, [id])
 
     const visible = (childdata: boolean) => {
         setAskCandidatar(childdata)
@@ -32,12 +44,12 @@ export default function Info() {
     }
 
     const info = {
-        titulo: categoria === 'users' ? info_especialistas[Number(id) - 1].cargos[0] : info_servicos[Number(id) - 1].titulo,
+        titulo: categoria === 'users' ? user.cargos[0] : info_servicos[Number(id) - 1].titulo,
         descricao: aba_atual.descricao,
         imagem: aba_atual.imagem,
         premium: aba_atual.premium,
-        cargo: categoria === 'users' ? info_especialistas[Number(id) - 1].cargos[0] : '',
-        estrelas: categoria === 'users' ? info_especialistas[Number(id) - 1].estrelas : '',
+        cargo: categoria === 'users' ? user.cargos[0] : '',
+        estrelas: categoria === 'users' ? user.estrelas : '',
         data: categoria === 'services' ? info_servicos[Number(id) - 1].diaProcurado : '',
         hora: categoria === 'services' ? info_servicos[Number(id) - 1].horarioProcurado : '',
         cidade: categoria === 'services' ? info_servicos[Number(id) - 1].cidade : '',
