@@ -14,14 +14,14 @@ export default function User(props: Props) {
         <>
             <div className={styles.overlay} onClick={() => props.visible(false)} />
             <div className={styles.container}>
-                <div className={styles.info__titulo}>{candidato[0].titulo}</div>
+                <div className={styles.info__titulo}>{candidato[0].nome}</div>
                 <div className={styles.info__desc}>
                     <div className={styles.textos}>
                         <img src={Estrela} alt='Classificação em estrelas' />
                         {candidato[0].estrelas}
                     </div>
                     <img src={candidato[0].imagem} alt='Imagem de perfil do usuário' className={styles.logotipo} />
-                    <div className={styles.textos}>{candidato[0].cargo}</div>
+                    <div className={styles.textos}>{candidato[0].cargos[0]}</div>
                     <div className={styles.textos}>{candidato[0].descricao}</div>
                 </div>
                 <Button texto='Aprovar candidato' dark={true} />

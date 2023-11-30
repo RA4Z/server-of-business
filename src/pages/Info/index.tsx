@@ -5,6 +5,7 @@ import Voltar from 'images/voltar.png'
 
 import Obra from 'images/obra-temp.png'
 import Estrela from 'images/estrela.svg'
+import UserIMG from 'images/user.png'
 import { info_servicos, info_especialistas } from 'pages/Pesquisa/infos';
 
 import { useState } from 'react'
@@ -31,11 +32,11 @@ export default function Info() {
     }
 
     const info = {
-        titulo: aba_atual.titulo,
+        titulo: categoria === 'users' ? info_especialistas[Number(id) - 1].cargos[0] : info_servicos[Number(id) - 1].titulo,
         descricao: aba_atual.descricao,
         imagem: aba_atual.imagem,
         premium: aba_atual.premium,
-        cargo: categoria === 'users' ? info_especialistas[Number(id) - 1].cargo : '',
+        cargo: categoria === 'users' ? info_especialistas[Number(id) - 1].cargos[0] : '',
         estrelas: categoria === 'users' ? info_especialistas[Number(id) - 1].estrelas : '',
         data: categoria === 'services' ? info_servicos[Number(id) - 1].diaProcurado : '',
         hora: categoria === 'services' ? info_servicos[Number(id) - 1].horarioProcurado : '',
@@ -67,7 +68,7 @@ export default function Info() {
                                     <img src={Estrela} alt='Classificação em estrelas' />
                                     {info.estrelas}
                                 </div>
-                                <img src={info.imagem} alt='Imagem de perfil do usuário' className={styles.logotipo} />
+                                <img src={info.imagem ? info.imagem : UserIMG} alt='Imagem de perfil do usuário' className={styles.logotipo} />
                                 <div className={styles.textos}>{info.cargo}</div>
                             </>
                         }

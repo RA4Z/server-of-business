@@ -1,16 +1,30 @@
 import { Checkbox, Divider, FormControlLabel, TextField } from '@mui/material'
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { info_especialistas, info_servicos } from './infos'
 import { useNavigate } from 'react-router-dom'
 import styles from './Pesquisa.module.scss'
 import Button from 'components/Button'
 import { useParams } from 'react-router-dom'
+import UserIMG from 'images/user.png'
 import Card from 'components/Card'
+import { visualizarUsuarios } from 'services/firestore'
 
 function Pesquisa({ childToParent }: any) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     const { categoria, especifico } = useParams();
+    const [users, setUsers] = useState(info_especialistas)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        async function buscarUsers() {
+            if (users.length <= 1 && categoria === '1') {
+                await visualizarUsuarios(setUsers)
+                console.log('esquema')
+            }
+        }
+        buscarUsers()
+    }, [users, categoria])
+
+    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
 
     switch (categoria) {
         case '1':
@@ -45,13 +59,13 @@ function Pesquisa({ childToParent }: any) {
 
             <div id='card_container' className={styles.container}>
                 {categoria === '1' ?
-                    info_especialistas.map((card) => (
+                    users.map((card) => (
                         <Card
                             key={card.id}
-                            titulo={card.titulo}
-                            subtitulo={`${card.estrelas} - ${card.cargo}`}
+                            titulo={card.nome}
+                            subtitulo={`${card.estrelas} - ${card.cargos[0]}`}
                             descricao={card.descricao}
-                            imagem={card.imagem}
+                            imagem={card.imagem ? card.imagem : UserIMG}
                             premium={card.premium}
                             onClick={() => navigate(`/info/users/${card.id}`)}
                             buttonText='Ver mais informações'

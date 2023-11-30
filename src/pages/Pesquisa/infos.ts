@@ -1,49 +1,17 @@
 export const info_especialistas = [
     {
         id: 1,
-        titulo: 'Robert Aron Zimmermann',
-        estrelas: 4.7,
-        cargo: 'Desenvolvedor de Software',
-        premium: true,
-        descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
-        imagem: '/assets/user.png',
-    },
-    {
-        id: 2,
-        titulo: 'Joseph Joestar',
-        estrelas: 3.7,
-        cargo: 'Biólogo',
-        premium: true,
-        descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
-        imagem: '/assets/user.png',
-    },
-    {
-        id: 3,
-        titulo: 'Jotaro Kujo',
-        estrelas: 4.7,
-        cargo: 'Biólogo',
+        nome: 'Robert Aron Zimmermann',
+        email: 'robertz.raz@gmail.com',
+        pais: 'Brasil',
+        estado: 'Santa Catarina',
         premium: false,
-        descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
-        imagem: '/assets/user.png',
-    },
-    {
-        id: 4,
-        titulo: 'Dio Brando',
-        estrelas: 1.2,
-        cargo: 'Biólogo',
-        premium: true,
-        descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
-        imagem: '/assets/user.png',
-    },
-    {
-        id: 5,
-        titulo: 'Jotaro Kujo',
-        estrelas: 4.7,
-        cargo: 'Biólogo',
-        premium: false,
-        descricao: 'Ser humano normal, usuário do Star Platinum, delinquente e assassino de Dio Brando, membro principal da gangue dos Crusaders, biólogo marinho.',
-        imagem: '/assets/user.png',
-    },
+        telefone: '(47) 9 9958-5728',
+        estrelas: 5,
+        descricao: 'Usuário bacana demais',
+        imagem: '',
+        cargos: ['Desenvolvedor Front End', 'Desenvolvedor Visual Basic', 'Power BI']
+    }
 ]
 
 

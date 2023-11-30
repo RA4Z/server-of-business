@@ -57,7 +57,7 @@ export default function Trabalho() {
                             <div className={styles.especialistas__card} key={inscrito.id} onClick={() => infoUsuarios(inscrito.id)}>
                                 <img src={UserIMG} alt='Perfil de usuário' />
                                 <div>
-                                    <p>{inscrito.titulo}</p>
+                                    <p>{inscrito.nome}</p>
                                     <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas}</p>
                                 </div>
                             </div>
