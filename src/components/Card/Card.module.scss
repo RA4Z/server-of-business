@@ -23,6 +23,10 @@
     padding: 15px;
     max-width: 400px;
     text-align: center;
+
+    @media(min-width: $tablet) {
+        min-width: 400px
+    }
 }
 
 .top {
@@ -56,7 +60,7 @@
     &__text {
         color: $texto;
         max-width: 300px;
-        font-size: calc(12px + 1vmin);
+        font-size: calc(10px + 1vmin);
         font-weight: bold;
     }
 }

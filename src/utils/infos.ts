@@ -1,16 +1,16 @@
 export const info_especialistas = [
     {
         id: 1,
-        nome: 'Robert Aron Zimmermann',
-        email: 'robertz.raz@gmail.com',
-        pais: 'Brasil',
-        estado: 'Santa Catarina',
+        nome: '',
+        email: '',
+        pais: '',
+        estado: '',
         premium: false,
-        telefone: '(47) 9 9958-5728',
+        telefone: '',
         estrelas: 5,
-        descricao: 'Usuário bacana demais',
+        descricao: '',
         imagem: '',
-        cargos: ['Desenvolvedor Front End', 'Desenvolvedor Visual Basic', 'Power BI']
+        cargos: ['']
     }
 ]
 

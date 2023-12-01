@@ -63,7 +63,6 @@ function Pesquisa({ childToParent }: any) {
                             key={card.id}
                             titulo={card.nome}
                             subtitulo={`${card.estrelas} - ${card.cargos[0]}`}
-                            descricao={card.descricao}
                             imagem={card.imagem ? card.imagem : UserIMG}
                             premium={card.premium}
                             onClick={() => navigate(`/info/users/${card.id}`)}

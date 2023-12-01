@@ -6,7 +6,7 @@ import styles from './Card.module.scss'
 
 interface Props {
     titulo: string,
-    descricao: string,
+    descricao?: string,
     imagem: string,
     buttonText: string,
     subtitulo?: string,
@@ -34,7 +34,7 @@ function Card(props: Props) {
                     }
                 </div>
             </div>
-            <p className={styles.descricao}>{props.descricao}</p>
+            {props.descricao && <p className={styles.descricao}>{props.descricao}</p>}
             <Button dark={false} texto={props.buttonText} onClick={props.onClick} />
         </div>
     )
