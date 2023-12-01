@@ -39,14 +39,15 @@ export async function atualizarInfoUser(userId: string, data: any) {
   }
 }
 
-export async function visualizarUsuarios(setUsers: any) {
+export async function visualizarUsuarios(setUsers: any, setBackup?:any) {
   const ref = query(collection(db, "usuários"))
   onSnapshot(ref, (querySnapshot) => {
-    const posts: any[] = []
+    const users: any[] = []
     querySnapshot.forEach((doc) => {
-      posts.push({ id: doc.id, ...doc.data() })
+      users.push({ id: doc.id, ...doc.data() })
     })
-    setUsers(posts)
+    setUsers(users)
+    if(setBackup) setBackup(users)
   })
 }
 

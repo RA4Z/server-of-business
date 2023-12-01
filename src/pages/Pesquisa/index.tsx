@@ -11,17 +11,19 @@ import { visualizarUsuarios } from 'services/firestore'
 
 function Pesquisa({ childToParent }: any) {
     const { categoria, especifico } = useParams();
+    const [filtro, setFiltro] = useState({ nome: '', cidade: '', especializacao: '', freelancer: especifico === 'free' ? true : false, autonomo: especifico === 'auto' ? true : false })
     const [users, setUsers] = useState(info_especialistas)
+    const [backupUser, setBackupUser] = useState(info_especialistas)
     const navigate = useNavigate()
 
     useEffect(() => {
         async function buscarUsers() {
-            if (users.length <= 1 && categoria === '1') {
-                await visualizarUsuarios(setUsers)
+            if (backupUser.length <= 1 && categoria === '1') {
+                await visualizarUsuarios(setUsers, setBackupUser)
             }
         }
         buscarUsers()
-    }, [users, categoria])
+    }, [backupUser, categoria])
 
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
 
@@ -36,23 +38,65 @@ function Pesquisa({ childToParent }: any) {
             console.log('Erro Inesperado no Direcionamento!')
     }
 
+    useEffect(() => {
+        function testaNome(title: string) {
+            const regex = new RegExp(filtro.nome, 'i');
+            return regex.test(title);
+        }
+        function testaCargo(cargo: any) {
+            const regex = new RegExp(filtro.especializacao, 'i');
+            return regex.test(cargo);
+        }
+        let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos))
+        setUsers(novaLista)
+    }, [backupUser, filtro])
+
     return (
         <>
             <form>
                 <div className={styles.pesquisas}>
                     <div className={styles.pesquisas__left}>
-                        <TextField id="outlined-name" label={categoria === '1' ? 'Nome Especialista' : 'Título do Serviço'} variant="outlined" autoComplete="username" className={styles.input} />
+                        <TextField id="outlined-name"
+                            label={categoria === '1' ? 'Nome Especialista' : 'Título do Serviço'}
+                            value={filtro.nome}
+                            onChange={e => setFiltro({ ...filtro, nome: e.target.value })}
+                            variant="outlined"
+                            autoComplete="username"
+                            className={styles.input} />
                         <div>
-                            <FormControlLabel control={<Checkbox defaultChecked={especifico === 'free' ? true : false} />} label="Freelancer" className={styles.check} />
-                            <FormControlLabel control={<Checkbox defaultChecked={especifico === 'auto' ? true : false} />} label="Autônomo" className={styles.check} />
+                            <FormControlLabel control={
+                                <Checkbox checked={filtro.freelancer}
+                                    onChange={e => setFiltro({ ...filtro, freelancer: e.target.checked })} />}
+                                label="Freelancer"
+                                className={styles.check} />
+
+                            <FormControlLabel control={
+                                <Checkbox checked={filtro.autonomo}
+                                    onChange={e => setFiltro({ ...filtro, autonomo: e.target.checked })} />}
+                                label="Autônomo"
+                                className={styles.check} />
                         </div>
                     </div>
                     <div className={styles.pesquisas__right}>
-                        <TextField id="outlined-city" label="Cidade" variant="outlined" autoComplete="city" className={styles.input} />
-                        <TextField id="outlined-special" label="Tipo de Especialização" variant="outlined" autoComplete="type" className={styles.input} />
+
+                        <TextField id="outlined-city"
+                            label="Cidade"
+                            value={filtro.cidade}
+                            onChange={e => setFiltro({ ...filtro, cidade: e.target.value })}
+                            variant="outlined"
+                            autoComplete="city"
+                            className={styles.input} />
+
+                        <TextField id="outlined-special"
+                            label="Tipo de Especialização"
+                            value={filtro.especializacao}
+                            onChange={e => setFiltro({ ...filtro, especializacao: e.target.value })}
+                            variant="outlined"
+                            autoComplete="type"
+                            className={styles.input} />
+
                     </div>
                 </div>
-                <Button dark={true} texto='Pesquisar' />
                 <Divider style={{ background: '#7C7C7C', width: 'auto', margin: 25 }}></Divider>
             </form>
 

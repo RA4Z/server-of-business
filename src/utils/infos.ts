@@ -1,13 +1,13 @@
 export const info_especialistas = [
     {
-        id: 1,
+        id: 0,
         nome: '',
         email: '',
         pais: '',
         estado: '',
         premium: false,
         telefone: '',
-        estrelas: 5,
+        estrelas: 0,
         descricao: '',
         imagem: '',
         cargos: ['']
