@@ -26,6 +26,8 @@ export default function Cadastro() {
         estado: '',
         telefone: '',
         premium: false,
+        autonomo: false,
+        freelancer: false,
         estrelas: 5.0,
         cargos: [],
         descricao: ''

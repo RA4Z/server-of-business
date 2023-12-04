@@ -8,5 +8,7 @@ export interface User_Interface {
     pais: string,
     descricao:string,
     telefone: string,
+    autonomo: boolean,
+    freelancer: boolean
     setInfoUser: any
 }

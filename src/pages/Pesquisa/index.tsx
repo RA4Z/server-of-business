@@ -46,7 +46,15 @@ function Pesquisa({ childToParent }: any) {
             const regex = new RegExp(filtro.especializacao, 'i');
             return regex.test(cargo);
         }
+        function filtrarEspecialista(novaLista: typeof users) {
+            let lista = novaLista
+            if (filtro.autonomo && !filtro.freelancer) lista = lista.filter(item => item.autonomo === true)
+            if (filtro.freelancer && !filtro.autonomo) lista = lista.filter(item => item.freelancer === true)
+            if (filtro.freelancer && filtro.autonomo) lista = lista.filter(item => item.freelancer === true)
+            return lista
+        }
         let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos))
+        novaLista = filtrarEspecialista(novaLista)
         setUsers(novaLista)
     }, [backupUser, filtro])
 

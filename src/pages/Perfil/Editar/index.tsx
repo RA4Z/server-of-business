@@ -1,4 +1,4 @@
-import { FormControl, Input, InputLabel, TextField } from '@mui/material'
+import { Checkbox, FormControl, FormControlLabel, Input, InputLabel, TextField } from '@mui/material'
 import { useState } from 'react'
 import styles from './Editar.module.scss'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
@@ -23,11 +23,13 @@ export default function Editar({ visible, infoUser }: Props) {
         cargos: infoUser.cargos,
         pais: infoUser.pais,
         estado: infoUser.estado,
+        autonomo: infoUser.autonomo,
+        freelancer: infoUser.freelancer,
     })
 
     async function saveChanges() {
         const result = await atualizarInfoUser(infoUser.id, infoTemp)
-        if(result) {
+        if (result) {
             alert('Informações atualizadas com sucesso!')
             window.location.reload()
         }
@@ -78,6 +80,12 @@ export default function Editar({ visible, infoUser }: Props) {
                         country={infoTemp.pais}
                         value={infoTemp.estado}
                         onChange={(val) => setInfoTemp({ ...infoTemp, estado: val })} />
+
+                    <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                        <FormControlLabel control={<Checkbox checked={infoTemp.autonomo} onChange={e => setInfoTemp({ ...infoTemp, autonomo: e.target.checked })} />} label="Autônomo" className={styles.check} />
+                        <FormControlLabel control={<Checkbox checked={infoTemp.freelancer} onChange={e => setInfoTemp({ ...infoTemp, freelancer: e.target.checked })} />} label="Freelancer" className={styles.check} />
+                    </div>
+
                     <Button texto='Minhas Especializações' dark={false} onClick={() => setAdicionar(true)} />
                 </div>
                 <TextField id="outlined-multiline-static"
