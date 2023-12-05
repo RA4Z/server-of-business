@@ -17,6 +17,23 @@ export async function infoUsuario(emailUser: string, setUser: any) {
   }
 }
 
+export async function infoSolicitados(emailUser: string, setSolicitado: any) {
+  try {
+    let solicitar: any[] = []
+    const userRef = collection(db, 'solicitados');
+    const q = query(userRef, where("email", "==", emailUser));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      let info = { id: doc.id, ...doc.data() }
+      solicitar.push(info)
+    });
+    console.log(emailUser)
+    setSolicitado(solicitar)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function salvarInfoUser(data: any) {
   try {
     const result = await addDoc(collection(db, 'usuários'), data)

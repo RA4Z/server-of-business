@@ -1,4 +1,5 @@
 import UserImg from 'images/user.png'
+import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import Calendario from 'images/calendario.jpg'
 import Estrela from 'images/estrela.svg'
 
@@ -7,12 +8,13 @@ import { info_servicos } from 'utils/infos'
 
 import { useNavigate } from 'react-router-dom'
 import styles from './Perfil.module.scss'
-import { useState, memo } from 'react'
+import { useState, memo, useEffect } from 'react'
 import { Divider } from '@mui/material'
 import Editar from './Editar'
 import Solicitar from './Solicitar'
 import { User_Interface } from 'types/User'
 import { auth } from 'config/firebase'
+import { infoSolicitados } from 'services/firestore'
 
 function Perfil(infoUser: User_Interface) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -23,7 +25,14 @@ function Perfil(infoUser: User_Interface) {
 
     const [editar, setEditar] = useState(false)
     const [solicitar, setSolicitar] = useState(false)
-    const solicitados = info_servicos.filter(info => info.solicitadoPor === infoUser.email)
+    const [solicitados, setSolicitados] = useState(info_servicos)
+
+    useEffect(() => {
+        async function Solicitar() {
+            await infoSolicitados(infoUser.email, setSolicitados)
+        }
+        Solicitar()
+    }, [infoUser.email])
 
     const visible = (childdata: boolean) => {
         setEditar(childdata)
@@ -65,7 +74,7 @@ function Perfil(infoUser: User_Interface) {
                     <Card
                         key={solicitado.id}
                         titulo={solicitado.titulo}
-                        imagem={solicitado.imagem}
+                        imagem={solicitado.imagem === '' ? ImagemTrabalho : solicitado.imagem}
                         buttonText='Ver mais informações'
                         descricao={solicitado.descricao}
                         onClick={() => navigate(`/trabalho/${infoUser.email}/${solicitado.id}`)}
