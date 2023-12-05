@@ -45,7 +45,6 @@ export default function Trabalho() {
         if (info.inscritos.length > 0) userInscrito(info.inscritos, setInscritos)
     }, [jobId, info.autonomo, info.freelancer, info.titulo])
 
-
     function infoUsuarios(user: typeof userSelecionado) {
         setUserSelecionado(user)
         setUserVisibility(true)
