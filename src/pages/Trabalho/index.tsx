@@ -16,10 +16,10 @@ export default function Trabalho() {
     const { jobId } = useParams();
     const [userVisibility, setUserVisibility] = useState(false)
     const [necessario, setNecessario] = useState('')
-    const [userSelecionado, setUserSelecionado] = useState('')
+    const [userSelecionado, setUserSelecionado] = useState({ id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' })
     const navigate = useNavigate()
 
-    const [inscritos, setInscritos] = useState([{ id: '', nome: '', estrelas: 0 }])
+    const [inscritos, setInscritos] = useState([{ id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }])
     const [info, setInfo] = useState({
         id: '0',
         titulo: '',
@@ -46,8 +46,8 @@ export default function Trabalho() {
     }, [jobId, info.autonomo, info.freelancer, info.titulo])
 
 
-    function infoUsuarios(idUser: string) {
-        setUserSelecionado(idUser)
+    function infoUsuarios(user: typeof userSelecionado) {
+        setUserSelecionado(user)
         setUserVisibility(true)
     }
 
@@ -61,7 +61,7 @@ export default function Trabalho() {
                 {userVisibility ?
                     <User
                         visible={userVisible}
-                        id={userSelecionado}
+                        {...userSelecionado}
                     />
                     : ''}
             </div>
@@ -79,7 +79,7 @@ export default function Trabalho() {
                     <div className={styles.especialistas__title}>Especialistas Candidatados</div>
                     <div className={styles.especialistas__cards}>
                         {inscritos.map((inscrito, keyId) => (
-                            <div className={styles.especialistas__card} key={keyId} onClick={() => infoUsuarios(inscrito.id)}>
+                            <div className={styles.especialistas__card} key={keyId} onClick={() => infoUsuarios(inscrito)}>
                                 <img src={UserIMG} alt='Perfil de usuário' />
                                 <div>
                                     <p>{inscrito.nome}</p>
