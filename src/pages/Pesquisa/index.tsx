@@ -1,17 +1,24 @@
-import { Checkbox, Divider, FormControlLabel, TextField } from '@mui/material'
 import { memo, useEffect, useState } from 'react'
-import { info_especialistas, info_servicos } from 'utils/infos'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Checkbox, Divider, FormControlLabel, TextField } from '@mui/material'
+
 import styles from './Pesquisa.module.scss'
-import { useParams } from 'react-router-dom'
-import UserIMG from 'images/user.png'
 import Card from 'components/Card'
-import { visualizarUsuarios } from 'services/firestore'
+
+import ImagemTrabalho from 'images/contratar_freelancer.jpg'
+import UserIMG from 'images/user.png'
+
+import { info_especialistas, info_servicos } from 'utils/infos'
+import { visualizarSolicitados, visualizarUsuarios } from 'services/firestore'
 
 function Pesquisa({ childToParent }: any) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const { categoria, especifico } = useParams();
     const [filtro, setFiltro] = useState({ nome: '', cidade: '', especializacao: '', freelancer: especifico === 'free' ? true : false, autonomo: especifico === 'auto' ? true : false })
+
+    const [services, setServices] = useState(info_servicos)
+    const [backupServices, setBackupServices] = useState(info_servicos)
+
     const [users, setUsers] = useState(info_especialistas)
     const [backupUser, setBackupUser] = useState(info_especialistas)
     const navigate = useNavigate()
@@ -21,9 +28,12 @@ function Pesquisa({ childToParent }: any) {
             if (backupUser.length <= 1 && categoria === '1') {
                 await visualizarUsuarios(setUsers, setBackupUser)
             }
+            if (backupServices.length <= 1 && categoria === '2') {
+                await visualizarSolicitados(setServices, setBackupServices)
+            }
         }
         buscarUsers()
-    }, [backupUser, categoria])
+    }, [backupUser, backupServices, categoria])
 
 
     switch (categoria) {
@@ -120,12 +130,12 @@ function Pesquisa({ childToParent }: any) {
                         />
                     ))
                     :
-                    info_servicos.map((card) => (
+                    services.map((card) => (
                         <Card
                             key={card.id}
                             titulo={card.titulo}
                             descricao={card.descricao}
-                            imagem={card.imagem}
+                            imagem={card.imagem ? card.imagem : ImagemTrabalho}
                             premium={card.premium}
                             onClick={() => navigate(`/info/services/${card.id}`)}
                             buttonText='Ver mais informações'

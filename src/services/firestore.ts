@@ -16,7 +16,6 @@ export async function infoUsuario(emailUser: string, setUser: any) {
     console.log(error)
   }
 }
-
 export async function infoSolicitados(emailUser: string, setSolicitado: any) {
   try {
     let solicitar: any[] = []
@@ -42,7 +41,6 @@ export async function salvarInfoUser(data: any) {
     return 'erro'
   }
 }
-
 export async function atualizarInfoUser(userId: string, data: any) {
   try {
     const postRef = doc(db, "usuários", userId);
@@ -66,6 +64,18 @@ export async function visualizarUsuarios(setUsers: any, setBackup?:any) {
     if(setBackup) setBackup(users)
   })
 }
+export async function visualizarSolicitados(setSolicitados: any, setBackup?:any) {
+  const ref = query(collection(db, "solicitados"))
+  onSnapshot(ref, (querySnapshot) => {
+    const users: any[] = []
+    querySnapshot.forEach((doc) => {
+      users.push({ id: doc.id, ...doc.data() })
+    })
+    setSolicitados(users)
+    if(setBackup) setBackup(users)
+  })
+}
+
 
 export async function infoUser(projetoID: any, setProjeto: any) {
   try {
@@ -78,7 +88,6 @@ export async function infoUser(projetoID: any, setProjeto: any) {
     return 'error'
   }
 }
-
 export async function infoSolicitado(projetoID: any, setProjeto: any) {
   try {
     const ref = (await getDoc(doc(db, 'solicitados', projetoID))).data()
