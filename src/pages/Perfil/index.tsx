@@ -77,7 +77,7 @@ function Perfil(infoUser: User_Interface) {
                         imagem={solicitado.imagem === '' ? ImagemTrabalho : solicitado.imagem}
                         buttonText='Ver mais informações'
                         descricao={solicitado.descricao}
-                        onClick={() => navigate(`/trabalho/${infoUser.email}/${solicitado.id}`)}
+                        onClick={() => navigate(`/trabalho/${solicitado.id}`)}
                     />
                 ))}
             </div>

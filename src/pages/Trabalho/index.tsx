@@ -1,7 +1,6 @@
 import styles from './Trabalho.module.scss'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useState } from 'react'
-import { info_servicos, info_especialistas } from 'utils/infos'
+import { useEffect, useState } from 'react'
 
 import Voltar from 'images/voltar.png'
 import Obra from 'images/obra-temp.png'
@@ -10,22 +9,46 @@ import User from './User'
 import Estrela from 'images/estrela.svg'
 
 import { Divider } from '@mui/material'
+import { infoSolicitado } from 'services/firestore'
 
 export default function Trabalho() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const { userId, jobId } = useParams();
+    const { jobId } = useParams();
     const [userVisibility, setUserVisibility] = useState(false)
+    const [necessario, setNecessario] = useState('')
     const [userSelecionado, setUserSelecionado] = useState(0)
     const navigate = useNavigate()
 
-    var info = info_servicos.filter(service => service.idSolicitante === Number(userId) && service.id === Number(jobId))
-    var inscritos = info_especialistas.filter(especialista => info[0].inscritos.indexOf(especialista.id) > -1)
+    const [info, setInfo] = useState({
+        id: '0',
+        titulo: '',
+        solicitante: '',
+        diaProcurado: '',
+        horarioProcurado: '',
+        autonomo: true,
+        freelancer: true,
+        cidade: '',
+        descricao: '',
+        imagem: '',
+        inscritos: [2, 4, 5]
+    })
+    // var inscritos = info_especialistas.filter(especialista => info[0].inscritos.indexOf(especialista.id) > -1)
+
+    useEffect(() => {
+        async function buscarDados() {
+            await infoSolicitado(jobId, setInfo)
+            if (info.autonomo && info.freelancer) setNecessario('Autônomos e Freelancers')
+            if (info.autonomo && !info.freelancer) setNecessario('Autônomos')
+            if (!info.autonomo && info.freelancer) setNecessario('Freelancers')
+        }
+        buscarDados()
+    }, [jobId, info.autonomo, info.freelancer])
 
     function infoUsuarios(idUser: number) {
         setUserSelecionado(idUser)
         setUserVisibility(true)
     }
-
+    
     const userVisible = (childdata: boolean) => {
         setUserVisibility(childdata)
     }
@@ -43,17 +66,17 @@ export default function Trabalho() {
             <div className={styles.container}>
                 <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
                 <div className={styles.info}>
-                    <div className={styles.info__titulo}>{info[0].titulo}</div>
+                    <div className={styles.info__titulo}>{info.titulo}</div>
                     <div className={styles.info__desc}>
                         <img src={Obra} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
-                        <p>{info[0].descricao} registrado para início em {info[0].diaProcurado} às {info[0].horarioProcurado}. Trabalho exclusivo para {info[0].necessario}, solicitado por {info[0].solicitadoPor}.</p>
+                        <p>{info.descricao} registrado para início em {info.diaProcurado} às {info.horarioProcurado}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
                     </div>
                 </div>
                 <Divider />
                 <div>
                     <div className={styles.especialistas__title}>Especialistas Candidatados</div>
                     <div className={styles.especialistas__cards}>
-                        {inscritos.map(inscrito => (
+                        {/* {inscritos.map(inscrito => (
                             <div className={styles.especialistas__card} key={inscrito.id} onClick={() => infoUsuarios(inscrito.id)}>
                                 <img src={UserIMG} alt='Perfil de usuário' />
                                 <div>
@@ -61,7 +84,7 @@ export default function Trabalho() {
                                     <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas}</p>
                                 </div>
                             </div>
-                        ))}
+                        ))} */}
                     </div>
                 </div>
             </div>

@@ -27,7 +27,6 @@ export async function infoSolicitados(emailUser: string, setSolicitado: any) {
       let info = { id: doc.id, ...doc.data() }
       solicitar.push(info)
     });
-    console.log(emailUser)
     setSolicitado(solicitar)
   } catch (error) {
     console.log(error)
@@ -71,6 +70,18 @@ export async function visualizarUsuarios(setUsers: any, setBackup?:any) {
 export async function infoUser(projetoID: any, setProjeto: any) {
   try {
     const ref = (await getDoc(doc(db, 'usuários', projetoID))).data()
+    setProjeto(ref)
+    return 'ok'
+  }
+  catch (error) {
+    console.log(error)
+    return 'error'
+  }
+}
+
+export async function infoSolicitado(projetoID: any, setProjeto: any) {
+  try {
+    const ref = (await getDoc(doc(db, 'solicitados', projetoID))).data()
     setProjeto(ref)
     return 'ok'
   }

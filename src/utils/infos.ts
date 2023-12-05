@@ -18,7 +18,7 @@ export const info_especialistas = [
 
 export const info_servicos = [
     {
-        id: 1,
+        id: '0',
         titulo: '',
         necessario: '',
         solicitadoPor: '',
