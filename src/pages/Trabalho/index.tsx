@@ -12,12 +12,13 @@ import { Divider } from '@mui/material'
 import { infoSolicitado } from 'services/firestore'
 
 export default function Trabalho() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     const { jobId } = useParams();
     const [userVisibility, setUserVisibility] = useState(false)
     const [necessario, setNecessario] = useState('')
     const [userSelecionado, setUserSelecionado] = useState(0)
     const navigate = useNavigate()
+
+    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
 
     const [info, setInfo] = useState({
         id: '0',
@@ -48,7 +49,7 @@ export default function Trabalho() {
         setUserSelecionado(idUser)
         setUserVisibility(true)
     }
-    
+
     const userVisible = (childdata: boolean) => {
         setUserVisibility(childdata)
     }

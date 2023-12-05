@@ -15,6 +15,7 @@ import Candidatar from './Candidatar';
 import { infoUser } from 'services/firestore';
 
 export default function Info() {
+    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const [askCandidatar, setAskCandidatar] = useState(false)
     const [user, setUser] = useState({
         id: '', nome: '', email: '', pais: '', estado: '',

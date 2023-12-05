@@ -9,6 +9,7 @@ import Card from 'components/Card'
 import { visualizarUsuarios } from 'services/firestore'
 
 function Pesquisa({ childToParent }: any) {
+    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const { categoria, especifico } = useParams();
     const [filtro, setFiltro] = useState({ nome: '', cidade: '', especializacao: '', freelancer: especifico === 'free' ? true : false, autonomo: especifico === 'auto' ? true : false })
     const [users, setUsers] = useState(info_especialistas)
@@ -24,7 +25,6 @@ function Pesquisa({ childToParent }: any) {
         buscarUsers()
     }, [backupUser, categoria])
 
-    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
 
     switch (categoria) {
         case '1':

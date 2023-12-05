@@ -17,7 +17,7 @@ import { auth } from 'config/firebase'
 import { infoSolicitados } from 'services/firestore'
 
 function Perfil(infoUser: User_Interface) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const navigate = useNavigate()
     auth.onAuthStateChanged(usuario => {
         if (!usuario) navigate('/login')

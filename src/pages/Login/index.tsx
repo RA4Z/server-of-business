@@ -11,7 +11,7 @@ import { auth } from 'config/firebase';
 import { verificaSeTemEntradaVazia } from 'utils/common';
 
 export default function Login() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const navigate = useNavigate();
     const [forgotPassWordVisible, setForgotPassWordVisible] = useState(false)
     const [dados, setDados] = useState({

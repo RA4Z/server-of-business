@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Card from 'components/Card';
 import styles from './Home.module.scss';
 import Button from 'components/Button';
+import { useEffect } from 'react';
 
 export default function Home({ pagina = 1, childToParent }: any) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const navigate = useNavigate()
     function direcionamento(destino: string) {
         switch (destino) {
