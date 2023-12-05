@@ -53,7 +53,7 @@ export async function atualizarInfoUser(userId: string, data: any) {
   }
 }
 
-export async function visualizarUsuarios(setUsers: any, setBackup?:any) {
+export async function visualizarUsuarios(setUsers: any, setBackup?: any) {
   const ref = query(collection(db, "usuários"))
   onSnapshot(ref, (querySnapshot) => {
     const users: any[] = []
@@ -61,10 +61,10 @@ export async function visualizarUsuarios(setUsers: any, setBackup?:any) {
       users.push({ id: doc.id, ...doc.data() })
     })
     setUsers(users)
-    if(setBackup) setBackup(users)
+    if (setBackup) setBackup(users)
   })
 }
-export async function visualizarSolicitados(setSolicitados: any, setBackup?:any) {
+export async function visualizarSolicitados(setSolicitados: any, setBackup?: any) {
   const ref = query(collection(db, "solicitados"))
   onSnapshot(ref, (querySnapshot) => {
     const users: any[] = []
@@ -72,7 +72,7 @@ export async function visualizarSolicitados(setSolicitados: any, setBackup?:any)
       users.push({ id: doc.id, ...doc.data() })
     })
     setSolicitados(users)
-    if(setBackup) setBackup(users)
+    if (setBackup) setBackup(users)
   })
 }
 
@@ -92,6 +92,25 @@ export async function infoSolicitado(projetoID: any, setProjeto: any) {
   try {
     const ref = (await getDoc(doc(db, 'solicitados', projetoID))).data()
     setProjeto(ref)
+    return 'ok'
+  }
+  catch (error) {
+    console.log(error)
+    return 'error'
+  }
+}
+
+export async function userInscrito(userID: string[], setProjeto: any) {
+  try {
+    const users: any[] = []
+    userID.forEach(id => {
+      async function getInfo() {
+        const ref = (await getDoc(doc(db, 'usuários', id))).data()
+        users.push(ref)
+      }
+      getInfo()
+    });
+    setProjeto(users)
     return 'ok'
   }
   catch (error) {

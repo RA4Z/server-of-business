@@ -5,7 +5,7 @@ import Button from 'components/Button'
 
 interface Props {
     visible: any,
-    id: number
+    id: string
 }
 
 export default function User(props: Props) {

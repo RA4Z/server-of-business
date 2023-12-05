@@ -9,31 +9,30 @@ import User from './User'
 import Estrela from 'images/estrela.svg'
 
 import { Divider } from '@mui/material'
-import { infoSolicitado } from 'services/firestore'
+import { infoSolicitado, userInscrito } from 'services/firestore'
 
 export default function Trabalho() {
+    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, [])
     const { jobId } = useParams();
     const [userVisibility, setUserVisibility] = useState(false)
     const [necessario, setNecessario] = useState('')
-    const [userSelecionado, setUserSelecionado] = useState(0)
+    const [userSelecionado, setUserSelecionado] = useState('')
     const navigate = useNavigate()
 
-    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
-
+    const [inscritos, setInscritos] = useState([{ id: '', nome: '', estrelas: 0 }])
     const [info, setInfo] = useState({
         id: '0',
         titulo: '',
         solicitante: '',
         diaProcurado: '',
         horarioProcurado: '',
-        autonomo: true,
-        freelancer: true,
+        autonomo: false,
+        freelancer: false,
         cidade: '',
         descricao: '',
         imagem: '',
-        inscritos: [2, 4, 5]
+        inscritos: []
     })
-    // var inscritos = info_especialistas.filter(especialista => info[0].inscritos.indexOf(especialista.id) > -1)
 
     useEffect(() => {
         async function buscarDados() {
@@ -43,9 +42,11 @@ export default function Trabalho() {
             if (!info.autonomo && info.freelancer) setNecessario('Freelancers')
         }
         buscarDados()
-    }, [jobId, info.autonomo, info.freelancer])
+        if (info.inscritos.length > 0) userInscrito(info.inscritos, setInscritos)
+    }, [jobId, info.autonomo, info.freelancer, info.titulo])
 
-    function infoUsuarios(idUser: number) {
+
+    function infoUsuarios(idUser: string) {
         setUserSelecionado(idUser)
         setUserVisibility(true)
     }
@@ -77,15 +78,15 @@ export default function Trabalho() {
                 <div>
                     <div className={styles.especialistas__title}>Especialistas Candidatados</div>
                     <div className={styles.especialistas__cards}>
-                        {/* {inscritos.map(inscrito => (
-                            <div className={styles.especialistas__card} key={inscrito.id} onClick={() => infoUsuarios(inscrito.id)}>
+                        {inscritos.map((inscrito, keyId) => (
+                            <div className={styles.especialistas__card} key={keyId} onClick={() => infoUsuarios(inscrito.id)}>
                                 <img src={UserIMG} alt='Perfil de usuário' />
                                 <div>
                                     <p>{inscrito.nome}</p>
                                     <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas}</p>
                                 </div>
                             </div>
-                        ))} */}
+                        ))}
                     </div>
                 </div>
             </div>
