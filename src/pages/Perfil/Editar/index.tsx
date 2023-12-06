@@ -61,6 +61,7 @@ export default function Editar({ visible, infoUser }: Props) {
                     <InputLabel htmlFor="outlined-formatted-text-mask-input">Telefone</InputLabel>
                     <Input
                         defaultValue={infoTemp.telefone}
+                        onChange={e => setInfoTemp({ ...infoTemp, telefone: e.target.value })}
                         name="textmask"
                         className={styles.input__phone}
                         id="outlined-formatted-text-mask-input"

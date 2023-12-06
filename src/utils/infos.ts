@@ -11,7 +11,7 @@ export const info_especialistas = [
         telefone: '',
         estrelas: 0,
         descricao: '',
-        imagem: '',
+        avatar: '',
         cargos: ['']
     }
 ]

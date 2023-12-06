@@ -20,7 +20,7 @@ export default function Info() {
 
     const [user, setUser] = useState({
         id: '', nome: '', email: '', pais: '', estado: '',
-        premium: false, telefone: '', estrelas: 5, descricao: '', imagem: '', cargos: []
+        premium: false, telefone: '', estrelas: 5, descricao: '', avatar: '', cargos: []
     })
     const [service, setService] = useState({
         id: '', titulo: '', autonomo: false, freelancer: false, solicitadoPor: '', diaProcurado: '',
@@ -58,9 +58,9 @@ export default function Info() {
     }
 
     const info = {
-        titulo: categoria === 'users' ? user.cargos[0] : service.titulo,
+        titulo: categoria === 'users' ? user.nome : service.titulo,
         descricao: aba_atual.descricao,
-        imagem: aba_atual.imagem,
+        imagem: categoria === 'users' ? user.avatar : service.imagem,
         premium: aba_atual.premium,
         cargo: categoria === 'users' ? user.cargos[0] : '',
         estrelas: categoria === 'users' ? user.estrelas : '',

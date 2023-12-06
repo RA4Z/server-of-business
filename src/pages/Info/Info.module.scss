@@ -86,8 +86,10 @@
     }
 }
 .logotipo {
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
     @media(max-width: $mobile) {
         align-self: center;
-        width: calc(50px + 10vmin);
     }
 }
