@@ -1,58 +1,81 @@
-import styles from './Trabalho.module.scss'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-
-import Voltar from 'images/voltar.png'
-import Obra from 'images/obra-temp.png'
-import UserIMG from 'images/user.png'
-import User from './User'
-import Estrela from 'images/estrela.svg'
-
-import { Divider } from '@mui/material'
-import { infoSolicitado, userInscrito } from 'services/firestore'
+import styles from './Trabalho.module.scss';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Divider } from '@mui/material';
+import { infoSolicitado, userInscrito } from 'services/firestore';
+import Voltar from 'images/voltar.png';
+import Obra from 'images/obra-temp.png';
+import UserIMG from 'images/user.png';
+import User from './User';
+import Estrela from 'images/estrela.svg';
 
 export default function Trabalho() {
-    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, [])
     const { jobId } = useParams();
-    const [userVisibility, setUserVisibility] = useState(false)
-    const [necessario, setNecessario] = useState('')
-    const [userSelecionado, setUserSelecionado] = useState({ id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' })
-    const navigate = useNavigate()
-
-    const [inscritos, setInscritos] = useState([{ id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }])
-    const [info, setInfo] = useState({
-        id: '0',
-        titulo: '',
-        solicitante: '',
-        diaProcurado: '',
-        horarioProcurado: '',
-        autonomo: false,
-        freelancer: false,
-        cidade: '',
-        descricao: '',
-        imagem: '',
-        inscritos: []
-    })
+    const navigate = useNavigate();
+    const [userVisibility, setUserVisibility] = useState(false);
+    const [trabalhoInfo, setTrabalhoInfo] = useState({
+        info: {
+            id: '0',
+            titulo: '',
+            solicitante: '',
+            diaProcurado: '',
+            horarioProcurado: '',
+            autonomo: false,
+            freelancer: false,
+            cidade: '',
+            descricao: '',
+            imagem: '',
+            inscritos: []
+        },
+        necessario: '',
+        userSelecionado: {
+            id: '',
+            nome: '',
+            estrelas: 0,
+            cargos: [],
+            descricao: '',
+            avatar: ''
+        },
+        inscritos: [{ id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }]
+    });
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         async function buscarDados() {
-            await infoSolicitado(jobId, setInfo)
-            if (info.autonomo && info.freelancer) setNecessario('Autônomos e Freelancers')
-            if (info.autonomo && !info.freelancer) setNecessario('Autônomos')
-            if (!info.autonomo && info.freelancer) setNecessario('Freelancers')
+            const fetchedInfo = await infoSolicitado(jobId);
+            setTrabalhoInfo((prevState) => ({
+                ...prevState,
+                info: fetchedInfo,
+                necessario: (fetchedInfo.autonomo && fetchedInfo.freelancer) ? 'Autônomos e Freelancers' :
+                    (fetchedInfo.autonomo && !fetchedInfo.freelancer) ? 'Autônomos' :
+                        (!fetchedInfo.autonomo && fetchedInfo.freelancer) ? 'Freelancers' : ''
+            }));
+            if (fetchedInfo.inscritos.length > 0) {
+                setTrabalhoInfo((prevState) => ({
+                    ...prevState,
+                    inscritos: fetchedInfo.inscritos
+                }));
+                userInscrito(fetchedInfo.inscritos, (users: any) => {
+                    setTrabalhoInfo((prevState) => ({
+                        ...prevState,
+                        inscritos: users
+                    }));
+                });
+            }
         }
-        buscarDados()
-        if (info.inscritos.length > 0) userInscrito(info.inscritos, setInscritos)
-    }, [jobId, info.autonomo, info.freelancer, info.titulo])
+        buscarDados();
+    }, [jobId]);
 
-    function infoUsuarios(user: typeof userSelecionado) {
-        setUserSelecionado(user)
+    function infoUsuarios(user: any) {
         setUserVisibility(true)
+        setTrabalhoInfo((prevState) => ({ ...prevState, userSelecionado: user }));
     }
 
-    const userVisible = (childdata: boolean) => {
-        setUserVisibility(childdata)
-    }
+    const userVisible = (childdata: any) => {
+        setUserVisibility(childdata);
+    };
+
+    const { info, necessario, inscritos, userSelecionado } = trabalhoInfo;
 
     return (
         <>
@@ -90,5 +113,5 @@ export default function Trabalho() {
                 </div>
             </div>
         </>
-    )
+    );
 }

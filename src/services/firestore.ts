@@ -88,33 +88,29 @@ export async function infoUser(projetoID: any, setProjeto: any) {
     return 'error'
   }
 }
-export async function infoSolicitado(projetoID: any, setProjeto: any) {
+export async function infoSolicitado(projetoID: any, setProjeto?: any, info?: any) {
   try {
     const ref = (await getDoc(doc(db, 'solicitados', projetoID))).data()
-    setProjeto(ref)
-    return 'ok'
+    if (setProjeto) setProjeto(ref)
+    return ref
   }
   catch (error) {
     console.log(error)
+    if (info) return info
     return 'error'
   }
 }
 
 export async function userInscrito(userID: string[], setProjeto: any) {
   try {
-    const users: any[] = []
-    userID.forEach(id => {
-      async function getInfo() {
-        const ref = (await getDoc(doc(db, 'usuários', id))).data()
-        users.push(ref)
-      }
-      getInfo()
-    });
-    setProjeto(users)
-    return 'ok'
-  }
-  catch (error) {
-    console.log(error)
-    return 'error'
+      const users: any[] = await Promise.all(userID.map(async (id) => {
+          const ref = (await getDoc(doc(db, 'usuários', id))).data();
+          return ref;
+      }));
+      setProjeto(users);
+      return 'ok';
+  } catch (error) {
+      console.log(error);
+      return 'error';
   }
 }
