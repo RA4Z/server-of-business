@@ -1,31 +1,35 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { salvarImagem } from 'services/storage';
+import React from 'react';
+import { salvarImagem } from 'services/storage'; // Caminho para o arquivo com a função salvarImagem
 
-function ImportImage() {
-  const [imagem, setImagem] = useState<File | null>(null);
+interface Props {
+  userName: string
+}
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+function ImportImage(props: Props) {
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      setImagem(file);
-    }
-  };
 
-  const handleUpload = async (event: FormEvent) => {
-    event.preventDefault();
+      try {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const imageDataURL = reader.result as string;
 
-    if (!imagem) {
-      console.error('Nenhuma imagem selecionada.');
-      return;
+          // Chama a função salvarImagem passando a URL da imagem e um nome para a imagem
+          await salvarImagem(imageDataURL, `${props.userName}-avatar`);
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        console.error('Erro ao carregar a imagem:', error);
+      }
     }
-    await salvarImagem(imagem, imagem.name)
   };
 
   return (
-    <form onSubmit={handleUpload}>
+    <div>
       <input type="file" onChange={handleFileChange} />
-      <button type="submit">Enviar</button>
-    </form>
+    </div>
   );
 }
 

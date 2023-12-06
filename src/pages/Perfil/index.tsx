@@ -53,9 +53,10 @@ function Perfil(infoUser: User_Interface) {
             <div className={styles.container}>
                 <div className={styles.user}>
                     <img className={styles.user__avatar} src={infoUser.avatar !== '' ? infoUser.avatar : UserImg} alt='Imagem do perfil de usuário' />
+                    <ImportImage userName={infoUser.nome} />
                     <p className={styles.user__editar} onClick={() => setEditar(true)}>Editar perfil</p>
-                    <ImportImage />
                 </div>
+
                 <div>
                     <p className={styles.info__nome}>{infoUser.nome}</p>
                     <p className={styles.info__especialidade}><img src={Estrela} alt='Estrela' />{infoUser.estrelas} {infoUser.cargos[0]}</p>
