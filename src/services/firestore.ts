@@ -103,14 +103,14 @@ export async function infoSolicitado(projetoID: any, setProjeto?: any, info?: an
 
 export async function userInscrito(userID: string[], setProjeto: any) {
   try {
-      const users: any[] = await Promise.all(userID.map(async (id) => {
-          const ref = (await getDoc(doc(db, 'usuários', id))).data();
-          return ref;
-      }));
-      setProjeto(users);
-      return 'ok';
+    const users: any[] = await Promise.all(userID.map(async (id) => {
+      const ref = (await getDoc(doc(db, 'usuários', id))).data();
+      return ref;
+    }));
+    setProjeto(users);
+    return 'ok';
   } catch (error) {
-      console.log(error);
-      return 'error';
+    console.log(error);
+    return 'error';
   }
 }

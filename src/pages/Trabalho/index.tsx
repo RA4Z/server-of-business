@@ -2,7 +2,7 @@ import styles from './Trabalho.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Divider } from '@mui/material';
-import { infoSolicitado, userInscrito } from 'services/firestore';
+import { infoSolicitado, infoUser, userInscrito } from 'services/firestore';
 import Voltar from 'images/voltar.png';
 import Obra from 'images/obra-temp.png';
 import UserIMG from 'images/user.png';
@@ -25,6 +25,7 @@ export default function Trabalho() {
             cidade: '',
             descricao: '',
             imagem: '',
+            idContratado: '',
             inscritos: []
         },
         necessario: '',
@@ -36,7 +37,8 @@ export default function Trabalho() {
             descricao: '',
             avatar: ''
         },
-        inscritos: [{ id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }]
+        inscritos: [{ id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }],
+        contratado: { id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }
     });
 
     useEffect(() => {
@@ -50,15 +52,24 @@ export default function Trabalho() {
                     (fetchedInfo.autonomo && !fetchedInfo.freelancer) ? 'Autônomos' :
                         (!fetchedInfo.autonomo && fetchedInfo.freelancer) ? 'Freelancers' : ''
             }));
-            if (fetchedInfo.inscritos.length > 0) {
-                setTrabalhoInfo((prevState) => ({
-                    ...prevState,
-                    inscritos: fetchedInfo.inscritos
-                }));
-                userInscrito(fetchedInfo.inscritos, (users: any) => {
+            if (fetchedInfo.idContratado === '') {
+                if (fetchedInfo.inscritos.length > 0) {
                     setTrabalhoInfo((prevState) => ({
                         ...prevState,
-                        inscritos: users
+                        inscritos: fetchedInfo.inscritos
+                    }));
+                    userInscrito(fetchedInfo.inscritos, (users: any) => {
+                        setTrabalhoInfo((prevState) => ({
+                            ...prevState,
+                            inscritos: users
+                        }));
+                    });
+                }
+            } else {
+                infoUser(fetchedInfo.idContratado, (user: any) => {
+                    setTrabalhoInfo((prevState) => ({
+                        ...prevState,
+                        contratado: user
                     }));
                 });
             }
@@ -100,15 +111,24 @@ export default function Trabalho() {
                 <div>
                     <div className={styles.especialistas__title}>Especialistas Candidatados</div>
                     <div className={styles.especialistas__cards}>
-                        {inscritos.map((inscrito, keyId) => (
-                            <div className={styles.especialistas__card} key={keyId} onClick={() => infoUsuarios(inscrito)}>
+                        {trabalhoInfo.info.idContratado === '' ?
+                            inscritos.map((inscrito, keyId) => (
+                                <div className={styles.especialistas__card} key={keyId} onClick={() => infoUsuarios(inscrito)}>
+                                    <img src={UserIMG} alt='Perfil de usuário' />
+                                    <div>
+                                        <p>{inscrito.nome}</p>
+                                        <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas}</p>
+                                    </div>
+                                </div>
+                            ))
+                            :
+                            <div className={styles.especialistas__card}>
                                 <img src={UserIMG} alt='Perfil de usuário' />
                                 <div>
-                                    <p>{inscrito.nome}</p>
-                                    <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas}</p>
+                                    <p>{trabalhoInfo.contratado.nome}</p>
+                                    <p><img src={Estrela} alt='Estrela' />{trabalhoInfo.contratado.estrelas}</p>
                                 </div>
-                            </div>
-                        ))}
+                            </div>}
                     </div>
                 </div>
             </div>
