@@ -15,18 +15,22 @@ export default function Trabalho() {
     const [userVisibility, setUserVisibility] = useState(false);
     const [trabalhoInfo, setTrabalhoInfo] = useState({
         info: {
-            id: '0',
+            id: jobId,
             titulo: '',
             solicitante: '',
-            diaProcurado: '',
-            horarioProcurado: '',
-            autonomo: false,
-            freelancer: false,
-            cidade: '',
             descricao: '',
+            premium: false,
             imagem: '',
             idContratado: '',
-            inscritos: []
+            horarioProcurado: '',
+            diaProcurado: '',
+            data: '',
+            email: '',
+            cidade: '',
+            freelancer: false,
+            autonomo: false,
+            inscritos: [],
+            cargos: []
         },
         necessario: '',
         userSelecionado: {
@@ -95,6 +99,8 @@ export default function Trabalho() {
                     <User
                         visible={userVisible}
                         {...userSelecionado}
+                        serviceId={jobId}
+                        service={trabalhoInfo.info}
                     />
                     : ''}
             </div>

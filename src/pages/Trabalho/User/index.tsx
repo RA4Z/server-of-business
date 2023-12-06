@@ -1,21 +1,37 @@
+import { useState, useEffect } from 'react'
 import styles from './User.module.scss'
 
 import Button from 'components/Button'
+import { atualizarInfoService } from 'services/firestore'
+import { Service_Interface } from 'types/User'
 
 import Estrela from 'images/estrela.svg'
 import UserIMG from 'images/user.png'
 
 interface Props {
-    id: string,
+    id: any,
     visible: any,
     nome: string,
     estrelas: number,
     avatar: string,
     cargos: string[],
-    descricao: string
+    descricao: string,
+    serviceId: any,
+    service: Service_Interface
 }
 
 export default function User(props: Props) {
+    const [info, setInfo] = useState(props.service)
+
+    useEffect(() => {
+        setInfo((prevInfo) => ({ ...prevInfo, idContratado: props.id }));
+    }, [props.id])
+
+    async function updateInformation() {
+        await atualizarInfoService(props.serviceId, info)
+        props.visible(false)
+        window.location.reload()
+    }
     return (
         <>
             <div className={styles.overlay} onClick={() => props.visible(false)} />
@@ -30,7 +46,7 @@ export default function User(props: Props) {
                     <div className={styles.textos}>{props.cargos[0]}</div>
                     <div className={styles.textos}>{props.descricao}</div>
                 </div>
-                <Button texto='Aprovar candidato' dark={true} />
+                <Button texto='Aprovar candidato' dark={true} onClick={() => updateInformation()} />
             </div>
         </>
     )

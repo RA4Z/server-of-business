@@ -41,9 +41,21 @@ export async function salvarInfoUser(data: any) {
     return 'erro'
   }
 }
+
 export async function atualizarInfoUser(userId: string, data: any) {
   try {
     const postRef = doc(db, "usuários", userId);
+    await updateDoc(postRef, data)
+    return 'ok'
+  }
+  catch (error) {
+    console.log(error)
+    return 'error'
+  }
+}
+export async function atualizarInfoService(serviceId: string, data: any) {
+  try {
+    const postRef = doc(db, "solicitados", serviceId);
     await updateDoc(postRef, data)
     return 'ok'
   }
@@ -104,8 +116,8 @@ export async function infoSolicitado(projetoID: any, setProjeto?: any, info?: an
 export async function userInscrito(userID: string[], setProjeto: any) {
   try {
     const users: any[] = await Promise.all(userID.map(async (id) => {
-      const ref = (await getDoc(doc(db, 'usuários', id))).data();
-      return ref;
+      const ref = (await getDoc(doc(db, 'usuários', id)));
+      return { id: ref.id, ...ref.data() };
     }));
     setProjeto(users);
     return 'ok';
