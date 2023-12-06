@@ -23,7 +23,7 @@ export default function Info() {
         premium: false, telefone: '', estrelas: 5, descricao: '', avatar: '', cargos: []
     })
     const [service, setService] = useState({
-        id: '', titulo: '', autonomo: false, freelancer: false, solicitadoPor: '', diaProcurado: '',
+        id: '', titulo: '', autonomo: false, freelancer: false, solicitante: '', diaProcurado: '',
         horarioProcurado: '', cidade: '', premium: true, descricao: '', imagem: '',
         inscritos: [2, 4, 5]
     })
@@ -67,7 +67,7 @@ export default function Info() {
         data: categoria === 'services' ? service.diaProcurado : '',
         hora: categoria === 'services' ? service.horarioProcurado : '',
         cidade: categoria === 'services' ? service.cidade : '',
-        solicitante: categoria === 'services' ? service.solicitadoPor : ''
+        solicitante: categoria === 'services' ? service.solicitante : ''
     }
 
     return (

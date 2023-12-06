@@ -135,7 +135,6 @@ function Pesquisa({ childToParent }: any) {
                         <Card
                             key={card.id}
                             titulo={card.titulo}
-                            descricao={card.descricao}
                             imagem={card.imagem ? card.imagem : ImagemTrabalho}
                             premium={card.premium}
                             onClick={() => navigate(`/info/services/${card.id}`)}
