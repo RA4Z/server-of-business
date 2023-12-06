@@ -18,34 +18,24 @@ function Pesquisa({ childToParent }: any) {
 
     const [services, setServices] = useState(info_servicos)
     const [backupServices, setBackupServices] = useState(info_servicos)
-
+    const [infoSearch, setInfoSearch] = useState({ users: false, services: false })
     const [users, setUsers] = useState(info_especialistas)
     const [backupUser, setBackupUser] = useState(info_especialistas)
     const navigate = useNavigate()
 
     useEffect(() => {
         async function buscarUsers() {
-            if (backupUser.length <= 1 && categoria === '1') {
+            if (categoria === '1' && !infoSearch.users) {
                 await visualizarUsuarios(setUsers, setBackupUser)
+                setInfoSearch({ ...infoSearch, users: true })
             }
-            if (backupServices.length <= 1 && categoria === '2') {
+            if (categoria === '2' && !infoSearch.services) {
                 await visualizarSolicitados(setServices, setBackupServices)
+                setInfoSearch({ ...infoSearch, services: true })
             }
         }
         buscarUsers()
-    }, [backupUser, backupServices, categoria])
-
-
-    switch (categoria) {
-        case '1':
-            childToParent(1)
-            break;
-        case '2':
-            childToParent(2)
-            break;
-        default:
-            console.log('Erro Inesperado no Direcionamento!')
-    }
+    }, [backupUser, backupServices, categoria, infoSearch])
 
     useEffect(() => {
         function testaNome(title: string) {
@@ -66,6 +56,17 @@ function Pesquisa({ childToParent }: any) {
         novaLista = filtrarEspecialista(novaLista)
         setUsers(novaLista)
     }, [backupUser, filtro])
+
+    switch (categoria) {
+        case '1':
+            childToParent(1)
+            break;
+        case '2':
+            childToParent(2)
+            break;
+        default:
+            console.log('Erro Inesperado no Direcionamento!')
+    }
 
     return (
         <>
