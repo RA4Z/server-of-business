@@ -35,7 +35,7 @@ export default function AppRouter() {
         <Router>
             <Suspense fallback={<p>Carregando...</p>}>
                 <Routes>
-                    <Route path='/' element={<Header selected={pagina} childToParent={childToParent} />}>
+                    <Route path='/' element={<Header selected={pagina} childToParent={childToParent} avatar={infoUser.avatar} />}>
                         <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
                         <Route path='/cadastro' element={<Cadastro />} />
                         <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} />} />

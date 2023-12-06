@@ -10,7 +10,7 @@ import OptionMenu from 'components/OptionMenu'
 
 import { auth } from 'config/firebase';
 
-function Header({ selected, childToParent }: any) {
+function Header({ selected, childToParent, avatar }: any) {
     const [option, setOption] = useState(false)
     const [logado, setLogado] = useState(false)
     const navigate = useNavigate();
@@ -78,7 +78,7 @@ function Header({ selected, childToParent }: any) {
                     <>
                         <ul className={styles.menu__buttons}>
                             <li className={styles.menu__button}>
-                                <img className={styles.user} src={user} alt='Perfil de usuário' onClick={() => setOption(!option)} />
+                                <img className={styles.user} src={avatar !== '' ? avatar : user} alt='Perfil de usuário' onClick={() => setOption(!option)} />
                             </li>
                         </ul>
                     </>
