@@ -1,80 +1,32 @@
-import { Component } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { salvarImagem } from 'services/storage';
 
-class Teste extends Component {
+function ImportImage() {
+  const [imagem, setImagem] = useState<File | null>(null);
 
-  state = {
-    // Initially, no file is selected
-    selectedFile: {
-      name: '', type: ''
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setImagem(file);
     }
   };
 
-  // On file select (from the pop up)
-  onFileChange = (event: any) => {
+  const handleUpload = async (event: FormEvent) => {
+    event.preventDefault();
 
-    // Update the state
-    this.setState({ selectedFile: event.target.files[0] });
-
-  };
-
-  // On file upload (click the upload button)
-  onFileUpload = () => {
-
-    const formData = new FormData();
-    formData.append(
-      "myFile",
-      this.state.selectedFile!.name
-    );
-
-    // Details of the uploaded file
-    console.log(this.state.selectedFile);
-  };
-
-  // File content to be displayed after
-  // file upload is complete
-  fileData = () => {
-
-    if (this.state.selectedFile) {
-
-      return (
-        <div>
-          <h2>File Details:</h2>
-
-          <p>File Name: {this.state.selectedFile.name}</p>
-          <p>File Type: {this.state.selectedFile.type}</p>
-
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <br />
-          <h4>Choose before Pressing the Upload button</h4>
-        </div>
-      );
+    if (!imagem) {
+      console.error('Nenhuma imagem selecionada.');
+      return;
     }
+    await salvarImagem(imagem, imagem.name)
   };
 
-  render() {
-
-    return (
-      <div>
-        <h1>
-          GeeksforGeeks
-        </h1>
-        <h3>
-          File Upload using React!
-        </h3>
-        <div>
-          <input type="file" onChange={this.onFileChange} />
-          <button onClick={this.onFileUpload}>
-            Upload!
-          </button>
-        </div>
-        {this.fileData()}
-      </div>
-    );
-  }
+  return (
+    <form onSubmit={handleUpload}>
+      <input type="file" onChange={handleFileChange} />
+      <button type="submit">Enviar</button>
+    </form>
+  );
 }
 
-export default Teste;
+export default ImportImage;

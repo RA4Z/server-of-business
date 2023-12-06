@@ -15,6 +15,7 @@ import Solicitar from './Solicitar'
 import { User_Interface } from 'types/User'
 import { auth } from 'config/firebase'
 import { infoSolicitados } from 'services/firestore'
+import ImportImage from 'utils/teste'
 
 function Perfil(infoUser: User_Interface) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
@@ -53,6 +54,7 @@ function Perfil(infoUser: User_Interface) {
                 <div className={styles.user}>
                     <img className={styles.user__avatar} src={infoUser.avatar !== '' ? infoUser.avatar : UserImg} alt='Imagem do perfil de usuário' />
                     <p className={styles.user__editar} onClick={() => setEditar(true)}>Editar perfil</p>
+                    <ImportImage />
                 </div>
                 <div>
                     <p className={styles.info__nome}>{infoUser.nome}</p>
