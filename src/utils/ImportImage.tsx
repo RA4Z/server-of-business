@@ -4,7 +4,6 @@ import { salvarImagem } from 'services/storage'; // Caminho para o arquivo com a
 import { User_Interface } from 'types/User';
 
 interface Props {
-  userName: string,
   userInfo: User_Interface
 }
 
@@ -37,7 +36,7 @@ function ImportImage(props: Props) {
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <input type="file" accept="image/png"  onChange={handleFileChange} />
     </div>
   );
 }
