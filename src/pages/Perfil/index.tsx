@@ -15,7 +15,7 @@ import Solicitar from './Solicitar'
 import { User_Interface } from 'types/User'
 import { auth } from 'config/firebase'
 import { infoSolicitados } from 'services/firestore'
-import ImportImage from 'utils/ImportImage'
+import ImportImage from 'components/ImportImage'
 
 function Perfil(infoUser: User_Interface) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
