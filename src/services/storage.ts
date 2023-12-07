@@ -2,7 +2,7 @@ import { storage } from "config/firebase";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export async function salvarImagem(imagem: string | null, imagemNome: string): Promise<string | null> {
-  if (!imagem) return null;
+  if (!imagem) return '';
 
   try {
     const downloadImagem = await fetch(imagem);
@@ -15,6 +15,6 @@ export async function salvarImagem(imagem: string | null, imagemNome: string): P
     return url;
   } catch (error) {
     console.error('Erro ao enviar imagem para o Firebase:', error);
-    return null;
+    return '';
   }
 }

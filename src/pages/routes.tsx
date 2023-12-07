@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, lazy, Suspense, useEffect } from 'react';
 import { auth } from 'config/firebase'
 import { infoUsuario } from 'services/firestore';
+import { signOut } from 'firebase/auth';
 
 const Home = lazy(() => import('pages/Home'));
 const Login = lazy(() => import('pages/Login'));
@@ -17,12 +18,16 @@ export default function AppRouter() {
     const [pagina, setPagina] = useState(1)
     const [infoUser, setInfoUser] = useState({ id: '', email: '', autonomo: false, freelancer: false, nome: '', estrelas: 0, cargos: [], estado: '', pais: '', telefone: '', descricao: '', avatar: '' })
 
+    async function buscarUserInfo(emailAdress: any) {
+        const result = await infoUsuario(emailAdress, setInfoUser)
+        if (result === 'error') signOut(auth)
+    }
     useEffect(() => (
         auth.onAuthStateChanged(usuario => {
             if (usuario) {
                 let emailAdress = auth.currentUser!.email
                 if (emailAdress && infoUser.email === '') {
-                    infoUsuario(emailAdress, setInfoUser)
+                    buscarUserInfo(emailAdress)
                 }
             }
         })

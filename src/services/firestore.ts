@@ -11,9 +11,10 @@ export async function infoUsuario(emailUser: string, setUser: any) {
       let info = { id: doc.id, ...doc.data() }
       usuario.push(info)
     });
+    if (usuario[0] === undefined) return 'error'
     setUser(usuario[0])
   } catch (error) {
-    console.log(error)
+    return 'error'
   }
 }
 export async function infoSolicitados(emailUser: string, setSolicitado: any) {
