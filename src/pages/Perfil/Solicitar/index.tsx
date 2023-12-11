@@ -16,7 +16,6 @@ interface Props {
 
 export default function Solicitar({ visible, infoUser }: Props) {
     const [adicionar, setAdicionar] = useState(false)
-    const [especializacoes, setEspecializacoes] = useState(['Engenheiro', 'Pedreiro'])
 
     const [serviceInfo, setServiceInfo] = useState({
         titulo: '',
@@ -39,14 +38,14 @@ export default function Solicitar({ visible, infoUser }: Props) {
         setAdicionar(childdata)
     }
     const addEspecializacao = (childdata: any) => {
-        setEspecializacoes(childdata)
+        setServiceInfo({ ...serviceInfo, cargos: childdata })
     }
     return (
         <>
             <div className={styles.overlay} onClick={() => visible(false)} />
             <div className={styles.container}>
                 {adicionar ? <div className={styles.bloco_servicos}>
-                    <Adicionar visible={addEspecialista} especialistasCadastrados={addEspecializacao} defaultList={especializacoes} />
+                    <Adicionar visible={addEspecialista} especialistasCadastrados={addEspecializacao} defaultList={serviceInfo.cargos} />
                 </div> : ''}
                 <div className={styles.lados}>
 
