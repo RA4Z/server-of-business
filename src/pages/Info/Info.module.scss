@@ -87,6 +87,7 @@
 }
 .logotipo {
     border-radius: 50px;
+    object-fit: cover;
     width: 100px;
     height: 100px;
     @media(max-width: $mobile) {
