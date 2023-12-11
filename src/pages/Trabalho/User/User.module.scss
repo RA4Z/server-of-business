@@ -70,10 +70,11 @@
 }
 
 .logotipo {
-    @media(max-width: $mobile) {
-        align-self: center;
-        width: calc(50px + 10vmin);
-    }
+    align-self: center;
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    object-fit: cover;
 }
 
 .textos {

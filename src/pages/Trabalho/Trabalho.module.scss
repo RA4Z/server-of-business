@@ -112,6 +112,15 @@
         cursor: pointer;
         transition: .5s;
 
+        &__avatar {
+            object-fit: cover;
+            border-radius: 50px;
+
+            @media(min-width: $tablet) {
+                width: 100px;
+            }
+        }
+
         p {
             img {
                 height: 20px;

@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './ImportImage.module.scss'
-import { atualizarInfoUser } from 'services/firestore';
+import { atualizarInfoService, atualizarInfoUser } from 'services/firestore';
 import { salvarImagem } from 'services/storage'; // Caminho para o arquivo com a função salvarImagem
 import { User_Interface } from 'types/User';
 
 interface Props {
-  userInfo: User_Interface
+  userInfo?: User_Interface,
+  serviceId?: any,
+  service?: boolean
 }
 
 function ImportImage(props: Props) {
-  const [infoTemp, setInfoTemp] = useState({
-    avatar: props.userInfo.avatar,
-  })
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -23,10 +22,15 @@ function ImportImage(props: Props) {
           const imageDataURL = reader.result as string;
 
           // Chama a função salvarImagem passando a URL da imagem e um nome para a imagem
-          const url = await salvarImagem(imageDataURL, `${props.userInfo.email}-avatar`);
-          setInfoTemp({ ...infoTemp, avatar: url! })
-          await atualizarInfoUser(props.userInfo.id, { ...infoTemp, avatar: url! })
+          if (props.service) {
+            const url = await salvarImagem(imageDataURL, `${props.serviceId}-serviceIMG`, 'services');
+            await atualizarInfoService(props.serviceId, { imagem: url! })
+          } else {
+            const url = await salvarImagem(imageDataURL, `${props.userInfo?.email}-avatar`, 'avatares');
+            await atualizarInfoUser(props.userInfo?.id, { avatar: url! })
+          }
           window.location.reload()
+
         };
         reader.readAsDataURL(file);
       } catch (error) {

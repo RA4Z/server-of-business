@@ -8,6 +8,7 @@ import Obra from 'images/obra-temp.png';
 import UserIMG from 'images/user.png';
 import User from './User';
 import Estrela from 'images/estrela.svg';
+import ImportImage from 'components/ImportImage';
 
 export default function Trabalho() {
     const { jobId } = useParams();
@@ -109,7 +110,10 @@ export default function Trabalho() {
                 <div className={styles.info}>
                     <div className={styles.info__titulo}>{info.titulo}</div>
                     <div className={styles.info__desc}>
-                        <img src={Obra} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
+                        <div>
+                            <img src={trabalhoInfo.info.imagem ? trabalhoInfo.info.imagem : Obra} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
+                            <ImportImage serviceId={jobId} service={true} />
+                        </div>
                         <p>{info.descricao} registrado para início em {info.diaProcurado} às {info.horarioProcurado}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
                     </div>
                 </div>
@@ -120,7 +124,7 @@ export default function Trabalho() {
                         {trabalhoInfo.info.idContratado === '' ?
                             inscritos.map((inscrito, keyId) => (
                                 <div className={styles.especialistas__card} key={keyId} onClick={() => infoUsuarios(inscrito)}>
-                                    <img src={UserIMG} alt='Perfil de usuário' />
+                                    <img className={styles.especialistas__card__avatar} src={inscrito.avatar ? inscrito.avatar : UserIMG} alt='Perfil de usuário' />
                                     <div>
                                         <p>{inscrito.nome}</p>
                                         <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas}</p>
@@ -129,7 +133,7 @@ export default function Trabalho() {
                             ))
                             :
                             <div className={styles.especialistas__card}>
-                                <img src={UserIMG} alt='Perfil de usuário' />
+                                <img src={trabalhoInfo.contratado.avatar ? trabalhoInfo.contratado.avatar : UserIMG} alt='Perfil de usuário' />
                                 <div>
                                     <p>{trabalhoInfo.contratado.nome}</p>
                                     <p><img src={Estrela} alt='Estrela' />{trabalhoInfo.contratado.estrelas}</p>

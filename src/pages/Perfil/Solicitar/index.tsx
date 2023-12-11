@@ -1,6 +1,5 @@
 import { Checkbox, FormControlLabel, TextField } from '@mui/material'
 import { useState } from 'react'
-import UploadIco from 'images/upload.png'
 import styles from './Solicitar.module.scss'
 import Button from 'components/Button'
 import Adicionar from '../Adicionar'
@@ -42,7 +41,6 @@ export default function Solicitar({ visible, infoUser }: Props) {
                             <TextField id="solicitation-time" label="Hora" variant="outlined" autoComplete="hour" className={styles.input__bloco} />
                         </div>
                         <div className={styles.right__local}>Localização</div>
-                        <div className={styles.right__upload}><img src={UploadIco} alt='Ícone de Upload' />Upload Imagem</div>
                         <>
                             <FormControlLabel control={<Checkbox />} label="Autônomo" className={styles.check} />
                             <FormControlLabel control={<Checkbox />} label="Freelancer" className={styles.check} />
