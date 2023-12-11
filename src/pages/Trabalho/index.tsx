@@ -10,11 +10,26 @@ import User from './User';
 import Estrela from 'images/estrela.svg';
 import ImportImage from 'components/ImportImage';
 
+interface UserInformation {
+    id: any,
+    nome: string,
+    estrelas: number,
+    cargos: string[],
+    descricao: string,
+    avatar: string
+}
+
 export default function Trabalho() {
     const { jobId } = useParams();
     const navigate = useNavigate();
     const [userVisibility, setUserVisibility] = useState(false);
-    const [trabalhoInfo, setTrabalhoInfo] = useState({
+    const [trabalhoInfo, setTrabalhoInfo] = useState<{
+        info: any;
+        necessario: string;
+        userSelecionado: UserInformation;
+        inscritos: UserInformation[]; // Alterado para o tipo UserInformation[]
+        contratado: UserInformation; // Alterado para o tipo UserInformation
+    }>({
         info: {
             id: jobId,
             titulo: '',
@@ -33,15 +48,8 @@ export default function Trabalho() {
             cargos: []
         },
         necessario: '',
-        userSelecionado: {
-            id: '',
-            nome: '',
-            estrelas: 0,
-            cargos: [],
-            descricao: '',
-            avatar: ''
-        },
-        inscritos: [{ id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }],
+        userSelecionado: { id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' },
+        inscritos: [],
         contratado: { id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }
     });
 

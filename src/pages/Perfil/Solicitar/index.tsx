@@ -8,6 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import dayjs from 'dayjs'
+import { cadastrarSolicitacao } from 'services/firestore'
 
 interface Props {
     visible: any,
@@ -33,6 +34,10 @@ export default function Solicitar({ visible, infoUser }: Props) {
         inscritos: [],
         cargos: [],
     })
+
+    async function cadastrar() {
+        await cadastrarSolicitacao(serviceInfo)
+    }
 
     const addEspecialista = (childdata: boolean) => {
         setAdicionar(childdata)
@@ -89,7 +94,7 @@ export default function Solicitar({ visible, infoUser }: Props) {
                         </>
                     </div>
                 </div>
-                <Button texto='Abrir Solicitação' dark={true} />
+                <Button onClick={() => cadastrar()} texto='Abrir Solicitação' dark={true} />
             </div>
         </>
     )

@@ -42,6 +42,15 @@ export async function salvarInfoUser(data: any) {
     return 'erro'
   }
 }
+export async function cadastrarSolicitacao(data: any) {
+  try {
+    const result = await addDoc(collection(db, 'solicitados'), data)
+    return result.id
+  } catch (error) {
+    console.log('Erro add post:', error)
+    return 'erro'
+  }
+}
 
 export async function atualizarInfoUser(userId: string, data: any) {
   try {
