@@ -23,7 +23,6 @@ export interface Service_Interface {
     idContratado: any,
     horarioProcurado: string,
     diaProcurado: string,
-    data: string,
     email: string,
     cidade: string,
     freelancer: boolean,

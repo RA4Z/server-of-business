@@ -7,6 +7,12 @@
     &__bloco {
         width: calc(20px + 15vmin);
     }
+    
+    &__dateTime {
+        display: flex;
+        flex-wrap: wrap;
+        text-wrap: wrap;
+    }
 }
 
 .check {
@@ -65,12 +71,6 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
-
-    &__blocosdados {
-        display: flex;
-        gap: 10px;
-        flex-wrap: nowrap;
-    }
 
     &__local {
         width: 82%;

@@ -25,7 +25,6 @@ export default function Trabalho() {
             idContratado: '',
             horarioProcurado: '',
             diaProcurado: '',
-            data: '',
             email: '',
             cidade: '',
             freelancer: false,
