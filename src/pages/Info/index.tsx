@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Button from 'components/Button';
 
 import Voltar from 'images/voltar.png'
-import Obra from 'images/obra-temp.png'
+import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import Estrela from 'images/estrela.svg'
 import UserIMG from 'images/user.png'
 
@@ -84,7 +84,7 @@ export default function Info() {
                     <div className={styles.info__desc}>
                         {categoria === 'services' ?
                             <>
-                                <img src={Obra} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
+                                <img src={info.imagem ? info.imagem : ImagemTrabalho} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
                                 <p>{info.descricao} registrado para início em {info.data} às {info.hora}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
                             </>
                             :

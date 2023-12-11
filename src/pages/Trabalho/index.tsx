@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Divider } from '@mui/material';
 import { infoSolicitado, infoUser, userInscrito } from 'services/firestore';
 import Voltar from 'images/voltar.png';
-import Obra from 'images/obra-temp.png';
+import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import UserIMG from 'images/user.png';
 import User from './User';
 import Estrela from 'images/estrela.svg';
@@ -111,7 +111,7 @@ export default function Trabalho() {
                     <div className={styles.info__titulo}>{info.titulo}</div>
                     <div className={styles.info__desc}>
                         <div>
-                            <img src={trabalhoInfo.info.imagem ? trabalhoInfo.info.imagem : Obra} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
+                            <img src={trabalhoInfo.info.imagem ? trabalhoInfo.info.imagem : ImagemTrabalho} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
                             <ImportImage serviceId={jobId} service={true} />
                         </div>
                         <p>{info.descricao} registrado para início em {info.diaProcurado} às {info.horarioProcurado}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
