@@ -65,10 +65,14 @@ function Pesquisa({ childToParent }: any) {
         if (categoria === '1') {
             let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos) && testaCidade(item.cidade))
             novaLista = filtrarEspecialistaUser(novaLista)
+            novaLista.sort((a, b) => (a.nome < b.nome) ? -1 : 1)
+            novaLista.sort(item => item.premium ? -1 : 1)
             setUsers(novaLista)
         } else {
             let novaLista = backupServices.filter(item => testaNome(item.titulo) && testaCargo(item.cargos) && testaCidade(item.cidade))
             novaLista = filtrarEspecialistaService(novaLista)
+            novaLista.sort((a, b) => (a.diaProcurado < b.diaProcurado) ? -1 : 1)
+            novaLista.sort(item => item.premium ? -1 : 1)
             setServices(novaLista)
         }
     }, [backupUser, filtro, backupServices, categoria])
