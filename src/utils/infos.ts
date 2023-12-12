@@ -30,7 +30,7 @@ export const info_servicos = [
         diaProcurado: '',
         email: '',
         pais: '',
-        estados: '',
+        estado: '',
         cidade: '',
         endereco: '',
         freelancer: false,

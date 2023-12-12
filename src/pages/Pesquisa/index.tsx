@@ -11,7 +11,12 @@ import UserIMG from 'images/user.png'
 import { info_especialistas, info_servicos } from 'utils/infos'
 import { visualizarSolicitados, visualizarUsuarios } from 'services/firestore'
 
-function Pesquisa({ childToParent }: any) {
+interface Props {
+    childToParent: any,
+    estado: string
+}
+
+function Pesquisa({ childToParent, estado }: Props) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const { categoria, especifico } = useParams();
     const [filtro, setFiltro] = useState({ nome: '', cidade: '', especializacao: '', freelancer: especifico === 'free' ? true : false, autonomo: especifico === 'auto' ? true : false })
@@ -26,16 +31,16 @@ function Pesquisa({ childToParent }: any) {
     useEffect(() => {
         async function buscarUsers() {
             if (categoria === '1' && !infoSearch.users) {
-                await visualizarUsuarios(setUsers, setBackupUser)
+                await visualizarUsuarios(setUsers, setBackupUser, estado)
                 setInfoSearch({ ...infoSearch, users: true })
             }
             if (categoria === '2' && !infoSearch.services) {
-                await visualizarSolicitados(setServices, setBackupServices)
+                await visualizarSolicitados(setServices, setBackupServices, estado)
                 setInfoSearch({ ...infoSearch, services: true })
             }
         }
         buscarUsers()
-    }, [backupUser, backupServices, categoria, infoSearch])
+    }, [backupUser, backupServices, categoria, infoSearch, estado])
 
     useEffect(() => {
         function testaNome(title: string) {
@@ -50,6 +55,10 @@ function Pesquisa({ childToParent }: any) {
             const regex = new RegExp(filtro.cidade, 'i');
             return regex.test(cidade);
         }
+        function testaEstado(estadoItem: string) {
+            const regex = new RegExp(estado, 'i');
+            return regex.test(estadoItem);
+        }
         function filtrarEspecialistaUser(novaLista: typeof users) {
             let lista = novaLista.filter(item => item.freelancer === true || item.autonomo === true)
             if (filtro.autonomo && !filtro.freelancer) lista = lista.filter(item => item.autonomo === true)
@@ -63,19 +72,19 @@ function Pesquisa({ childToParent }: any) {
             return lista
         }
         if (categoria === '1') {
-            let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos) && testaCidade(item.cidade))
+            let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos) && testaCidade(item.cidade) && testaEstado(item.estado))
             novaLista = filtrarEspecialistaUser(novaLista)
             novaLista.sort((a, b) => (a.nome < b.nome) ? -1 : 1)
             novaLista.sort(item => item.premium ? -1 : 1)
             setUsers(novaLista)
         } else {
-            let novaLista = backupServices.filter(item => testaNome(item.titulo) && testaCargo(item.cargos) && testaCidade(item.cidade))
+            let novaLista = backupServices.filter(item => testaNome(item.titulo) && testaCargo(item.cargos) && testaCidade(item.cidade) && testaEstado(item.estado))
             novaLista = filtrarEspecialistaService(novaLista)
             novaLista.sort((a, b) => (a.diaProcurado < b.diaProcurado) ? -1 : 1)
             novaLista.sort(item => item.premium ? -1 : 1)
             setServices(novaLista)
         }
-    }, [backupUser, filtro, backupServices, categoria])
+    }, [backupUser, filtro, backupServices, categoria, estado])
 
     switch (categoria) {
         case '1':

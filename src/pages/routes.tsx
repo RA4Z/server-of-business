@@ -37,6 +37,7 @@ export default function AppRouter() {
     const childToParent = (childdata: number) => {
         setPagina(childdata)
     }
+
     return (
         <Router>
             <Suspense fallback={<p>Carregando...</p>}>
@@ -44,7 +45,7 @@ export default function AppRouter() {
                     <Route path='/' element={<Header selected={pagina} childToParent={childToParent} avatar={infoUser.avatar} />}>
                         <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
                         <Route path='/cadastro' element={<Cadastro />} />
-                        <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} />} />
+                        <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} estado={infoUser.estado} />} />
                         <Route path='info/:categoria/:id' element={<Info />} />
                         <Route path='/perfil' element={<Perfil {...infoUser} setInfoUser={setInfoUser} />} />
                         <Route path='/trabalho/:jobId' element={<Trabalho />} />

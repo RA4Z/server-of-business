@@ -74,27 +74,51 @@ export async function atualizarInfoService(serviceId: string, data: any) {
   }
 }
 
-export async function visualizarUsuarios(setUsers: any, setBackup?: any) {
-  const ref = query(collection(db, "usuários"))
-  onSnapshot(ref, (querySnapshot) => {
-    const users: any[] = []
-    querySnapshot.forEach((doc) => {
-      users.push({ id: doc.id, ...doc.data() })
+export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoUser?: string) {
+  if (estadoUser !== '') {
+    const ref = query(collection(db, "usuários"), where('estado', '==', estadoUser))
+    onSnapshot(ref, (querySnapshot) => {
+      const users: any[] = []
+      querySnapshot.forEach((doc) => {
+        users.push({ id: doc.id, ...doc.data() })
+      })
+      setUsers(users)
+      if (setBackup) setBackup(users)
     })
-    setUsers(users)
-    if (setBackup) setBackup(users)
-  })
+  } else {
+    const ref = query(collection(db, "usuários"))
+    onSnapshot(ref, (querySnapshot) => {
+      const users: any[] = []
+      querySnapshot.forEach((doc) => {
+        users.push({ id: doc.id, ...doc.data() })
+      })
+      setUsers(users)
+      if (setBackup) setBackup(users)
+    })
+  }
 }
-export async function visualizarSolicitados(setSolicitados: any, setBackup?: any) {
-  const ref = query(collection(db, "solicitados"))
-  onSnapshot(ref, (querySnapshot) => {
-    const users: any[] = []
-    querySnapshot.forEach((doc) => {
-      users.push({ id: doc.id, ...doc.data() })
+export async function visualizarSolicitados(setSolicitados: any, setBackup?: any, estadoUser?: string) {
+  if (estadoUser !== '') {
+    const ref = query(collection(db, "solicitados"), where('estado', '==', estadoUser))
+    onSnapshot(ref, (querySnapshot) => {
+      const users: any[] = []
+      querySnapshot.forEach((doc) => {
+        users.push({ id: doc.id, ...doc.data() })
+      })
+      setSolicitados(users)
+      if (setBackup) setBackup(users)
     })
-    setSolicitados(users)
-    if (setBackup) setBackup(users)
-  })
+  } else {
+    const ref = query(collection(db, "solicitados"))
+    onSnapshot(ref, (querySnapshot) => {
+      const users: any[] = []
+      querySnapshot.forEach((doc) => {
+        users.push({ id: doc.id, ...doc.data() })
+      })
+      setSolicitados(users)
+      if (setBackup) setBackup(users)
+    })
+  }
 }
 
 
