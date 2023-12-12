@@ -4,7 +4,6 @@ import Calendario from 'images/calendario.jpg'
 import Estrela from 'images/estrela.svg'
 
 import Card from 'components/Card'
-import { info_servicos } from 'utils/infos'
 
 import { useNavigate } from 'react-router-dom'
 import styles from './Perfil.module.scss'
@@ -12,7 +11,7 @@ import { useState, memo, useEffect } from 'react'
 import { Divider } from '@mui/material'
 import Editar from './Editar'
 import Solicitar from './Solicitar'
-import { User_Interface } from 'types/User'
+import { Service_Interface, User_Interface } from 'types/User'
 import { auth } from 'config/firebase'
 import { infoSolicitados } from 'services/firestore'
 import ImportImage from 'components/ImportImage'
@@ -26,7 +25,7 @@ function Perfil(infoUser: User_Interface) {
 
     const [editar, setEditar] = useState(false)
     const [solicitar, setSolicitar] = useState(false)
-    const [solicitados, setSolicitados] = useState(info_servicos)
+    const [solicitados, setSolicitados] = useState<Service_Interface[]>()
 
     useEffect(() => {
         async function Solicitar() {
@@ -73,7 +72,7 @@ function Perfil(infoUser: User_Interface) {
             <Divider style={{ margin: 50 }} />
             <p className={styles.titulo_solicita}>Suas solicitações em aberto</p>
             <div className={styles.cards_solicitados}>
-                {solicitados.map(solicitado => (
+                {solicitados && solicitados.map(solicitado => (
                     <Card
                         key={solicitado.id}
                         titulo={solicitado.titulo}
