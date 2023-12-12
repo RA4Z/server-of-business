@@ -46,16 +46,32 @@ function Pesquisa({ childToParent }: any) {
             const regex = new RegExp(filtro.especializacao, 'i');
             return regex.test(cargo);
         }
-        function filtrarEspecialista(novaLista: typeof users) {
+        function testaCidade(cidade: string) {
+            const regex = new RegExp(filtro.cidade, 'i');
+            return regex.test(cidade);
+        }
+        function filtrarEspecialistaUser(novaLista: typeof users) {
             let lista = novaLista.filter(item => item.freelancer === true || item.autonomo === true)
             if (filtro.autonomo && !filtro.freelancer) lista = lista.filter(item => item.autonomo === true)
             if (filtro.freelancer && !filtro.autonomo) lista = lista.filter(item => item.freelancer === true)
             return lista
         }
-        let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos))
-        novaLista = filtrarEspecialista(novaLista)
-        setUsers(novaLista)
-    }, [backupUser, filtro])
+        function filtrarEspecialistaService(novaLista: typeof services) {
+            let lista = novaLista.filter(item => item.freelancer === true || item.autonomo === true)
+            if (filtro.autonomo && !filtro.freelancer) lista = lista.filter(item => item.autonomo === true)
+            if (filtro.freelancer && !filtro.autonomo) lista = lista.filter(item => item.freelancer === true)
+            return lista
+        }
+        if (categoria === '1') {
+            let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos) && testaCidade(item.cidade))
+            novaLista = filtrarEspecialistaUser(novaLista)
+            setUsers(novaLista)
+        } else {
+            let novaLista = backupServices.filter(item => testaNome(item.titulo) && testaCargo(item.cargos) && testaCidade(item.cidade))
+            novaLista = filtrarEspecialistaService(novaLista)
+            setServices(novaLista)
+        }
+    }, [backupUser, filtro, backupServices, categoria])
 
     switch (categoria) {
         case '1':

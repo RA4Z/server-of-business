@@ -17,7 +17,7 @@ export default function Editar({ visible, infoUser }: Props) {
     const [adicionar, setAdicionar] = useState(false)
     const [infoTemp, setInfoTemp] = useState({
         nome: infoUser.nome,
-        //email: infoUser.email,
+        cidade: infoUser.cidade,
         telefone: infoUser.telefone,
         descricao: infoUser.descricao,
         cargos: infoUser.cargos,
@@ -52,10 +52,10 @@ export default function Editar({ visible, infoUser }: Props) {
                     onChange={e => setInfoTemp({ ...infoTemp, nome: e.target.value })}
                     variant="outlined" autoComplete="username" className={styles.input} />
 
-                {/* <TextField id="outlined-email" label="E-mail"
-                    defaultValue={infoTemp.email}
-                    onChange={e => setInfoTemp({ ...infoTemp, email: e.target.value })}
-                    variant="outlined" autoComplete="email" className={styles.input__mail} /> */}
+                <TextField id="outlined-city" label="Cidade"
+                    defaultValue={infoTemp.cidade}
+                    onChange={e => setInfoTemp({ ...infoTemp, cidade: e.target.value })}
+                    variant="outlined" autoComplete="city" className={styles.input__mail} />
 
                 <FormControl>
                     <InputLabel htmlFor="outlined-formatted-text-mask-input">Telefone</InputLabel>

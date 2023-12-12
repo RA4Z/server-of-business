@@ -1,35 +1,42 @@
 export const info_especialistas = [
     {
         id: '',
-        nome: '',
         email: '',
-        pais: '',
+        nome: '',
+        estrelas: 0,
+        cargos: [''],
         estado: '',
+        avatar: '',
+        pais: '',
+        descricao: '',
+        telefone: '',
         premium: false,
         autonomo: false,
         freelancer: false,
-        telefone: '',
-        estrelas: 0,
-        descricao: '',
-        avatar: '',
-        cargos: ['']
+        cidade: '',
     }
 ]
 
 export const info_servicos = [
     {
-        id: '0',
+        id: '',
         titulo: '',
-        necessario: '',
-        solicitadoPor: '',
-        idSolicitante: 1,
-        diaProcurado: '',
-        horarioProcurado: '',
-        cidade: '',
-        premium: true,
+        solicitante: '',
         descricao: '',
+        premium: false,
         imagem: '',
-        inscritos: [2, 4, 5]
+        idContratado: '',
+        horarioProcurado: '',
+        diaProcurado: '',
+        email: '',
+        pais: '',
+        estados: '',
+        cidade: '',
+        endereco: '',
+        freelancer: false,
+        autonomo: false,
+        inscritos: [''],
+        cargos: ['']
     },
 ]
 

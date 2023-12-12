@@ -3,6 +3,7 @@ import { useState, lazy, Suspense, useEffect } from 'react';
 import { auth } from 'config/firebase'
 import { infoUsuario } from 'services/firestore';
 import { signOut } from 'firebase/auth';
+import { info_especialistas } from 'utils/infos';
 
 const Home = lazy(() => import('pages/Home'));
 const Login = lazy(() => import('pages/Login'));
@@ -16,7 +17,7 @@ const Trabalho = lazy(() => import('pages/Trabalho'));
 
 export default function AppRouter() {
     const [pagina, setPagina] = useState(1)
-    const [infoUser, setInfoUser] = useState({ id: '', email: '', autonomo: false, freelancer: false, premium: false, nome: '', estrelas: 0, cargos: [], estado: '', pais: '', telefone: '', descricao: '', avatar: '' })
+    const [infoUser, setInfoUser] = useState(info_especialistas[0])
 
     async function buscarUserInfo(emailAdress: any) {
         const result = await infoUsuario(emailAdress, setInfoUser)

@@ -11,7 +11,8 @@ export interface User_Interface {
     telefone: string,
     premium: boolean,
     autonomo: boolean,
-    freelancer: boolean
+    freelancer: boolean,
+    cidade: string,
     setInfoUser: any
 }
 export interface Service_Interface {
