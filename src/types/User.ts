@@ -9,6 +9,7 @@ export interface User_Interface {
     pais: string,
     descricao: string,
     telefone: string,
+    premium: boolean,
     autonomo: boolean,
     freelancer: boolean
     setInfoUser: any

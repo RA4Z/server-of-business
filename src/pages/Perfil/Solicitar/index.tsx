@@ -28,7 +28,7 @@ export default function Solicitar({ visible, infoUser }: Props) {
         titulo: '',
         solicitante: infoUser.nome,
         descricao: '',
-        premium: false,
+        premium: infoUser.premium,
         imagem: '',
         idContratado: '',
         horarioProcurado: '',

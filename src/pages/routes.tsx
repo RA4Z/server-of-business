@@ -16,7 +16,7 @@ const Trabalho = lazy(() => import('pages/Trabalho'));
 
 export default function AppRouter() {
     const [pagina, setPagina] = useState(1)
-    const [infoUser, setInfoUser] = useState({ id: '', email: '', autonomo: false, freelancer: false, nome: '', estrelas: 0, cargos: [], estado: '', pais: '', telefone: '', descricao: '', avatar: '' })
+    const [infoUser, setInfoUser] = useState({ id: '', email: '', autonomo: false, freelancer: false, premium: false, nome: '', estrelas: 0, cargos: [], estado: '', pais: '', telefone: '', descricao: '', avatar: '' })
 
     async function buscarUserInfo(emailAdress: any) {
         const result = await infoUsuario(emailAdress, setInfoUser)
