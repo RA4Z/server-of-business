@@ -11,7 +11,7 @@ import dayjs from 'dayjs'
 import { cadastrarSolicitacao } from 'services/firestore'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 import Snackbar from '@mui/material/Snackbar';
-import { timeout } from 'utils/common'
+import { timeout, verificarSolicitacaoValida } from 'utils/common'
 
 interface Props {
     visible: any,
@@ -45,9 +45,14 @@ export default function Solicitar({ visible, infoUser }: Props) {
     })
 
     async function cadastrar() {
+        const verifica = verificarSolicitacaoValida({ ...serviceInfo, id: '' })
+        if (verifica !== '') {
+            setStatusToast({ message: verifica, visivel: true })
+            return
+        }
         const response = await cadastrarSolicitacao(serviceInfo)
         if (response === 'erro') {
-            setStatusToast({ message: 'Ocorreu um erro ao tentar cadastrar a solicitação!', visivel: true })
+            setStatusToast({ message: 'Ocorreu algum erro ao tentar cadastrar a solicitação!', visivel: true })
         } else {
             setStatusToast({ message: 'Solicitação cadastrada com sucesso!', visivel: true })
             await timeout(2000);
