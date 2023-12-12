@@ -8,10 +8,10 @@ import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import Estrela from 'images/estrela.svg'
 import UserIMG from 'images/user.png'
 
-import Candidatar from './Candidatar';
 import styles from './Info.module.scss'
 
 import { infoSolicitado, infoUser } from 'services/firestore';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 export default function Info() {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
@@ -69,14 +69,31 @@ export default function Info() {
         cidade: categoria === 'services' ? service.cidade : '',
         solicitante: categoria === 'services' ? service.solicitante : ''
     }
+    function candidatura() {
+        setAskCandidatar(false)
+    }
 
     return (
         <>
-            {askCandidatar ?
-                <div className={styles.certeza_candidatar}>
-                    <Candidatar visible={visible} />
-                </div>
-                : ''}
+            <Dialog
+                open={askCandidatar}
+                onClose={() => setAskCandidatar(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                style={{ textAlign: 'center' }}>
+                <DialogTitle id="alert-dialog-title">
+                    {`Canditatar-se à solicitação`}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Tem certeza de que deseja se candidatar a este serviço?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button dark={false} texto="Cancelar" onClick={() => setAskCandidatar(false)} />
+                    <Button dark={true} texto="Candidatar-se" onClick={() => candidatura()} />
+                </DialogActions>
+            </Dialog>
             <div className={styles.container}>
                 <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
                 <div className={styles.info}>
