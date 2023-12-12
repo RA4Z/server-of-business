@@ -9,6 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import dayjs from 'dayjs'
 import { cadastrarSolicitacao } from 'services/firestore'
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 
 interface Props {
     visible: any,
@@ -28,7 +29,10 @@ export default function Solicitar({ visible, infoUser }: Props) {
         horarioProcurado: '',
         diaProcurado: '',
         email: infoUser.email,
+        pais: infoUser.pais,
+        estado: infoUser.estado,
         cidade: '',
+        endereco: '',
         freelancer: false,
         autonomo: false,
         inscritos: [],
@@ -87,7 +91,33 @@ export default function Solicitar({ visible, infoUser }: Props) {
                             </div>
                         </LocalizationProvider>
 
-                        <div className={styles.right__local}>Localização</div>
+                        <div className={styles.right__local}>
+                            <p>Informações sobre a Localização...</p>
+
+                            <div className={styles.right__local__countries}>
+                                <CountryDropdown
+                                    classes={styles.selection}
+                                    defaultOptionLabel='Selecionar País'
+                                    value={serviceInfo.pais}
+                                    onChange={(val) => setServiceInfo({ ...serviceInfo, pais: val })} />
+                                <RegionDropdown
+                                    classes={styles.selection}
+                                    defaultOptionLabel='Selecionar Região'
+                                    country={serviceInfo.pais}
+                                    value={serviceInfo.estado}
+                                    onChange={(val) => setServiceInfo({ ...serviceInfo, estado: val })} />
+                            </div>
+                            <TextField id="outlined-solicitation-city"
+                                value={serviceInfo.cidade}
+                                onChange={e => setServiceInfo({ ...serviceInfo, cidade: e.target.value })}
+                                label="Cidade" variant="outlined" autoComplete="city" className={styles.input} />
+
+                            <TextField id="outlined-solicitation-address"
+                                value={serviceInfo.endereco}
+                                onChange={e => setServiceInfo({ ...serviceInfo, endereco: e.target.value })}
+                                label="Endereço" variant="outlined" autoComplete="address" className={styles.input} />
+
+                        </div>
                         <>
                             <FormControlLabel control={<Checkbox checked={serviceInfo.autonomo} onChange={e => setServiceInfo({ ...serviceInfo, autonomo: e.target.checked })} />} label="Autônomo" className={styles.check} />
                             <FormControlLabel control={<Checkbox checked={serviceInfo.freelancer} onChange={e => setServiceInfo({ ...serviceInfo, freelancer: e.target.checked })} />} label="Freelancer" className={styles.check} />

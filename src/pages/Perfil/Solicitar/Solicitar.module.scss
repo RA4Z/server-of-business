@@ -7,12 +7,17 @@
     &__bloco {
         width: calc(20px + 15vmin);
     }
-    
+
     &__dateTime {
         display: flex;
         flex-wrap: wrap;
         text-wrap: wrap;
     }
+}
+
+.selection {
+    font-size: calc(10px + 1vmin);
+    color: $texto;
 }
 
 .check {
@@ -73,12 +78,23 @@
     gap: 20px;
 
     &__local {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
         width: 82%;
         height: 300px;
-        box-shadow: 5px 5px 7px #888888;
 
         @media(max-width:$mobile) {
             width: 100%;
+        }
+
+        &__countries {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: calc(80px + 50vmin);
         }
     }
 
