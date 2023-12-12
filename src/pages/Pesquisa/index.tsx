@@ -30,11 +30,11 @@ function Pesquisa({ childToParent, estado }: Props) {
 
     useEffect(() => {
         async function buscarUsers() {
-            if (categoria === '1' && !infoSearch.users) {
+            if (categoria === '1' && !infoSearch.users && estado !== '') {
                 await visualizarUsuarios(setUsers, setBackupUser, estado)
                 setInfoSearch({ ...infoSearch, users: true })
             }
-            if (categoria === '2' && !infoSearch.services) {
+            if (categoria === '2' && !infoSearch.services && estado !== '') {
                 await visualizarSolicitados(setServices, setBackupServices, estado)
                 setInfoSearch({ ...infoSearch, services: true })
             }
@@ -55,10 +55,6 @@ function Pesquisa({ childToParent, estado }: Props) {
             const regex = new RegExp(filtro.cidade, 'i');
             return regex.test(cidade);
         }
-        function testaEstado(estadoItem: string) {
-            const regex = new RegExp(estado, 'i');
-            return regex.test(estadoItem);
-        }
         function filtrarEspecialistaUser(novaLista: typeof users) {
             let lista = novaLista.filter(item => item.freelancer === true || item.autonomo === true)
             if (filtro.autonomo && !filtro.freelancer) lista = lista.filter(item => item.autonomo === true)
@@ -72,13 +68,13 @@ function Pesquisa({ childToParent, estado }: Props) {
             return lista
         }
         if (categoria === '1') {
-            let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos) && testaCidade(item.cidade) && testaEstado(item.estado))
+            let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos) && testaCidade(item.cidade))
             novaLista = filtrarEspecialistaUser(novaLista)
             novaLista.sort((a, b) => (a.nome < b.nome) ? -1 : 1)
             novaLista.sort(item => item.premium ? -1 : 1)
             setUsers(novaLista)
         } else {
-            let novaLista = backupServices.filter(item => testaNome(item.titulo) && testaCargo(item.cargos) && testaCidade(item.cidade) && testaEstado(item.estado))
+            let novaLista = backupServices.filter(item => testaNome(item.titulo) && testaCargo(item.cargos) && testaCidade(item.cidade))
             novaLista = filtrarEspecialistaService(novaLista)
             novaLista.sort((a, b) => (a.diaProcurado < b.diaProcurado) ? -1 : 1)
             novaLista.sort(item => item.premium ? -1 : 1)
@@ -147,29 +143,32 @@ function Pesquisa({ childToParent, estado }: Props) {
             </form>
 
             <div id='card_container' className={styles.container}>
-                {categoria === '1' ?
-                    users.map((card) => (
-                        <Card
-                            key={card.id}
-                            titulo={card.nome}
-                            subtitulo={`${card.estrelas} - ${card.cargos[0]}`}
-                            imagem={card.avatar ? card.avatar : UserIMG}
-                            premium={card.premium}
-                            onClick={() => navigate(`/info/users/${card.id}`)}
-                            buttonText='Ver mais informações'
-                        />
-                    ))
-                    :
-                    services.map((card) => (
-                        <Card
-                            key={card.id}
-                            titulo={card.titulo}
-                            imagem={card.imagem ? card.imagem : ImagemTrabalho}
-                            premium={card.premium}
-                            onClick={() => navigate(`/info/services/${card.id}`)}
-                            buttonText='Ver mais informações'
-                        />
-                    ))}
+
+                {estado !== '' ? <>
+                    {categoria === '1' ?
+                        users.map((card) => (
+                            <Card
+                                key={card.id}
+                                titulo={card.nome}
+                                subtitulo={`${card.estrelas} - ${card.cargos[0]}`}
+                                imagem={card.avatar ? card.avatar : UserIMG}
+                                premium={card.premium}
+                                onClick={() => navigate(`/info/users/${card.id}`)}
+                                buttonText='Ver mais informações'
+                            />
+                        ))
+                        :
+                        services.map((card) => (
+                            <Card
+                                key={card.id}
+                                titulo={card.titulo}
+                                imagem={card.imagem ? card.imagem : ImagemTrabalho}
+                                premium={card.premium}
+                                onClick={() => navigate(`/info/services/${card.id}`)}
+                                buttonText='Ver mais informações'
+                            />
+                        ))}
+                </> : <h1 style={{ textAlign: 'center', padding: 10 }}>Entre em sua conta para conseguir visualizar os {categoria === '1' ? 'especialistas cadastrados' : 'serviços em aberto'}</h1>}
             </div>
         </>
     )
