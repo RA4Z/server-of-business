@@ -47,7 +47,6 @@ export async function cadastrarSolicitacao(data: any) {
     const result = await addDoc(collection(db, 'solicitados'), data)
     return result.id
   } catch (error) {
-    console.log('Erro add post:', error)
     return 'erro'
   }
 }

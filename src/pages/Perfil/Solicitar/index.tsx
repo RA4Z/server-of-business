@@ -10,6 +10,8 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import dayjs from 'dayjs'
 import { cadastrarSolicitacao } from 'services/firestore'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
+import Snackbar from '@mui/material/Snackbar';
+import { timeout } from 'utils/common'
 
 interface Props {
     visible: any,
@@ -18,7 +20,10 @@ interface Props {
 
 export default function Solicitar({ visible, infoUser }: Props) {
     const [adicionar, setAdicionar] = useState(false)
-
+    const [statusToast, setStatusToast] = useState({
+        visivel: false,
+        message: ''
+    })
     const [serviceInfo, setServiceInfo] = useState({
         titulo: '',
         solicitante: infoUser.nome,
@@ -40,7 +45,14 @@ export default function Solicitar({ visible, infoUser }: Props) {
     })
 
     async function cadastrar() {
-        await cadastrarSolicitacao(serviceInfo)
+        const response = await cadastrarSolicitacao(serviceInfo)
+        if (response === 'erro') {
+            setStatusToast({ message: 'Ocorreu um erro ao tentar cadastrar a solicitação!', visivel: true })
+        } else {
+            setStatusToast({ message: 'Solicitação cadastrada com sucesso!', visivel: true })
+            await timeout(2000);
+            window.location.reload()
+        }
     }
 
     const addEspecialista = (childdata: boolean) => {
@@ -126,6 +138,12 @@ export default function Solicitar({ visible, infoUser }: Props) {
                 </div>
                 <Button onClick={() => cadastrar()} texto='Abrir Solicitação' dark={true} />
             </div>
+            <Snackbar
+                open={statusToast.visivel}
+                onClose={() => setStatusToast({ ...statusToast, visivel: false })}
+                autoHideDuration={3000}
+                message={statusToast.message}
+            />
         </>
     )
 }
