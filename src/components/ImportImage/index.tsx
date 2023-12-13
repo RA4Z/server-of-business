@@ -1,17 +1,16 @@
 import React from 'react';
-import styles from './ImportImage.module.scss'
+import styles from './ImportImage.module.scss';
 import { atualizarInfoService, atualizarInfoUser } from 'services/firestore';
-import { salvarImagem } from 'services/storage'; // Caminho para o arquivo com a função salvarImagem
+import { salvarImagem } from 'services/storage';
 import { User_Interface } from 'types/User';
 
 interface Props {
-  userInfo?: User_Interface,
-  serviceId?: any,
-  service?: boolean
+  userInfo?: User_Interface;
+  serviceId?: any;
+  service?: boolean;
 }
 
 function ImportImage(props: Props) {
-
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -21,16 +20,35 @@ function ImportImage(props: Props) {
         reader.onload = async () => {
           const imageDataURL = reader.result as string;
 
-          // Chama a função salvarImagem passando a URL da imagem e um nome para a imagem
-          if (props.service) {
-            const url = await salvarImagem(imageDataURL, `${props.serviceId}-serviceIMG`, 'services');
-            await atualizarInfoService(props.serviceId, { imagem: url! })
-          } else {
-            const url = await salvarImagem(imageDataURL, `${props.userInfo?.email}-avatar`, 'avatares');
-            await atualizarInfoUser(props.userInfo?.id, { avatar: url! })
-          }
-          window.location.reload()
+          const image = new Image();
+          image.src = imageDataURL;
 
+          image.onload = async () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            if (context) {
+              canvas.width = 100;
+              canvas.height = 100;
+              context.drawImage(image, 0, 0, 100, 100);
+              const avatarURL = canvas.toDataURL('image/jpeg'); // Redimensiona para JPEG
+
+              canvas.width = 625;
+              canvas.height = 420;
+              context.drawImage(image, 0, 0, 625, 420);
+              const serviceURL = canvas.toDataURL('image/jpeg'); // Redimensiona para JPEG
+
+              // Salva a imagem redimensionada
+              if (props.service) {
+                const url = await salvarImagem(serviceURL, `${props.serviceId}-serviceIMG`, 'services');
+                await atualizarInfoService(props.serviceId, { imagem: url! });
+              } else {
+                const url = await salvarImagem(avatarURL, `${props.userInfo?.email}-avatar`, 'avatares');
+                await atualizarInfoUser(props.userInfo?.id, { avatar: url! });
+              }
+              window.location.reload();
+            }
+          };
         };
         reader.readAsDataURL(file);
       } catch (error) {
