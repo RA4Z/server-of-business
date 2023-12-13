@@ -10,26 +10,29 @@ import UserIMG from 'images/user.png'
 
 import styles from './Info.module.scss'
 
-import { infoSolicitado, infoUser } from 'services/firestore';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { atualizarInfoService, infoSolicitado, infoUser } from 'services/firestore';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from '@mui/material';
+import { info_especialistas, info_servicos } from 'utils/infos';
+import { User_Interface } from 'types/User';
+import { auth } from 'config/firebase';
 
-export default function Info() {
+export default function Info(usuarioLogado: User_Interface) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
-    const [askCandidatar, setAskCandidatar] = useState(false)
-    const [necessario, setNecessario] = useState('')
-
-    const [user, setUser] = useState({
-        id: '', nome: '', email: '', pais: '', estado: '',
-        premium: false, telefone: '', estrelas: 5, descricao: '', avatar: '', cargos: []
-    })
-    const [service, setService] = useState({
-        id: '', titulo: '', autonomo: false, freelancer: false, solicitante: '', diaProcurado: '',
-        horarioProcurado: '', cidade: '', premium: true, descricao: '', imagem: '',
-        inscritos: [2, 4, 5]
-    })
-
     const { categoria, id } = useParams();
     const navigate = useNavigate();
+    auth.onAuthStateChanged(usuario => {
+        if (!usuario) navigate('/login')
+    })
+
+    const [statusToast, setStatusToast] = useState({
+        visivel: false,
+        message: ''
+    })
+    const [askCandidatar, setAskCandidatar] = useState(false)
+    const [necessario, setNecessario] = useState('')
+    const [user, setUser] = useState(info_especialistas[0])
+    const [service, setService] = useState(info_servicos[0])
+
     const aba_atual = categoria === 'users' ? user : service
 
     useEffect(() => {
@@ -45,13 +48,13 @@ export default function Info() {
         addInfo()
     }, [id, categoria, service.autonomo, service.freelancer])
 
-    const visible = (childdata: boolean) => {
-        setAskCandidatar(childdata)
-    }
-
     function direcionarTarefa(categoria: any) {
         if (categoria === 'services') {
-            setAskCandidatar(true)
+            if (service.inscritos.includes(usuarioLogado.id)) {
+                setStatusToast({ message: 'Você já está inscrito nessa solicitação!', visivel: true })
+            } else if (service.email === usuarioLogado.email) {
+                setStatusToast({ message: 'Não é possível se inscrever em sua própria solicitação!', visivel: true })
+            } else setAskCandidatar(true)
         } else {
             console.log('Direcionar a um chat')
         }
@@ -69,7 +72,12 @@ export default function Info() {
         cidade: categoria === 'services' ? service.cidade : '',
         solicitante: categoria === 'services' ? service.solicitante : ''
     }
-    function candidatura() {
+
+    async function candidatura() {
+        let inscritos = service.inscritos
+        inscritos.push(usuarioLogado.id)
+        await atualizarInfoService(id!, { inscritos: inscritos })
+        setStatusToast({ message: 'Você se inscreveu com sucesso na solicitação!', visivel: true })
         setAskCandidatar(false)
     }
 
@@ -119,6 +127,12 @@ export default function Info() {
                 </div>
                 <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} onClick={() => direcionarTarefa(categoria)} />
             </div>
+            <Snackbar
+                open={statusToast.visivel}
+                onClose={() => setStatusToast({ ...statusToast, visivel: false })}
+                autoHideDuration={3000}
+                message={statusToast.message}
+            />
         </>
     )
 }
