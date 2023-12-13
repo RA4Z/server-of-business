@@ -53,7 +53,7 @@
 
         &__serviceImg {
             width: calc(500px + 15vmin);
-            height: auto;
+            max-height: calc(500px + 15vmin);
             border-radius: 25px;
 
             @media(max-width: $mobile) {

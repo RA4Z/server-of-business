@@ -42,7 +42,7 @@ function ImportImage(props: Props) {
   return (
     <div className={styles.export}>
       <label htmlFor='selecao-arquivo'>Alterar Imagem</label>
-      <input id='selecao-arquivo' type="file" accept="image/png" onChange={handleFileChange} />
+      <input id='selecao-arquivo' type="file" accept="image/png, image/jpeg, image/jpg" onChange={handleFileChange} />
     </div>
   );
 }

@@ -61,13 +61,14 @@
 
         &__serviceImg {
             width: calc(500px + 15vmin);
-            height: auto;
+            max-height: calc(500px + 15vmin);
             border-radius: 25px;
 
             @media(max-width: $mobile) {
                 width: 110%
             }
         }
+
         @media(max-width: $mobile) {
             flex-direction: column;
         }
@@ -85,11 +86,13 @@
         }
     }
 }
+
 .logotipo {
     border-radius: 50px;
     object-fit: cover;
     width: 100px;
     height: 100px;
+
     @media(max-width: $mobile) {
         align-self: center;
     }
