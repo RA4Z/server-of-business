@@ -15,6 +15,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, S
 import { info_especialistas, info_servicos } from 'utils/infos';
 import { User_Interface } from 'types/User';
 import { auth } from 'config/firebase';
+import dayjs from 'dayjs'
 
 export default function Info(usuarioLogado: User_Interface) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
@@ -110,7 +111,7 @@ export default function Info(usuarioLogado: User_Interface) {
                         {categoria === 'services' ?
                             <>
                                 <img src={info.imagem ? info.imagem : ImagemTrabalho} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
-                                <p>{info.descricao} registrado para início em {info.data} às {info.hora}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
+                                <p>{info.descricao} registrado para início em {dayjs(info.data).format('DD/MM/YYYY')} às {info.hora}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
                             </>
                             :
                             <>

@@ -27,6 +27,7 @@ export async function infoSolicitados(emailUser: string, setSolicitado: any) {
       let info = { id: doc.id, ...doc.data() }
       solicitar.push(info)
     });
+    solicitar.sort((a, b) => (a.diaProcurado < b.diaProcurado) ? -1 : 1)
     setSolicitado(solicitar)
   } catch (error) {
     console.log(error)

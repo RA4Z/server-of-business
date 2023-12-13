@@ -9,6 +9,7 @@ import UserIMG from 'images/user.png';
 import User from './User';
 import Estrela from 'images/estrela.svg';
 import ImportImage from 'components/ImportImage';
+import dayjs from 'dayjs'
 
 interface UserInformation {
     id: any,
@@ -121,7 +122,7 @@ export default function Trabalho() {
                             <img src={trabalhoInfo.info.imagem ? trabalhoInfo.info.imagem : ImagemTrabalho} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
                             <ImportImage serviceId={jobId} service={true} />
                         </div>
-                        <p>{info.descricao} registrado para início em {info.diaProcurado} às {info.horarioProcurado}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
+                        <p>{info.descricao} registrado para início em {dayjs(info.diaProcurado).format('DD/MM/YYYY')} às {info.horarioProcurado}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
                     </div>
                 </div>
                 <Divider />

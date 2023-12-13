@@ -79,17 +79,17 @@ export default function Solicitar({ visible, infoUser }: Props) {
                         <TextField id="outlined-solicitation-title"
                             value={serviceInfo.titulo}
                             onChange={e => setServiceInfo({ ...serviceInfo, titulo: e.target.value })}
-                            label="Título da solicitação" variant="outlined" autoComplete="title" className={styles.input} />
+                            label="Título da solicitação" variant="outlined" className={styles.input} />
 
                         <TextField id="outlined-solicitation-username"
                             value={infoUser.nome}
                             onChange={e => setServiceInfo({ ...serviceInfo, solicitante: e.target.value })}
-                            label="Nome do solicitante" variant="outlined" autoComplete="username" className={styles.input} />
+                            label="Nome do solicitante" variant="outlined" className={styles.input} />
 
                         <TextField id="outlined-solicitation-description"
                             value={serviceInfo.descricao}
                             onChange={e => setServiceInfo({ ...serviceInfo, descricao: e.target.value })}
-                            label="Descrição sobre a solicitação" multiline rows={8} variant="outlined" autoComplete="text" className={styles.input} />
+                            label="Descrição sobre a solicitação" multiline rows={8} variant="outlined" className={styles.input} />
                     </div>
 
                     <div className={styles.right}>
@@ -103,7 +103,7 @@ export default function Solicitar({ visible, infoUser }: Props) {
                                     onChange={e => setServiceInfo({
                                         ...serviceInfo,
                                         diaProcurado: dayjs(e).format('YYYY-MM-DD').toString(),
-                                        horarioProcurado: dayjs(e).format('HH:MM').toString()
+                                        horarioProcurado: dayjs(e).format('HH:mm').toString()
                                     })} />
                             </div>
                         </LocalizationProvider>
