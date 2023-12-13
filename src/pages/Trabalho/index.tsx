@@ -11,6 +11,8 @@ import Estrela from 'images/estrela.svg';
 import ImportImage from 'components/ImportImage';
 import dayjs from 'dayjs'
 import NotFound from 'pages/NotFound';
+import { User_Interface } from 'types/User';
+import { auth } from 'config/firebase';
 
 interface UserInformation {
     id: any,
@@ -21,9 +23,12 @@ interface UserInformation {
     avatar: string
 }
 
-export default function Trabalho() {
+export default function Trabalho(usuarioLogado: User_Interface) {
     const { jobId } = useParams();
     const navigate = useNavigate();
+    auth.onAuthStateChanged(usuario => {
+        if (!usuario) navigate('/login')
+    })
     const [erroNotFound, setErroNotFound] = useState(false)
     const [userVisibility, setUserVisibility] = useState(false);
     const [trabalhoInfo, setTrabalhoInfo] = useState<{
@@ -89,10 +94,11 @@ export default function Trabalho() {
                         }));
                     });
                 }
+                if (usuarioLogado.email !== fetchedInfo.email && usuarioLogado.email !== '') navigate(-1)
             } else setErroNotFound(true)
         }
         buscarDados();
-    }, [jobId]);
+    }, [jobId, usuarioLogado.email, navigate]);
 
     if (erroNotFound) {
         return <NotFound />;

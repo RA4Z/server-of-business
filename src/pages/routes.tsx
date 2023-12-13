@@ -49,7 +49,7 @@ export default function AppRouter() {
                         <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} estado={infoUser.estado} />} />
                         <Route path='info/:categoria/:id' element={<Info  {...infoUser} setInfoUser={setInfoUser} />} />
                         <Route path='/perfil' element={<Perfil {...infoUser} setInfoUser={setInfoUser} />} />
-                        <Route path='/trabalho/:jobId' element={<Trabalho />} />
+                        <Route path='/trabalho/:jobId' element={<Trabalho {...infoUser} setInfoUser={setInfoUser} />} />
                     </Route>
                     <Route path='/login' element={<Login />} />
                     <Route path='*' element={<NotFound />} />
