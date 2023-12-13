@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
 
 export async function infoUsuario(emailUser: string, setUser: any) {
   try {
@@ -159,4 +159,23 @@ export async function userInscrito(userID: string[], setProjeto: any) {
     console.log(error);
     return 'error';
   }
+}
+
+
+export async function getChat(setMessages: any) {
+  const unsubscribe = query(collection(db, 'messages'), orderBy('timestamp'))
+  onSnapshot(unsubscribe, (querySnapshot) => {
+    const messagesData: any[] = [];
+    querySnapshot.forEach(doc => {
+      messagesData.push({ id: doc.id, ...doc.data() });
+    });
+    setMessages(messagesData);
+  });
+
+  return unsubscribe;
+}
+
+export async function sendChatMessage(newMessage: string, setNewMessage: any) {
+  await addDoc(collection(db, 'messages'), { text: newMessage, timestamp: serverTimestamp() })
+  setNewMessage('');
 }
