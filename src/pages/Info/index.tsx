@@ -16,6 +16,7 @@ import { info_especialistas, info_servicos } from 'utils/infos';
 import { User_Interface } from 'types/User';
 import { auth } from 'config/firebase';
 import dayjs from 'dayjs'
+import NotFound from 'pages/NotFound';
 
 export default function Info(usuarioLogado: User_Interface) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
@@ -38,16 +39,25 @@ export default function Info(usuarioLogado: User_Interface) {
 
     useEffect(() => {
         async function addInfo() {
-            if (categoria === 'users') await infoUser(id, setUser)
+            if (categoria === 'users') await infoUser(id, setUser);
             if (categoria === 'services') {
-                await infoSolicitado(id, setService)
-                if (service.autonomo && service.freelancer) setNecessario('Autônomos e Freelancers')
-                if (service.autonomo && !service.freelancer) setNecessario('Autônomos')
-                if (!service.autonomo && service.freelancer) setNecessario('Freelancers')
+                await infoSolicitado(id, setService);
             }
         }
-        addInfo()
-    }, [id, categoria, service.autonomo, service.freelancer])
+        addInfo();
+    }, [id, categoria]);
+
+    useEffect(() => {
+        if (service !== undefined) {
+            if (service.autonomo && service.freelancer) setNecessario('Autônomos e Freelancers');
+            if (service.autonomo && !service.freelancer) setNecessario('Autônomos');
+            if (!service.autonomo && service.freelancer) setNecessario('Freelancers');
+        }
+    }, [service]);
+
+    if ((categoria === 'users' && user === undefined) || (categoria === 'services' && service === undefined)) {
+        return <NotFound />;
+    }
 
     function direcionarTarefa(categoria: any) {
         if (categoria === 'services') {
@@ -81,6 +91,7 @@ export default function Info(usuarioLogado: User_Interface) {
         setStatusToast({ message: 'Você se inscreveu com sucesso na solicitação!', visivel: true })
         setAskCandidatar(false)
     }
+
 
     return (
         <>

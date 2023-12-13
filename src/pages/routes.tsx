@@ -7,6 +7,7 @@ import { info_especialistas } from 'utils/infos';
 
 const Home = lazy(() => import('pages/Home'));
 const Login = lazy(() => import('pages/Login'));
+const NotFound = lazy(() => import('pages/NotFound'));
 const Cadastro = lazy(() => import('pages/Cadastro'));
 const Header = lazy(() => import('components/Header'));
 const Footer = lazy(() => import('components/Footer'));
@@ -51,6 +52,7 @@ export default function AppRouter() {
                         <Route path='/trabalho/:jobId' element={<Trabalho />} />
                     </Route>
                     <Route path='/login' element={<Login />} />
+                    <Route path='*' element={<NotFound />} />
                 </Routes>
             </Suspense>
             <Footer />

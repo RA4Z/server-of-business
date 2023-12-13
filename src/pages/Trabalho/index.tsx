@@ -10,6 +10,7 @@ import User from './User';
 import Estrela from 'images/estrela.svg';
 import ImportImage from 'components/ImportImage';
 import dayjs from 'dayjs'
+import NotFound from 'pages/NotFound';
 
 interface UserInformation {
     id: any,
@@ -23,6 +24,7 @@ interface UserInformation {
 export default function Trabalho() {
     const { jobId } = useParams();
     const navigate = useNavigate();
+    const [erroNotFound, setErroNotFound] = useState(false)
     const [userVisibility, setUserVisibility] = useState(false);
     const [trabalhoInfo, setTrabalhoInfo] = useState<{
         info: any;
@@ -58,37 +60,43 @@ export default function Trabalho() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         async function buscarDados() {
             const fetchedInfo = await infoSolicitado(jobId);
-            setTrabalhoInfo((prevState) => ({
-                ...prevState,
-                info: fetchedInfo,
-                necessario: (fetchedInfo.autonomo && fetchedInfo.freelancer) ? 'Autônomos e Freelancers' :
-                    (fetchedInfo.autonomo && !fetchedInfo.freelancer) ? 'Autônomos' :
-                        (!fetchedInfo.autonomo && fetchedInfo.freelancer) ? 'Freelancers' : ''
-            }));
-            if (fetchedInfo.idContratado === '') {
-                if (fetchedInfo.inscritos.length > 0) {
-                    setTrabalhoInfo((prevState) => ({
-                        ...prevState,
-                        inscritos: fetchedInfo.inscritos
-                    }));
-                    userInscrito(fetchedInfo.inscritos, (users: any) => {
+            if (fetchedInfo !== undefined) {
+                setTrabalhoInfo((prevState) => ({
+                    ...prevState,
+                    info: fetchedInfo,
+                    necessario: (fetchedInfo.autonomo && fetchedInfo.freelancer) ? 'Autônomos e Freelancers' :
+                        (fetchedInfo.autonomo && !fetchedInfo.freelancer) ? 'Autônomos' :
+                            (!fetchedInfo.autonomo && fetchedInfo.freelancer) ? 'Freelancers' : ''
+                }));
+                if (fetchedInfo.idContratado === '') {
+                    if (fetchedInfo.inscritos.length > 0) {
                         setTrabalhoInfo((prevState) => ({
                             ...prevState,
-                            inscritos: users
+                            inscritos: fetchedInfo.inscritos
+                        }));
+                        userInscrito(fetchedInfo.inscritos, (users: any) => {
+                            setTrabalhoInfo((prevState) => ({
+                                ...prevState,
+                                inscritos: users
+                            }));
+                        });
+                    }
+                } else {
+                    infoUser(fetchedInfo.idContratado, (user: any) => {
+                        setTrabalhoInfo((prevState) => ({
+                            ...prevState,
+                            contratado: user
                         }));
                     });
                 }
-            } else {
-                infoUser(fetchedInfo.idContratado, (user: any) => {
-                    setTrabalhoInfo((prevState) => ({
-                        ...prevState,
-                        contratado: user
-                    }));
-                });
-            }
+            } else setErroNotFound(true)
         }
         buscarDados();
     }, [jobId]);
+
+    if (erroNotFound) {
+        return <NotFound />;
+    }
 
     function infoUsuarios(user: any) {
         setUserVisibility(true)
