@@ -14,7 +14,8 @@ export default function NotFound() {
                     {'< Voltar'}
                 </button>
             </div>
-            <NotFoundImage />
+            <NotFoundImage className={styles.image} />
+            <h2>Página não encontrada!</h2>
         </div>
     );
 }
