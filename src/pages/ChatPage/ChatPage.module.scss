@@ -1,0 +1,65 @@
+/* ChatPage.module.css */
+
+/* Estilos para o contêiner principal do chat */
+.chatContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para o cabeçalho do chat */
+.chatHeader {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Estilos para o contêiner das mensagens */
+.messageContainer {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* Estilos para cada mensagem individual */
+.message {
+    background-color: #fff;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+/* Estilos para o contêiner de entrada de mensagem */
+.inputContainer {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para o campo de entrada de mensagem */
+.messageInput {
+    flex: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+/* Estilos para o botão de envio de mensagem */
+.sendButton {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sendButton:hover {
+    background-color: #0056b3;
+}

@@ -175,7 +175,7 @@ export async function getChat(setMessages: any) {
   return unsubscribe;
 }
 
-export async function sendChatMessage(newMessage: string, setNewMessage: any) {
-  await addDoc(collection(db, 'messages'), { text: newMessage, timestamp: serverTimestamp() })
+export async function sendChatMessage(newMessage: string, setNewMessage: any, chat: string, sendBy: string) {
+  await addDoc(collection(db, 'messages'), { text: newMessage, timestamp: serverTimestamp(), chat: chat, sendBy: sendBy })
   setNewMessage('');
 }

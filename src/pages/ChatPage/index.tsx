@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import { getChat, sendChatMessage } from 'services/firestore';
+import styles from './ChatPage.module.scss';
+import { User_Interface } from 'types/User';
 
-const ChatPage = () => {
-    const [messages, setMessages] = useState([{ id: '', text: '' }]);
+function ChatPage(usuarioLogado: User_Interface) {
+    const [chatAtual, setChatAtual] = useState('')
+    const [messages, setMessages] = useState([{ id: '', text: '', chat: '', sendBy: '' }]);
     const [newMessage, setNewMessage] = useState('');
 
     useEffect(() => {
-        // Assumindo que você tem uma coleção 'messages' no Firestore
         async function buscarDados() {
             await getChat(setMessages)
         }
@@ -16,27 +18,36 @@ const ChatPage = () => {
 
     const sendMessage = async () => {
         if (newMessage.trim() !== '') {
-            await sendChatMessage(newMessage, setNewMessage)
+            await sendChatMessage(newMessage, setNewMessage, chatAtual, usuarioLogado.email)
         }
     };
 
     return (
-        <div>
-            <h1>Chat Room</h1>
-            <div>
-                {messages.map(message => (
-                    <div key={message.id}>
-                        <p>{message.text}</p>
+        <>
+            {chatAtual === '' ?
+                ''
+                :
+                <div className={styles.chatContainer}>
+                    <h1 className={styles.chatHeader}>Chat Room</h1>
+                    <div className={styles.messageContainer}>
+                        {messages.map(message => (
+                            <div key={message.id} className={styles.message}>
+                                <p>{message.text}</p>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-            <input
-                type="text"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-            />
-            <button onClick={sendMessage}>Send</button>
-        </div>
+                    <div className={styles.inputContainer}>
+                        <input
+                            className={styles.messageInput}
+                            type="text"
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            placeholder="Type your message..."
+                        />
+                        <button className={styles.sendButton} onClick={sendMessage}>Enviar</button>
+                    </div>
+                </div>}
+        </>
     );
 };
 

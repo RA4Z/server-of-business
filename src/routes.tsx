@@ -51,7 +51,7 @@ export default function AppRouter() {
                         <Route path='info/:categoria/:id' element={<Info  {...infoUser} setInfoUser={setInfoUser} />} />
                         <Route path='/perfil' element={<Perfil {...infoUser} setInfoUser={setInfoUser} />} />
                         <Route path='/trabalho/:jobId' element={<Trabalho {...infoUser} setInfoUser={setInfoUser} />} />
-                        <Route path='/chat' element={<ChatPage />} />
+                        <Route path='/chat' element={<ChatPage {...infoUser} setInfoUser={setInfoUser} />} />
                         <Route path='*' element={<NotFound />} />
                     </Route>
                     <Route path='/login' element={<Login />} />
