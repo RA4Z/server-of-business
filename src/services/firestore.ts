@@ -54,6 +54,7 @@ export async function cadastrarSolicitacao(data: any) {
 }
 
 export async function atualizarInfoUser(userId: string, data: any) {
+  console.log(userId)
   try {
     const postRef = doc(db, "usuários", userId);
     await updateDoc(postRef, data)

@@ -13,6 +13,7 @@ export interface User_Interface {
     autonomo: boolean,
     freelancer: boolean,
     cidade: string,
+    avaliacoes: number,
     setInfoUser: any
 }
 export interface Service_Interface {

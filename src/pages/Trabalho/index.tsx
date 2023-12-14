@@ -2,7 +2,7 @@ import styles from './Trabalho.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Snackbar } from '@mui/material';
-import { deletarSolicitacao, infoSolicitado, infoUser, userInscrito } from 'services/firestore';
+import { atualizarInfoUser, deletarSolicitacao, infoSolicitado, infoUser, userInscrito } from 'services/firestore';
 import Voltar from 'images/voltar.png';
 import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import UserIMG from 'images/user.png';
@@ -14,6 +14,7 @@ import NotFound from 'pages/NotFound';
 import { User_Interface } from 'types/User';
 import { auth } from 'config/firebase';
 import Button from 'components/Button';
+import { Rating } from '@mui/material'
 import { timeout } from 'utils/common';
 
 interface UserInformation {
@@ -22,7 +23,8 @@ interface UserInformation {
     estrelas: number,
     cargos: string[],
     descricao: string,
-    avatar: string
+    avatar: string,
+    avaliacoes: number
 }
 
 export default function Trabalho(usuarioLogado: User_Interface) {
@@ -35,6 +37,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
         visivel: false,
         message: ''
     })
+    const [avaliacao, setAvaliacao] = useState<number | null>(5)
     const [deletar, setDeletar] = useState(false)
     const [concluirProjeto, setConcluirProjeto] = useState(false)
     const [erroNotFound, setErroNotFound] = useState(false)
@@ -60,13 +63,14 @@ export default function Trabalho(usuarioLogado: User_Interface) {
             cidade: '',
             freelancer: false,
             autonomo: false,
+            avaliacoes: 1,
             inscritos: [],
             cargos: []
         },
         necessario: '',
-        userSelecionado: { id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' },
+        userSelecionado: { id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '', avaliacoes: 1 },
         inscritos: [],
-        contratado: { id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '' }
+        contratado: { id: '', nome: '', estrelas: 0, cargos: [], descricao: '', avatar: '', avaliacoes: 1 }
     });
 
     useEffect(() => {
@@ -129,15 +133,30 @@ export default function Trabalho(usuarioLogado: User_Interface) {
             navigate(-1)
         } else {
             setStatusToast({ message: 'Ocorreu algum erro ao tentar deletar a solicitação! Tente novamente mais tarde!', visivel: true })
+            setDeletar(false)
         }
     }
 
     async function concluirSolicitacao() {
-        if(trabalhoInfo.contratado.id === '') {
+        if (trabalhoInfo.info.idContratado === '') {
             setStatusToast({ message: 'Não é permitido concluir uma solicitação sem nenhum usuário contratado!', visivel: true })
             return
         }
-        console.log('concluído')
+        if (avaliacao === 0 || avaliacao === null) {
+            setStatusToast({ message: 'Não é permitido dar nota zero ao Especialista contratado!', visivel: true })
+            return
+        }
+        const numeroAvalia = ((trabalhoInfo.contratado.estrelas * trabalhoInfo.contratado.avaliacoes) + avaliacao) / (trabalhoInfo.contratado.avaliacoes + 1)
+        const response = await deletarSolicitacao(jobId!)
+        if (response === 'ok') {
+            setStatusToast({ message: 'Solicitação concluída com sucesso! Aguarde um momento...', visivel: true })
+            await atualizarInfoUser(trabalhoInfo.info.idContratado, { avaliacoes: trabalhoInfo.contratado.avaliacoes + 1, estrelas: numeroAvalia })
+            await timeout(3000)
+            navigate(-1)
+        } else {
+            setStatusToast({ message: 'Ocorreu algum erro ao tentar encerrar a solicitação! Tente novamente mais tarde!', visivel: true })
+            setConcluirProjeto(false)
+        }
     }
 
     const { info, necessario, inscritos, userSelecionado } = trabalhoInfo;
@@ -173,8 +192,16 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Você está concluindo a solicitação "{info.titulo}"
+                        Você está concluindo a solicitação "{info.titulo}".
+                        Por favor, avalie o Especialista Contratado
                     </DialogContentText>
+                    {trabalhoInfo.contratado.id !== '' && <Rating
+                        name="hover-feedback"
+                        value={avaliacao}
+                        onChange={(e, newValue) => setAvaliacao(newValue)}
+                        precision={1}
+                        size='large'
+                    />}
                 </DialogContent>
                 <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
                     <Button dark={false} texto="Cancelar Conclusão" onClick={() => setConcluirProjeto(false)} />
@@ -210,7 +237,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                 </div>
                 <Divider />
                 <div>
-                    <div className={styles.especialistas__title}>Especialistas Candidatados</div>
+                    <div className={styles.especialistas__title}>{trabalhoInfo.contratado.id === '' ? 'Especialistas Candidatados' : 'Especialista Responsável'}</div>
                     <div className={styles.especialistas__cards}>
                         {trabalhoInfo.info.idContratado === '' ?
                             inscritos.map((inscrito, keyId) => (

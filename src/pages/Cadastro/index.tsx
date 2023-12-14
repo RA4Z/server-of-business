@@ -29,6 +29,7 @@ export default function Cadastro() {
         autonomo: false,
         freelancer: false,
         estrelas: 5.0,
+        avaliacoes: 1,
         cargos: [],
         descricao: ''
     })
