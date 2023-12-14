@@ -20,13 +20,13 @@ export async function salvarImagem(imagem: string | null, imagemNome: string, pa
 }
 
 export async function deletarImagem(serviceId: string, path: string) {
-  console.log(`${path}/${serviceId}`)
   const refStorage = ref(storage, `${path}/${serviceId}`)
   try {
     await deleteObject(refStorage)
     return true;
   }
-  catch (error) {
+  catch (error: any) {
+    if(error.code === 'storage/object-not-found') return true
     return false
   }
 }
