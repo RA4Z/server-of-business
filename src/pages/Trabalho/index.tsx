@@ -36,6 +36,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
         message: ''
     })
     const [deletar, setDeletar] = useState(false)
+    const [concluirProjeto, setConcluirProjeto] = useState(false)
     const [erroNotFound, setErroNotFound] = useState(false)
     const [userVisibility, setUserVisibility] = useState(false);
     const [trabalhoInfo, setTrabalhoInfo] = useState<{
@@ -131,8 +132,15 @@ export default function Trabalho(usuarioLogado: User_Interface) {
         }
     }
 
-    const { info, necessario, inscritos, userSelecionado } = trabalhoInfo;
+    async function concluirSolicitacao() {
+        if(trabalhoInfo.contratado.id === '') {
+            setStatusToast({ message: 'Não é permitido concluir uma solicitação sem nenhum usuário contratado!', visivel: true })
+            return
+        }
+        console.log('concluído')
+    }
 
+    const { info, necessario, inscritos, userSelecionado } = trabalhoInfo;
     return (
         <>
             <Dialog
@@ -152,6 +160,25 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                 <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
                     <Button dark={false} texto="Cancelar" onClick={() => setDeletar(false)} />
                     <Button dark={true} texto="Deletar Solicitação" onClick={() => cancelarSolicitacao()} />
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                open={concluirProjeto}
+                onClose={() => setConcluirProjeto(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                style={{ textAlign: 'center' }}>
+                <DialogTitle id="alert-dialog-title">
+                    {`Concluir Projeto`}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Você está concluindo a solicitação "{info.titulo}"
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button dark={false} texto="Cancelar Conclusão" onClick={() => setConcluirProjeto(false)} />
+                    <Button dark={true} texto="Concluir Solicitação" onClick={() => concluirSolicitacao()} />
                 </DialogActions>
             </Dialog>
 
@@ -178,7 +205,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                     </div>
                     <div className={styles.botoes}>
                         <Button dark={false} texto='Cancelar Solicitação' onClick={() => setDeletar(true)} />
-                        <Button dark={true} texto='Concluir Solicitação' />
+                        <Button dark={true} texto='Concluir Solicitação' onClick={() => setConcluirProjeto(true)} />
                     </div>
                 </div>
                 <Divider />
