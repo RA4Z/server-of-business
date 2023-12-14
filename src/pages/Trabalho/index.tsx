@@ -1,8 +1,8 @@
 import styles from './Trabalho.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Divider } from '@mui/material';
-import { infoSolicitado, infoUser, userInscrito } from 'services/firestore';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Snackbar } from '@mui/material';
+import { deletarSolicitacao, infoSolicitado, infoUser, userInscrito } from 'services/firestore';
 import Voltar from 'images/voltar.png';
 import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import UserIMG from 'images/user.png';
@@ -13,6 +13,8 @@ import dayjs from 'dayjs'
 import NotFound from 'pages/NotFound';
 import { User_Interface } from 'types/User';
 import { auth } from 'config/firebase';
+import Button from 'components/Button';
+import { timeout } from 'utils/common';
 
 interface UserInformation {
     id: any,
@@ -29,6 +31,11 @@ export default function Trabalho(usuarioLogado: User_Interface) {
     auth.onAuthStateChanged(usuario => {
         if (!usuario) navigate('/login')
     })
+    const [statusToast, setStatusToast] = useState({
+        visivel: false,
+        message: ''
+    })
+    const [deletar, setDeletar] = useState(false)
     const [erroNotFound, setErroNotFound] = useState(false)
     const [userVisibility, setUserVisibility] = useState(false);
     const [trabalhoInfo, setTrabalhoInfo] = useState<{
@@ -113,10 +120,41 @@ export default function Trabalho(usuarioLogado: User_Interface) {
         setUserVisibility(childdata);
     };
 
+    async function cancelarSolicitacao() {
+        const response = await deletarSolicitacao(jobId!)
+        if (response === 'ok') {
+            setStatusToast({ message: 'Solicitação deletada com sucesso!', visivel: true })
+            await timeout(3000)
+            navigate(-1)
+        } else {
+            setStatusToast({ message: 'Ocorreu algum erro ao tentar deletar a solicitação! Tente novamente mais tarde!', visivel: true })
+        }
+    }
+
     const { info, necessario, inscritos, userSelecionado } = trabalhoInfo;
 
     return (
         <>
+            <Dialog
+                open={deletar}
+                onClose={() => setDeletar(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                style={{ textAlign: 'center' }}>
+                <DialogTitle id="alert-dialog-title">
+                    {`Cancelar Solicitação`}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Tem certeza de que deseja deletar essa solicitação? Essa ação é irreversível!
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button dark={false} texto="Cancelar" onClick={() => setDeletar(false)} />
+                    <Button dark={true} texto="Deletar Solicitação" onClick={() => cancelarSolicitacao()} />
+                </DialogActions>
+            </Dialog>
+
             <div className={styles.pagina_overlay}>
                 {userVisibility ?
                     <User
@@ -137,6 +175,10 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                             <ImportImage serviceId={jobId} service={true} />
                         </div>
                         <p>{info.descricao} registrado para início em {dayjs(info.diaProcurado).format('DD/MM/YYYY')} às {info.horarioProcurado}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
+                    </div>
+                    <div className={styles.botoes}>
+                        <Button dark={false} texto='Cancelar Solicitação' onClick={() => setDeletar(true)} />
+                        <Button dark={true} texto='Concluir Solicitação' />
                     </div>
                 </div>
                 <Divider />
@@ -164,6 +206,12 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                     </div>
                 </div>
             </div>
+            <Snackbar
+                open={statusToast.visivel}
+                onClose={() => setStatusToast({ ...statusToast, visivel: false })}
+                autoHideDuration={3000}
+                message={statusToast.message}
+            />
         </>
     );
 }

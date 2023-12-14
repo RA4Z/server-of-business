@@ -1,5 +1,6 @@
 import { db } from '../config/firebase';
-import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
+import { deletarImagem } from './storage';
 
 export async function infoUsuario(emailUser: string, setUser: any) {
   try {
@@ -30,7 +31,7 @@ export async function infoSolicitados(emailUser: string, setSolicitado: any) {
     solicitar.sort((a, b) => (a.diaProcurado < b.diaProcurado) ? -1 : 1)
     setSolicitado(solicitar)
   } catch (error) {
-    console.log(error)
+    return 'error'
   }
 }
 
@@ -59,7 +60,6 @@ export async function atualizarInfoUser(userId: string, data: any) {
     return 'ok'
   }
   catch (error) {
-    console.log(error)
     return 'error'
   }
 }
@@ -70,7 +70,6 @@ export async function atualizarInfoService(serviceId: string, data: any) {
     return 'ok'
   }
   catch (error) {
-    console.log(error)
     return 'error'
   }
 }
@@ -130,23 +129,9 @@ export async function infoUser(projetoID: any, setProjeto: any) {
     return 'ok'
   }
   catch (error) {
-    console.log(error)
     return 'error'
   }
 }
-export async function infoSolicitado(projetoID: any, setProjeto?: any, info?: any) {
-  try {
-    const ref = (await getDoc(doc(db, 'solicitados', projetoID))).data()
-    if (setProjeto) setProjeto(ref)
-    return ref
-  }
-  catch (error) {
-    console.log(error)
-    if (info) return info
-    return 'error'
-  }
-}
-
 export async function userInscrito(userID: string[], setProjeto: any) {
   try {
     const users: any[] = await Promise.all(userID.map(async (id) => {
@@ -156,11 +141,36 @@ export async function userInscrito(userID: string[], setProjeto: any) {
     setProjeto(users);
     return 'ok';
   } catch (error) {
-    console.log(error);
     return 'error';
   }
 }
 
+export async function infoSolicitado(projetoID: any, setProjeto?: any, info?: any) {
+  try {
+    const ref = (await getDoc(doc(db, 'solicitados', projetoID))).data()
+    if (setProjeto) setProjeto(ref)
+    return ref
+  }
+  catch (error) {
+    if (info) return info
+    return 'error'
+  }
+}
+
+export async function deletarSolicitacao(projetoID: string) {
+  try {
+    const result = await deletarImagem(`${projetoID}-serviceIMG.png`, 'services')
+    const postRef = doc(db, "solicitados", projetoID);
+    if (result) {
+      await deleteDoc(postRef)
+      return 'ok'
+    }
+    return 'error'
+  }
+  catch (error) {
+    return 'error'
+  }
+}
 
 export async function getChat(setMessages: any) {
   const unsubscribe = query(collection(db, 'messages'), orderBy('timestamp'))
@@ -171,7 +181,6 @@ export async function getChat(setMessages: any) {
     });
     setMessages(messagesData);
   });
-
   return unsubscribe;
 }
 

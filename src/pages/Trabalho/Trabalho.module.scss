@@ -16,6 +16,13 @@
     justify-content: center;
 }
 
+.botoes {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    gap: 20px;
+}
+
 .seta_volta {
     display: flex;
     justify-self: start;
