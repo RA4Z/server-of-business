@@ -1,0 +1,42 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.container {
+    background-color: $backgrounds;
+    list-style-type: none;
+    height: 60vh;
+    width: 35vw;
+    position: fixed;
+    right: 20px;
+    bottom: 0;
+
+    @media(max-width: $tablet) {
+        width: 60vw;
+    }
+
+    @media(max-width: $mobile) {
+        width: 100vw;
+        height: 70vh;
+        right: 0px;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: $secondary;
+        width: 100%;
+        color: white;
+        height: 5vh;
+
+        li {
+            font-size: calc(12px + 1vmin);
+        }
+
+        img {
+            height: 100%;
+        }
+    }
+
+}

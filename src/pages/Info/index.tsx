@@ -18,6 +18,7 @@ import { auth } from 'config/firebase';
 import dayjs from 'dayjs'
 import NotFound from 'pages/NotFound';
 import { timeout } from 'utils/common';
+import Chat from 'components/Chat';
 
 export default function Info(usuarioLogado: User_Interface) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
@@ -31,6 +32,7 @@ export default function Info(usuarioLogado: User_Interface) {
         visivel: false,
         message: ''
     })
+    const [contatarChat, setContatarChat] = useState(false)
     const [abandonarProjeto, setAbandonarProjeto] = useState(false)
     const [askCandidatar, setAskCandidatar] = useState(false)
     const [necessario, setNecessario] = useState('')
@@ -185,7 +187,7 @@ export default function Info(usuarioLogado: User_Interface) {
                 {(categoria === 'services' && info.idContratado === usuarioLogado.id) ?
                     <div className={styles.contratante}>
                         <Button texto='Abandonar Projeto' dark={false} onClick={() => setAbandonarProjeto(true)} />
-                        <Button texto='Contatar Contratante' dark={true} />
+                        <Button texto='Contatar Contratante' dark={true} onClick={() => setContatarChat(true)} />
                     </div>
                     :
                     <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} onClick={() => direcionarTarefa(categoria)} />}
@@ -196,6 +198,7 @@ export default function Info(usuarioLogado: User_Interface) {
                 autoHideDuration={3000}
                 message={statusToast.message}
             />
+            <Chat contatarChat={contatarChat} setContatarChat={setContatarChat} />
         </>
     )
 }

@@ -9,7 +9,6 @@ import { Box, LinearProgress } from '@mui/material';
 const Home = lazy(() => import('pages/Home'));
 const Login = lazy(() => import('pages/Login'));
 const NotFound = lazy(() => import('pages/NotFound'));
-const ChatPage = lazy(() => import('pages/ChatPage'));
 const Cadastro = lazy(() => import('pages/Cadastro'));
 const Header = lazy(() => import('components/Header'));
 const Footer = lazy(() => import('components/Footer'));
@@ -54,7 +53,6 @@ export default function AppRouter() {
                         <Route path='info/:categoria/:id' element={<Info  {...infoUser} setInfoUser={setInfoUser} />} />
                         <Route path='/perfil' element={<Perfil {...infoUser} setInfoUser={setInfoUser} />} />
                         <Route path='/trabalho/:jobId' element={<Trabalho {...infoUser} setInfoUser={setInfoUser} />} />
-                        <Route path='/chat' element={<ChatPage {...infoUser} setInfoUser={setInfoUser} />} />
                         <Route path='*' element={<NotFound />} />
                     </Route>
                     <Route path='/login' element={<Login />} />
