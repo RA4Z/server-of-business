@@ -81,7 +81,10 @@ export default function Info(usuarioLogado: User_Interface) {
         data: categoria === 'services' ? service.diaProcurado : '',
         hora: categoria === 'services' ? service.horarioProcurado : '',
         cidade: categoria === 'services' ? service.cidade : '',
-        solicitante: categoria === 'services' ? service.solicitante : ''
+        estado: categoria === 'services' ? service.estado : '',
+        solicitante: categoria === 'services' ? service.solicitante : '',
+        idContratado: categoria === 'services' ? service.idContratado : '',
+        endereco: categoria === 'services' ? service.endereco : '',
     }
 
     async function candidatura() {
@@ -122,7 +125,11 @@ export default function Info(usuarioLogado: User_Interface) {
                         {categoria === 'services' ?
                             <>
                                 <img src={info.imagem ? info.imagem : ImagemTrabalho} alt='Imagem do serviço solicitado' className={styles.info__desc__serviceImg} />
-                                <p>{info.descricao} registrado para início em {dayjs(info.data).format('DD/MM/YYYY')} às {info.hora}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
+                                <div>
+                                    <p>{info.descricao} registrado para início em {dayjs(info.data).format('DD/MM/YYYY')} às {info.hora}. À procura de {necessario}, solicitado por {info.solicitante}.</p>
+                                    <p>Localizado no estado de {info.estado} em {info.cidade}.</p>
+                                    {info.idContratado === usuarioLogado.id && <p>O Endereço registrado é {info.endereco}</p>}
+                                </div>
                             </>
                             :
                             <>
@@ -137,7 +144,13 @@ export default function Info(usuarioLogado: User_Interface) {
                     </div>
                     {categoria === 'users' ? <p>{info.descricao}</p> : ''}
                 </div>
-                <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} onClick={() => direcionarTarefa(categoria)} />
+                {(categoria === 'services' && info.idContratado === usuarioLogado.id) ?
+                    <div className={styles.contratante}>
+                        <Button texto='Abandonar Projeto' dark={false} />
+                        <Button texto='Contatar Contratante' dark={true} />
+                    </div>
+                    :
+                    <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} onClick={() => direcionarTarefa(categoria)} />}
             </div>
             <Snackbar
                 open={statusToast.visivel}
