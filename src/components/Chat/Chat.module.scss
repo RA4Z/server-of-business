@@ -40,6 +40,37 @@
         }
     }
 
+    &__chat {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow-y: auto;
+        width: 100%;
+        height: 79%;
+        padding: 20px;
+        color: white;
+        gap: 10px;
+    }
+
+}
+
+.enviada {
+    display: flex;
+    align-self: flex-end;
+    width: fit-content;
+    max-width: 70%;
+    background-color: $secondary;
+    padding: 7px;
+    border-radius: 10px;
+}
+
+.recebida {
+    display: flex;
+    align-self: flex-start;
+    width: fit-content;
+    background-color: $paralela;
+    padding: 7px;
+    border-radius: 10px;
 }
 
 .input {

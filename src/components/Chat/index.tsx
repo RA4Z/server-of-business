@@ -29,6 +29,8 @@ export default function Chat(props: Props) {
             if (props.mensagens.length === 0) {
                 try {
                     await getMessages(`chats/${props.idProjeto}`, setHistorico, props.setMensagens)
+                    const chatElement = document.querySelector('#texto_chat');
+                    if (chatElement) chatElement.scrollTop = chatElement.scrollHeight;
                 } catch (error) {
                     console.error('Erro ao buscar mensagens:', error);
                 }
@@ -37,15 +39,20 @@ export default function Chat(props: Props) {
         fetchData();
     }, [props]);
     return (
-        <>
+        <div className={styles.container}>
             {props.contatarChat && <div className={styles.container}>
                 <div className={styles.container__header}>
                     <li>{props.receptor}</li>
                     <img src={Cancelar} alt='Fechar Chat' onClick={() => props.setContatarChat(false)} />
                 </div>
-                <div className={styles.container__chat}>
+                <div id='texto_chat' className={styles.container__chat}>
                     {historico.map((message, index) => (
-                        <div key={index}>{message.mensagem}</div>
+                        <>
+                            {message.enviadoPor === props.user.email ?
+                                <li className={styles.enviada} key={index}>{message.mensagem}</li>
+                                :
+                                <li className={styles.recebida} key={index}>{message.mensagem}</li>}
+                        </>
                     ))}
                 </div>
                 <div className={styles.sendMessage}>
@@ -60,6 +67,6 @@ export default function Chat(props: Props) {
                     <img src={Send} alt='Enviar mensagem' onClick={() => enviarMensagem()} />
                 </div>
             </div>}
-        </>
+        </div>
     )
 }
