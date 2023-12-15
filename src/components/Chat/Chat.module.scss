@@ -36,7 +36,28 @@
 
         img {
             height: 100%;
+            cursor: pointer;
         }
     }
 
+}
+
+.input {
+    width: 85%;
+    background-color: white;
+}
+
+.sendMessage {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    bottom: 0;
+    flex-direction: row;
+    gap: 10px;
+    position: absolute;
+
+    img {
+        cursor: pointer;
+        height: 40px;
+    }
 }

@@ -198,7 +198,7 @@ export default function Info(usuarioLogado: User_Interface) {
                 autoHideDuration={3000}
                 message={statusToast.message}
             />
-            <Chat contatarChat={contatarChat} setContatarChat={setContatarChat} />
+            <Chat idProjeto={id} user={usuarioLogado} contatarChat={contatarChat} setContatarChat={setContatarChat} receptor={info.solicitante} />
         </>
     )
 }

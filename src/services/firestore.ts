@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { deletarImagem } from './storage';
 
 export async function infoUsuario(emailUser: string, setUser: any) {
@@ -188,21 +188,4 @@ export async function deletarSolicitacao(projetoID: string) {
   catch (error) {
     return 'error'
   }
-}
-
-export async function getChat(setMessages: any) {
-  const unsubscribe = query(collection(db, 'messages'), orderBy('timestamp'))
-  onSnapshot(unsubscribe, (querySnapshot) => {
-    const messagesData: any[] = [];
-    querySnapshot.forEach(doc => {
-      messagesData.push({ id: doc.id, ...doc.data() });
-    });
-    setMessages(messagesData);
-  });
-  return unsubscribe;
-}
-
-export async function sendChatMessage(newMessage: string, setNewMessage: any, chat: string, sendBy: string) {
-  await addDoc(collection(db, 'messages'), { text: newMessage, timestamp: serverTimestamp(), chat: chat, sendBy: sendBy })
-  setNewMessage('');
 }
