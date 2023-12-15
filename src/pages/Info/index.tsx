@@ -17,6 +17,7 @@ import { User_Interface } from 'types/User';
 import { auth } from 'config/firebase';
 import dayjs from 'dayjs'
 import NotFound from 'pages/NotFound';
+import { timeout } from 'utils/common';
 
 export default function Info(usuarioLogado: User_Interface) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
@@ -30,6 +31,7 @@ export default function Info(usuarioLogado: User_Interface) {
         visivel: false,
         message: ''
     })
+    const [abandonarProjeto, setAbandonarProjeto] = useState(false)
     const [askCandidatar, setAskCandidatar] = useState(false)
     const [necessario, setNecessario] = useState('')
     const [user, setUser] = useState(info_especialistas[0])
@@ -90,11 +92,28 @@ export default function Info(usuarioLogado: User_Interface) {
     async function candidatura() {
         let inscritos = service.inscritos
         inscritos.push(usuarioLogado.id)
-        await atualizarInfoService(id!, { inscritos: inscritos })
-        setStatusToast({ message: 'Você se inscreveu com sucesso na solicitação!', visivel: true })
-        setAskCandidatar(false)
+        const response = await atualizarInfoService(id!, { inscritos: inscritos })
+        if (response === 'ok') {
+            setStatusToast({ message: 'Você se inscreveu com sucesso na solicitação!', visivel: true })
+            setAskCandidatar(false)
+            await timeout(2000)
+            window.location.reload()
+        } else {
+            setStatusToast({ message: 'Ocorreu algum erro na inscrição! Tente novamente mais tarde!', visivel: true })
+        }
     }
-
+    async function abandonar() {
+        let inscritos = service.inscritos.filter(idInscrito => idInscrito !== usuarioLogado.id)
+        const response = await atualizarInfoService(id!, { idContratado: '', inscritos: inscritos })
+        if (response === 'ok') {
+            setStatusToast({ message: 'Solicitação abandonada com sucesso!', visivel: true })
+            setAbandonarProjeto(false)
+            await timeout(2000)
+            window.location.reload()
+        } else {
+            setStatusToast({ message: 'Ocorreu algum erro ao tentar abandonar a solicitação! Tente novamente mais tarde!', visivel: true })
+        }
+    }
 
     return (
         <>
@@ -115,6 +134,25 @@ export default function Info(usuarioLogado: User_Interface) {
                 <DialogActions>
                     <Button dark={false} texto="Cancelar" onClick={() => setAskCandidatar(false)} />
                     <Button dark={true} texto="Candidatar-se" onClick={() => candidatura()} />
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                open={abandonarProjeto}
+                onClose={() => setAbandonarProjeto(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                style={{ textAlign: 'center' }}>
+                <DialogTitle id="alert-dialog-title">
+                    {`Abandonar Solicitação`}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Tem certeza de que deseja abandonar essa solicitação?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button dark={false} texto="Cancelar" onClick={() => setAbandonarProjeto(false)} />
+                    <Button dark={true} texto="Abandonar" onClick={() => abandonar()} />
                 </DialogActions>
             </Dialog>
             <div className={styles.container}>
@@ -146,7 +184,7 @@ export default function Info(usuarioLogado: User_Interface) {
                 </div>
                 {(categoria === 'services' && info.idContratado === usuarioLogado.id) ?
                     <div className={styles.contratante}>
-                        <Button texto='Abandonar Projeto' dark={false} />
+                        <Button texto='Abandonar Projeto' dark={false} onClick={() => setAbandonarProjeto(true)} />
                         <Button texto='Contatar Contratante' dark={true} />
                     </div>
                     :
