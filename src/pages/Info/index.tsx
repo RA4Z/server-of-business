@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from 'components/Button';
@@ -18,10 +18,10 @@ import { auth } from 'config/firebase';
 import dayjs from 'dayjs'
 import NotFound from 'pages/NotFound';
 import { timeout } from 'utils/common';
-import Chat from 'components/Chat';
+
+const Chat = lazy(() => import('components/Chat'));
 
 export default function Info(usuarioLogado: User_Interface) {
-    useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const { categoria, id } = useParams();
     const navigate = useNavigate();
     auth.onAuthStateChanged(usuario => {
@@ -32,6 +32,7 @@ export default function Info(usuarioLogado: User_Interface) {
         visivel: false,
         message: ''
     })
+    const [mensagens, setMensagens] = useState<{ enviadoPor: string, mensagem: string, timestamp: number }[]>([])
     const [contatarChat, setContatarChat] = useState(false)
     const [abandonarProjeto, setAbandonarProjeto] = useState(false)
     const [askCandidatar, setAskCandidatar] = useState(false)
@@ -198,7 +199,10 @@ export default function Info(usuarioLogado: User_Interface) {
                 autoHideDuration={3000}
                 message={statusToast.message}
             />
-            <Chat idProjeto={id} user={usuarioLogado} contatarChat={contatarChat} setContatarChat={setContatarChat} receptor={info.solicitante} />
+            {contatarChat && <Chat idProjeto={id} user={usuarioLogado}
+                contatarChat={contatarChat} setContatarChat={setContatarChat}
+                mensagens={mensagens} setMensagens={setMensagens}
+                receptor={info.solicitante} />}
         </>
     )
 }
