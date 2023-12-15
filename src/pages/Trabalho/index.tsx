@@ -173,7 +173,8 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Tem certeza de que deseja deletar essa solicitação? Essa ação é irreversível!
+                        <div>Tem certeza de que deseja deletar essa solicitação?</div>
+                        <div>Essa ação é irreversível!</div>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
@@ -192,8 +193,8 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Você está concluindo a solicitação "{info.titulo}".
-                        Por favor, avalie o Especialista Contratado
+                        <div>Você está concluindo a solicitação "{info.titulo}".</div>
+                        <div>Por favor, avalie o Especialista Contratado</div>
                     </DialogContentText>
                     {trabalhoInfo.contratado.id !== '' && <Rating
                         name="hover-feedback"
