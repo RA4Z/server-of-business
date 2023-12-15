@@ -4,6 +4,7 @@ import { auth } from 'config/firebase'
 import { infoUsuario } from 'services/firestore';
 import { signOut } from 'firebase/auth';
 import { info_especialistas } from 'utils/infos';
+import { Box, LinearProgress } from '@mui/material';
 
 const Home = lazy(() => import('pages/Home'));
 const Login = lazy(() => import('pages/Login'));
@@ -42,7 +43,9 @@ export default function AppRouter() {
 
     return (
         <Router>
-            <Suspense fallback={<p>Carregando...</p>}>
+            <Suspense fallback={<Box sx={{ width: '100%' }}>
+                <LinearProgress />
+            </Box>}>
                 <Routes>
                     <Route path='/' element={<Header selected={pagina} childToParent={childToParent} avatar={infoUser.avatar} />}>
                         <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
@@ -56,8 +59,8 @@ export default function AppRouter() {
                     </Route>
                     <Route path='/login' element={<Login />} />
                 </Routes>
+                <Footer />
             </Suspense>
-            <Footer />
         </Router>
     )
 }
