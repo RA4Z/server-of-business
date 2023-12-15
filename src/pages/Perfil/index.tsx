@@ -13,7 +13,7 @@ import Editar from './Editar'
 import Solicitar from './Solicitar'
 import { Service_Interface, User_Interface } from 'types/User'
 import { auth } from 'config/firebase'
-import { infoSolicitados } from 'services/firestore'
+import { infoProjetosContratados, infoSolicitados } from 'services/firestore'
 import ImportImage from 'components/ImportImage'
 
 function Perfil(infoUser: User_Interface) {
@@ -26,13 +26,15 @@ function Perfil(infoUser: User_Interface) {
     const [editar, setEditar] = useState(false)
     const [solicitar, setSolicitar] = useState(false)
     const [solicitados, setSolicitados] = useState<Service_Interface[]>()
+    const [contratado, setContratado] = useState<Service_Interface[]>()
 
     useEffect(() => {
         async function Solicitar() {
             await infoSolicitados(infoUser.email, setSolicitados)
+            await infoProjetosContratados(infoUser.id, setContratado)
         }
         Solicitar()
-    }, [infoUser.email])
+    }, [infoUser.email, infoUser.id])
 
     const visible = (childdata: boolean) => {
         setEditar(childdata)
@@ -83,6 +85,21 @@ function Perfil(infoUser: User_Interface) {
                     />
                 ))}
             </div>
+            {(contratado !== undefined && contratado.length > 0) && <>
+                <Divider style={{ margin: 50 }} />
+                <p className={styles.titulo_solicita}>Projetos Contratados</p>
+                <div className={styles.cards_solicitados}>
+                    {contratado && contratado.map(solicitado => (
+                        <Card
+                            key={solicitado.id}
+                            titulo={solicitado.titulo}
+                            imagem={solicitado.imagem === '' ? ImagemTrabalho : solicitado.imagem}
+                            buttonText='Ver mais informações'
+                            descricao={solicitado.descricao}
+                            onClick={() => navigate(`/trabalho/${solicitado.id}`)}
+                        />
+                    ))}
+                </div></>}
         </>
     )
 }

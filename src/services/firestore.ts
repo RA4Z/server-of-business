@@ -35,6 +35,23 @@ export async function infoSolicitados(emailUser: string, setSolicitado: any) {
   }
 }
 
+export async function infoProjetosContratados(idUser: string, setSolicitado: any) {
+  try {
+    let solicitar: any[] = []
+    const userRef = collection(db, 'solicitados');
+    const q = query(userRef, where("idContratado", "==", idUser));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      let info = { id: doc.id, ...doc.data() }
+      solicitar.push(info)
+    });
+    solicitar.sort((a, b) => (a.diaProcurado < b.diaProcurado) ? -1 : 1)
+    setSolicitado(solicitar)
+  } catch (error) {
+    return 'error'
+  }
+}
+
 export async function salvarInfoUser(data: any) {
   try {
     const result = await addDoc(collection(db, 'usuários'), data)
