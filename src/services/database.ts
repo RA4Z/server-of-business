@@ -1,5 +1,5 @@
 import { database } from "config/firebase";
-import { child, push, set, ref, serverTimestamp, query, get, DataSnapshot } from "firebase/database";
+import { child, push, set, ref, serverTimestamp, onValue } from "firebase/database";
 
 export async function sendMessage(serviceId: string, message: string, user: string) {
     const id = push(child(ref(database), 'chats')).key
@@ -9,23 +9,15 @@ export async function sendMessage(serviceId: string, message: string, user: stri
 }
 
 export async function getMessages(dbRef: string, setHistorico: any, setBackup: any) {
-    try {
-        const messagesRef = ref(database, dbRef);
-        const messagesSnapshot = await get(query(messagesRef));
+    const messagesRef = ref(database, dbRef);
+    onValue(messagesRef, (snapshot) => {
         const messagesData: any[] = [];
-
-        if (messagesSnapshot.exists()) {
-            messagesSnapshot.forEach((childSnapshot: DataSnapshot) => {
-                messagesData.push({ id: childSnapshot.key, ...childSnapshot.val() });
-            });
-            setBackup(messagesData)
-            setHistorico(messagesData);
-            return messagesData;
-        } else {
-            return 'Nenhum dado encontrado';
-        }
-    } catch (error) {
-        console.error('Erro ao buscar mensagens:', error);
-        return 'Erro ao buscar mensagens';
-    }
+        snapshot.forEach((childSnapshot) => {
+            messagesData.push({ id: childSnapshot.key, ...childSnapshot.val() });
+        });
+        setHistorico(messagesData);
+    }, {
+        // A opção 'onlyOnce: false' faz com que o ouvinte continue ativo após a primeira execução
+        onlyOnce: false
+    });
 }
