@@ -19,8 +19,9 @@ interface Props {
 export default function Chat(props: Props) {
     const [historico, setHistorico] = useState(props.mensagens)
     const [mensagem, setMensagem] = useState('')
+
     async function enviarMensagem() {
-        await sendMessage(props.idProjeto, mensagem, props.user.email)
+        if (mensagem !== '') await sendMessage(props.idProjeto, mensagem, props.user.email)
         setMensagem('')
     }
 
@@ -56,15 +57,31 @@ export default function Chat(props: Props) {
                     ))}
                 </div>
                 <div className={styles.sendMessage}>
-                    <TextField id="text-chat"
+                    <TextField
+                        id="text-chat"
                         label="Escrever mensagem"
                         value={mensagem}
-                        onChange={e => setMensagem(e.target.value)}
+                        onChange={(e) => setMensagem(e.target.value)}
                         multiline
                         maxRows={4}
                         className={styles.input}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                enviarMensagem();
+                            } 
+                        }}
                     />
-                    <img src={Send} alt='Enviar mensagem' onClick={() => enviarMensagem()} />
+
+                    <img
+                        src={Send}
+                        alt='Enviar mensagem'
+                        onClick={() => {
+                            if (mensagem.trim() !== '') {
+                                enviarMensagem();
+                            }
+                        }}
+                    />
                 </div>
             </div>}
         </div>
