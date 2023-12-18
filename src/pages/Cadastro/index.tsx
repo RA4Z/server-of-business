@@ -20,6 +20,7 @@ export default function Cadastro() {
     })
 
     const [data, setData] = useState({
+        avatar:'',
         nome: '',
         email: '',
         pais: '',

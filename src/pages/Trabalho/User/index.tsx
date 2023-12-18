@@ -44,7 +44,7 @@ export default function User(props: Props) {
                     </div>
                     <img src={props.avatar !== '' ? props.avatar : UserIMG} alt='Imagem de perfil do usuário' className={styles.logotipo} />
                     <div className={styles.cargos_armazenados}>
-                        {info.cargos.map((cargo, index) => (
+                        {props.cargos.map((cargo, index) => (
                             <div className={styles.especializacao} key={index}>
                                 <li>{cargo}</li>
                             </div>
