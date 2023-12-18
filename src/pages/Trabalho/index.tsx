@@ -254,7 +254,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                             ))
                             :
                             <div className={styles.especialistas__card} onClick={() => setContatarChat(true)}>
-                                <img src={trabalhoInfo.contratado.avatar ? trabalhoInfo.contratado.avatar : UserIMG} alt='Perfil de usuário' />
+                                <img className={styles.especialistas__card__avatar} src={trabalhoInfo.contratado.avatar ? trabalhoInfo.contratado.avatar : UserIMG} alt='Perfil de usuário' />
                                 <div>
                                     <p>{trabalhoInfo.contratado.nome}</p>
                                     <p><img src={Estrela} alt='Estrela' />{trabalhoInfo.contratado.estrelas}</p>

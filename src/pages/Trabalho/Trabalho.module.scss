@@ -64,7 +64,7 @@
             border-radius: 25px;
 
             @media(max-width: $mobile) {
-                width: 110%
+                width: 100%
             }
         }
 
@@ -121,7 +121,7 @@
 
         &__avatar {
             object-fit: cover;
-            border-radius: 50px;
+            border-radius: 100px;
 
             @media(min-width: $tablet) {
                 width: 100px;
