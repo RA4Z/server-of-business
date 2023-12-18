@@ -1,20 +1,61 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
-.background {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    margin-top: 100px;
-    padding: 30px;
-    flex-direction: column;
+.container {
     background-color: $background-footer;
-    
-    button, a {
+    text-align: center;
+    padding: 30px 30px 10px 30px;
+    margin-top: 100px;
+
+    button,
+    p,
+    a {
         border: none;
         text-decoration: none;
         background-color: transparent;
+        margin: 0;
         color: $color;
-        font-size: calc(8px + 2vmin);
+        font-size: calc(6px + 2vmin);
+    }
+}
+
+.background {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    text-align: center;
+
+    &__logotipo {
+        height: calc(30px + 10vmin);
+    }
+
+    &__dev {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.server {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.social {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+    gap: 15px;
+
+    img {
+        height: calc(10px + 5vmin);
+        background-color: white;
+        border-radius: 100px;
+        border-style: solid;
+        cursor: pointer;
     }
 }

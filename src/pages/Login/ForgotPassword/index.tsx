@@ -12,7 +12,8 @@ export default function ForgotPassword({ visible, childToParent }: any) {
     async function enviarProtocolo() {
         const result = await emailRedefinirSenha(email)
         if (result) {
-            setStatusToast({ visivel: true, message: 'Iremos enviar o protocolo de redefinição de senha ao seu endereço de E-mail' })
+            setStatusToast({ visivel: true, message: 'Enviaremos o protocolo de redefinição ao seu endereço de E-mail!' })
+            childToParent(false)
         } else {
             setStatusToast({ visivel: true, message: 'Ocorreu algum erro, tente novamente mais tarde!' })
         }
