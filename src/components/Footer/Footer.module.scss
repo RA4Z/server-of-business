@@ -35,6 +35,16 @@
     }
 }
 
+.atribuicoes {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+
+    a {
+        font-size: calc(7px + 1vmin);
+    }
+}
+
 .server {
     display: flex;
     flex-direction: row;

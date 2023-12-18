@@ -20,6 +20,9 @@ function Footer() {
                         <p>robertz.raz@gmail.com</p>
                     </div>
                 </div>
+                <div className={styles.atribuicoes}>
+                    <a href="https://www.flaticon.com/br/autores/freepik">Ícones criados por Freepik - Flaticon</a>
+                </div>
             </div>
             <div className={styles.social}>
                 <img src={Instagram} alt='Logotipo do Instagram' />
