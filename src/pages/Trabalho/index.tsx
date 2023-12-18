@@ -16,6 +16,7 @@ import { auth } from 'config/firebase';
 import Button from 'components/Button';
 import { Rating } from '@mui/material'
 import { timeout } from 'utils/common';
+import Chat from 'components/Chat';
 
 interface UserInformation {
     id: any,
@@ -37,6 +38,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
         visivel: false,
         message: ''
     })
+    const [contatarChat, setContatarChat] = useState(false)
     const [avaliacao, setAvaliacao] = useState<number | null>(5)
     const [deletar, setDeletar] = useState(false)
     const [concluirProjeto, setConcluirProjeto] = useState(false)
@@ -146,12 +148,12 @@ export default function Trabalho(usuarioLogado: User_Interface) {
             setStatusToast({ message: 'Não é permitido dar nota zero ao Especialista contratado!', visivel: true })
             return
         }
-        const numeroAvalia = ((trabalhoInfo.contratado.estrelas * trabalhoInfo.contratado.avaliacoes) + avaliacao) / (trabalhoInfo.contratado.avaliacoes + 1)
+        const numeroAvalia = (((trabalhoInfo.contratado.estrelas * trabalhoInfo.contratado.avaliacoes) + avaliacao) / (trabalhoInfo.contratado.avaliacoes + 1)).toFixed(2)
         const response = await deletarSolicitacao(jobId!)
         if (response === 'ok') {
             setStatusToast({ message: 'Solicitação concluída com sucesso! Aguarde um momento...', visivel: true })
             await atualizarInfoUser(trabalhoInfo.info.idContratado, { avaliacoes: trabalhoInfo.contratado.avaliacoes + 1, estrelas: numeroAvalia })
-            await timeout(3000)
+            await timeout(2000)
             navigate(-1)
         } else {
             setStatusToast({ message: 'Ocorreu algum erro ao tentar encerrar a solicitação! Tente novamente mais tarde!', visivel: true })
@@ -251,7 +253,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                                 </div>
                             ))
                             :
-                            <div className={styles.especialistas__card}>
+                            <div className={styles.especialistas__card} onClick={() => setContatarChat(true)}>
                                 <img src={trabalhoInfo.contratado.avatar ? trabalhoInfo.contratado.avatar : UserIMG} alt='Perfil de usuário' />
                                 <div>
                                     <p>{trabalhoInfo.contratado.nome}</p>
@@ -267,6 +269,9 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                 autoHideDuration={3000}
                 message={statusToast.message}
             />
+            {contatarChat && <Chat idProjeto={jobId} user={usuarioLogado}
+                contatarChat={contatarChat} setContatarChat={setContatarChat}
+                receptor={info.solicitante} />}
         </>
     );
 }

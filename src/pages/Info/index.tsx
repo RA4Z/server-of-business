@@ -32,7 +32,6 @@ export default function Info(usuarioLogado: User_Interface) {
         visivel: false,
         message: ''
     })
-    const [mensagens, setMensagens] = useState<{ enviadoPor: string, mensagem: string, timestamp: number }[]>([])
     const [contatarChat, setContatarChat] = useState(false)
     const [abandonarProjeto, setAbandonarProjeto] = useState(false)
     const [askCandidatar, setAskCandidatar] = useState(false)
@@ -211,7 +210,6 @@ export default function Info(usuarioLogado: User_Interface) {
             />
             {contatarChat && <Chat idProjeto={id} user={usuarioLogado}
                 contatarChat={contatarChat} setContatarChat={setContatarChat}
-                mensagens={mensagens} setMensagens={setMensagens}
                 receptor={info.solicitante} />}
         </>
     )

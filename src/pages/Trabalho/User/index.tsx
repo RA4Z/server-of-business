@@ -43,8 +43,18 @@ export default function User(props: Props) {
                         {props.estrelas}
                     </div>
                     <img src={props.avatar !== '' ? props.avatar : UserIMG} alt='Imagem de perfil do usuário' className={styles.logotipo} />
-                    <div className={styles.textos}>{props.cargos[0]}</div>
-                    <div className={styles.textos}>{props.descricao}</div>
+                    <div className={styles.cargos_armazenados}>
+                        {info.cargos.map((cargo, index) => (
+                            <div className={styles.especializacao} key={index}>
+                                <li>{cargo}</li>
+                            </div>
+                        ))}
+                    </div>
+                    <div className={styles.textos__desc}>
+                        <li>
+                            {props.descricao}
+                        </li>
+                    </div>
                 </div>
                 <Button texto='Aprovar candidato' dark={true} onClick={() => updateInformation()} />
             </div>

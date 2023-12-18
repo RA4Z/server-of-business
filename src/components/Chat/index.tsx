@@ -12,12 +12,10 @@ interface Props {
     receptor: string,
     contatarChat: any,
     setContatarChat: any,
-    mensagens: { enviadoPor: string, mensagem: string, timestamp: number }[],
-    setMensagens: any
 }
 
 export default function Chat(props: Props) {
-    const [historico, setHistorico] = useState(props.mensagens)
+    const [historico, setHistorico] = useState<{enviadoPor: string, mensagem: string, timestamp: number}[]>([])
     const [mensagem, setMensagem] = useState('')
     const chatElement = document.querySelector('#texto_chat');
 
