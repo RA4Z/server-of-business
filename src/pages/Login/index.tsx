@@ -1,7 +1,7 @@
 import Logo from 'images/logo.svg'
 import styles from './Login.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { TextField } from '@mui/material';
+import { Snackbar, TextField } from '@mui/material';
 import Button from 'components/Button';
 import ForgotPassword from 'pages/Login/ForgotPassword';
 import { useState, useEffect } from 'react';
@@ -13,6 +13,7 @@ import { verificaSeTemEntradaVazia } from 'utils/common';
 export default function Login() {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const navigate = useNavigate();
+    const [statusToast, setStatusToast] = useState({ visivel: false, message: '' })
     const [forgotPassWordVisible, setForgotPassWordVisible] = useState(false)
     const [dados, setDados] = useState({
         email: '',
@@ -30,14 +31,17 @@ export default function Login() {
     })
 
     async function realizarLogin() {
-        if (verificaSeTemEntradaVazia(dados, setDados)) return
+        if (verificaSeTemEntradaVazia(dados, setDados)) {
+            setStatusToast({ message: 'Insira seu E-mail e senha!', visivel: true })
+            return
+        }
         const resultado = await logar(dados.email, dados.senha)
         if (resultado === 'erro') {
+            setStatusToast({ message: 'E-mail ou senha inválidos!', visivel: true })
             return
         }
         navigate('/Perfil')
     }
-
 
     const childToParent = (childdata: boolean) => {
         setForgotPassWordVisible(childdata)
@@ -60,6 +64,12 @@ export default function Login() {
                 </div>
                 <ForgotPassword visible={forgotPassWordVisible} childToParent={childToParent} />
             </div>
+            <Snackbar
+                open={statusToast.visivel}
+                onClose={() => setStatusToast({ ...statusToast, visivel: false })}
+                autoHideDuration={3000}
+                message={statusToast.message}
+            />
         </>
     )
 } 
