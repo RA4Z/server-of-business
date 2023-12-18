@@ -104,3 +104,29 @@
     gap: 20px;
     flex-wrap: wrap-reverse;
 }
+
+.titulo_cargos {
+    color: $secondary;
+    text-align: center;
+    list-style-type: none;
+    font-size: calc(17px + 1vmin);
+}
+
+.cargos_armazenados {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.especializacao {
+    color: $color;
+    background-color: $secondary;
+    min-width: 150px;
+    padding: 4px 8px 4px 8px;
+    text-align: center;
+    border-radius: 10px;
+    list-style-type: none;
+}

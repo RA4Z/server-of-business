@@ -11,7 +11,7 @@ import UserIMG from 'images/user.png'
 import styles from './Info.module.scss'
 
 import { atualizarInfoService, infoSolicitado, infoUser } from 'services/firestore';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Snackbar } from '@mui/material';
 import { info_especialistas, info_servicos } from 'utils/infos';
 import { User_Interface } from 'types/User';
 import { auth } from 'config/firebase';
@@ -78,8 +78,9 @@ export default function Info(usuarioLogado: User_Interface) {
 
     const info = {
         titulo: categoria === 'users' ? user.nome : service.titulo,
-        descricao: aba_atual.descricao,
+        cargos: categoria === 'users' ? user.cargos : service.cargos,
         imagem: categoria === 'users' ? user.avatar : service.imagem,
+        descricao: aba_atual.descricao,
         premium: aba_atual.premium,
         cargo: categoria === 'users' ? user.cargos[0] : '',
         estrelas: categoria === 'users' ? user.estrelas.toFixed(2) : '',
@@ -183,6 +184,15 @@ export default function Info(usuarioLogado: User_Interface) {
                             </>
                         }
                     </div>
+                    <li className={styles.titulo_cargos}>{categoria === 'users' ? 'Especializações deste usuário' : 'Possíveis Especializações para esta solicitação'}</li>
+                    <div className={styles.cargos_armazenados}>
+                        {info.cargos.map((cargo, index) => (
+                            <div className={styles.especializacao} key={index}>
+                                <li>{cargo}</li>
+                            </div>
+                        ))}
+                    </div>
+                    <Divider style={{ width: '100%', margin: 25 }}></Divider>
                     {categoria === 'users' ? <p>{info.descricao}</p> : ''}
                 </div>
                 {(categoria === 'services' && info.idContratado === usuarioLogado.id) ?
