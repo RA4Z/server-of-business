@@ -19,22 +19,28 @@ interface Props {
 export default function Chat(props: Props) {
     const [historico, setHistorico] = useState(props.mensagens)
     const [mensagem, setMensagem] = useState('')
+    const chatElement = document.querySelector('#texto_chat');
 
     async function enviarMensagem() {
-        if (mensagem !== '') await sendMessage(props.idProjeto, mensagem, props.user.email)
+        if (mensagem !== '') {
+            await sendMessage(props.idProjeto, mensagem, props.user.email)
+            if (chatElement) chatElement.scrollTop = chatElement.scrollHeight;
+        }
         setMensagem('')
     }
 
     useEffect(() => {
+        if (historico.length > 0) {
+            if (chatElement) chatElement.scrollTop = chatElement.scrollHeight;
+        }
+    }, [historico, chatElement])
+
+    useEffect(() => {
         async function fetchData() {
-            if (props.mensagens.length === 0) {
-                try {
-                    await getMessages(`chats/${props.idProjeto}`, setHistorico, props.setMensagens)
-                    const chatElement = document.querySelector('#texto_chat');
-                    if (chatElement) chatElement.scrollTop = chatElement.scrollHeight;
-                } catch (error) {
-                    console.error('Erro ao buscar mensagens:', error);
-                }
+            try {
+                await getMessages(`chats/${props.idProjeto}`, setHistorico)
+            } catch (error) {
+                console.error('Erro ao buscar mensagens:', error);
             }
         }
         fetchData();
@@ -69,7 +75,7 @@ export default function Chat(props: Props) {
                             if (e.key === 'Enter' && !e.shiftKey) {
                                 e.preventDefault();
                                 enviarMensagem();
-                            } 
+                            }
                         }}
                     />
 

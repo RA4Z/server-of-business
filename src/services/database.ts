@@ -1,5 +1,5 @@
 import { database } from "config/firebase";
-import { child, push, set, ref, serverTimestamp, onValue } from "firebase/database";
+import { child, push, set, ref, serverTimestamp, onValue, limitToLast, query } from "firebase/database";
 
 export async function sendMessage(serviceId: string, message: string, user: string) {
     const id = push(child(ref(database), 'chats')).key
@@ -8,16 +8,19 @@ export async function sendMessage(serviceId: string, message: string, user: stri
     })
 }
 
-export async function getMessages(dbRef: string, setHistorico: any, setBackup: any) {
-    const messagesRef = ref(database, dbRef);
-    onValue(messagesRef, (snapshot) => {
-        const messagesData: any[] = [];
-        snapshot.forEach((childSnapshot) => {
-            messagesData.push({ id: childSnapshot.key, ...childSnapshot.val() });
+export async function getMessages(dbRef: string, setHistorico: any) {
+    try {
+        const messagesRef = ref(database, dbRef);
+        const limitedMessagesQuery = query(messagesRef, limitToLast(30)); // Limitando para buscar apenas as últimas 30 mensagens
+
+        onValue(limitedMessagesQuery, (snapshot) => {
+            const messagesData: any[] = [];
+            snapshot.forEach((childSnapshot) => {
+                messagesData.push({ id: childSnapshot.key, ...childSnapshot.val() });
+            });
+            setHistorico(messagesData);
         });
-        setHistorico(messagesData);
-    }, {
-        // A opção 'onlyOnce: false' faz com que o ouvinte continue ativo após a primeira execução
-        onlyOnce: false
-    });
+    } catch (error) {
+        console.error('Erro ao buscar as últimas mensagens:', error);
+    }
 }
