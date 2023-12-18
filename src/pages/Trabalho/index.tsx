@@ -271,7 +271,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
             />
             {contatarChat && <Chat idProjeto={jobId} user={usuarioLogado}
                 contatarChat={contatarChat} setContatarChat={setContatarChat}
-                receptor={info.solicitante} />}
+                receptor={trabalhoInfo.contratado.nome} />}
         </>
     );
 }
