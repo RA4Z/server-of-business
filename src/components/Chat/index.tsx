@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function Chat(props: Props) {
-    const [historico, setHistorico] = useState<{enviadoPor: string, mensagem: string, timestamp: number}[]>([])
+    const [historico, setHistorico] = useState<{ enviadoPor: string, mensagem: string, timestamp: number }[]>([])
     const [mensagem, setMensagem] = useState('')
     const chatElement = document.querySelector('#texto_chat');
 
@@ -53,10 +53,8 @@ export default function Chat(props: Props) {
                 <div id='texto_chat' className={styles.container__chat}>
                     {historico.map((message, index) => (
                         <>
-                            {message.enviadoPor === props.user.email ?
-                                <li className={styles.enviada} key={index}>{message.mensagem}</li>
-                                :
-                                <li className={styles.recebida} key={index}>{message.mensagem}</li>}
+                            <li className={message.enviadoPor === props.user.email ? styles.enviada : styles.recebida}
+                                key={index}>{message.mensagem}</li>
                         </>
                     ))}
                 </div>
