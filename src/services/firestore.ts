@@ -1,6 +1,7 @@
 import { db } from '../config/firebase';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { deletarImagem } from './storage';
+import { deleteChat } from './database';
 
 export async function infoUsuario(emailUser: string, setUser: any) {
   try {
@@ -180,8 +181,11 @@ export async function deletarSolicitacao(projetoID: string) {
     const result = await deletarImagem(`${projetoID}-serviceIMG.png`, 'services')
     const postRef = doc(db, "solicitados", projetoID);
     if (result) {
-      await deleteDoc(postRef)
-      return 'ok'
+      const chat = await deleteChat(projetoID)
+      if (chat) {
+        await deleteDoc(postRef)
+        return 'ok'
+      }
     }
     return 'error'
   }

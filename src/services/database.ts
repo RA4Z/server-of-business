@@ -1,5 +1,5 @@
 import { database } from "config/firebase";
-import { child, push, set, ref, serverTimestamp, onValue, limitToLast, query } from "firebase/database";
+import { child, push, set, ref, serverTimestamp, onValue, limitToLast, query, remove } from "firebase/database";
 
 export async function sendMessage(serviceId: string, message: string, user: string) {
     const id = push(child(ref(database), 'chats')).key
@@ -22,5 +22,22 @@ export async function getMessages(dbRef: string, setHistorico: any) {
         });
     } catch (error) {
         console.error('Erro ao buscar as últimas mensagens:', error);
+    }
+}
+
+
+export async function deleteChat(serviceId: string) {
+    const chatRef = ref(database, `chats/${serviceId}`);
+    const result = await remove(chatRef)
+        .then(() => {
+            return true
+        })
+        .catch(() => {
+            return false
+        });
+    if (result) {
+        return true
+    } else {
+        return false
     }
 }
