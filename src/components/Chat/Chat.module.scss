@@ -57,6 +57,7 @@
 .enviada {
     display: flex;
     align-self: flex-end;
+    flex-direction: column;
     width: fit-content;
     max-width: 70%;
     background-color: $secondary;
@@ -67,8 +68,10 @@
 .recebida {
     display: flex;
     align-self: flex-start;
+    flex-direction: column;
     width: fit-content;
     background-color: $paralela;
+    max-width: 70%;
     padding: 7px;
     border-radius: 10px;
 }

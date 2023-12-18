@@ -5,6 +5,7 @@ import Send from 'images/send.png'
 import { useEffect, useState } from 'react'
 import { getMessages, sendMessage } from 'services/database'
 import { User_Interface } from 'types/User'
+import dayjs from 'dayjs'
 
 interface Props {
     idProjeto: any,
@@ -52,10 +53,10 @@ export default function Chat(props: Props) {
                 </div>
                 <div id='texto_chat' className={styles.container__chat}>
                     {historico.map((message, index) => (
-                        <>
-                            <li className={message.enviadoPor === props.user.email ? styles.enviada : styles.recebida}
-                                key={index}>{message.mensagem}</li>
-                        </>
+                        <div className={message.enviadoPor === props.user.email ? styles.enviada : styles.recebida} key={index}>
+                            <li>{message.mensagem}</li>
+                            <li>{dayjs(new Date(message.timestamp).toString()).format('HH:mm:ss')}</li>
+                        </div>
                     ))}
                 </div>
                 <div className={styles.sendMessage}>
