@@ -41,3 +41,10 @@ export async function deleteChat(serviceId: string) {
         return false
     }
 }
+
+export async function faleConosco(texto: string, email: string) {
+    const id = push(child(ref(database), 'conosco')).key
+    set(ref(database, `conosco/${id}`), {
+        email: email, texto: texto, timestamp: serverTimestamp()
+    })
+}

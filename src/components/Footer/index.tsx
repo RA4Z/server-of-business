@@ -1,6 +1,9 @@
 import styles from './Footer.module.scss'
-import { memo } from 'react'
-import { Divider } from '@mui/material'
+import { memo, useState } from 'react'
+import { Divider, Snackbar, TextField } from '@mui/material'
+import { faleConosco } from 'services/database'
+import { validateEmail } from 'utils/common'
+import Button from 'components/Button'
 
 import Logo from 'images/white-logo.svg'
 import Instagram from 'images/Social/instagram.png'
@@ -9,17 +12,51 @@ import Twitter from 'images/Social/twitter.png'
 import Youtube from 'images/Social/youtube.png'
 
 function Footer() {
+    const [comunica, setComunica] = useState({ email: '', texto: '' })
+    const [statusToast, setStatusToast] = useState({ visivel: false, message: '' })
+
+    async function sendSuggestion() {
+        if (!validateEmail(comunica.email)) {
+            setStatusToast({ message: 'Insira um E-mail válido!', visivel: true })
+            return
+        }
+        if (comunica.texto === '') {
+            setStatusToast({ message: 'Não é permitido enviar uma sugestão vazia!', visivel: true })
+            return
+        }
+        await faleConosco(comunica.texto, comunica.email)
+        setStatusToast({ message: 'Sugestão enviada com sucesso!', visivel: true })
+        setComunica({ email: '', texto: '' })
+    }
+    
     return (
         <div className={styles.container}>
             <div className={styles.background}>
-                <div className={styles.server}>
+                <div>
                     <img src={Logo} alt='Logo da Server of Business' className={styles.background__logotipo} />
                     <div className={styles.background__dev}>
-                        <button>Server of Business</button>
-                        <a href='https://github.com/RA4Z'>Desenvolvido e prototipado por Robert Aron Zimmermann</a>
+                        <button className={styles.container__button}>Server of Business</button>
+                        <a href='https://github.com/RA4Z'>Desenvolvido e prototipado por<br /> Robert Aron Zimmermann</a>
                         <p>robertz.raz@gmail.com</p>
                     </div>
                 </div>
+                <div className={styles.faleConosco}>
+                    <li>Fale conosco</li>
+                    <TextField id="Fale-Conosco"
+                        label="E-mail"
+                        value={comunica.email}
+                        onChange={e => setComunica({ ...comunica, email: e.target.value })}
+                        className={styles.faleConosco__input} />
+                    <TextField id="Fale-Conosco"
+                        label="Dúvidas/sugestões"
+                        value={comunica.texto}
+                        rows={4}
+                        multiline
+                        onChange={e => setComunica({ ...comunica, texto: e.target.value })}
+                        className={styles.faleConosco__input} />
+                    <Button dark={false} texto='Enviar' onClick={() => sendSuggestion()} />
+                </div>
+
                 <div className={styles.atribuicoes}>
                     <li style={{ listStyle: 'none', textAlign: 'center', color: '#64CCC5' }}>Direitos de ícones e imagens:</li>
                     <a href="https://www.flaticon.com/br/autores/freepik" ><li>Ícones criados por Freepik - Flaticon</li></a>
@@ -41,6 +78,12 @@ function Footer() {
             </div>
             <Divider style={{ background: 'white', margin: 10 }} />
             <p>Server of Business - Todos os direitos reservados</p>
+            <Snackbar
+                open={statusToast.visivel}
+                onClose={() => setStatusToast({ ...statusToast, visivel: false })}
+                autoHideDuration={3000}
+                message={statusToast.message}
+            />
         </div>
     )
 }

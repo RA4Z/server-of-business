@@ -21,6 +21,11 @@ export function timeout(delay: number) {
   return new Promise(res => setTimeout(res, delay));
 }
 
+export function validateEmail(email: string) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
+
 export function verificarSolicitacaoValida(dados: Service_Interface) {
   if (dados.titulo === '') return 'Título está em branco!'
   if (dados.solicitante === '') return 'Solicitante está em branco!'
