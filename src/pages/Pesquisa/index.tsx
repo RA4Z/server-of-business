@@ -146,28 +146,33 @@ function Pesquisa({ childToParent, estado }: Props) {
 
                 {estado !== '' ? <>
                     {categoria === '1' ?
-                        users.map((card) => (
-                            <Card
-                                key={card.id}
-                                titulo={card.nome}
-                                subtitulo={`${card.estrelas.toFixed(2)} - ${card.cargos[0]}`}
-                                imagem={card.avatar ? card.avatar : UserIMG}
-                                premium={card.premium}
-                                onClick={() => navigate(`/info/users/${card.id}`)}
-                                buttonText='Ver mais informações'
-                            />
-                        ))
+                        <>
+                            {users.length > 0 ? users.map((card) => (
+                                <Card
+                                    key={card.id}
+                                    titulo={card.nome}
+                                    subtitulo={`${card.estrelas.toFixed(2)} - ${card.cargos[0]}`}
+                                    imagem={card.avatar ? card.avatar : UserIMG}
+                                    premium={card.premium}
+                                    onClick={() => navigate(`/info/users/${card.id}`)}
+                                    buttonText='Ver mais informações'
+                                />
+                            )) : <h1 style={{ textAlign: 'center', padding: 10 }}>Nenhum usuário encontrado!</h1>}
+                        </>
                         :
-                        services.map((card) => (
-                            <Card
-                                key={card.id}
-                                titulo={card.titulo}
-                                imagem={card.imagem ? card.imagem : ImagemTrabalho}
-                                premium={card.premium}
-                                onClick={() => navigate(`/info/services/${card.id}`)}
-                                buttonText='Ver mais informações'
-                            />
-                        ))}
+                        <>
+                            {services.length > 0 ? services.map((card) => (
+                                <Card
+                                    key={card.id}
+                                    titulo={card.titulo}
+                                    imagem={card.imagem ? card.imagem : ImagemTrabalho}
+                                    premium={card.premium}
+                                    onClick={() => navigate(`/info/services/${card.id}`)}
+                                    buttonText='Ver mais informações'
+                                />
+                            )) : <h1 style={{ textAlign: 'center', padding: 10 }}>Nenhum serviço em aberto na sua região encontrado!</h1>}
+                        </>
+                    }
                 </> : <h1 style={{ textAlign: 'center', padding: 10 }}>Entre em sua conta para conseguir visualizar os {categoria === '1' ? 'especialistas cadastrados' : 'serviços em aberto'}</h1>}
             </div>
         </>
