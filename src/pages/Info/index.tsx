@@ -69,6 +69,8 @@ export default function Info(usuarioLogado: User_Interface) {
                 setStatusToast({ message: 'Você já está inscrito nessa solicitação!', visivel: true })
             } else if (service.email === usuarioLogado.email) {
                 setStatusToast({ message: 'Não é possível se inscrever em sua própria solicitação!', visivel: true })
+            } else if (service.idContratado !== '') {
+                setStatusToast({ message: 'Não é possível se inscrever, alguém já foi contratado para este serviço!', visivel: true })
             } else setAskCandidatar(true)
         } else {
             console.log('Direcionar a um chat')
