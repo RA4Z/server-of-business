@@ -48,7 +48,7 @@ function Footer() {
                         onChange={e => setComunica({ ...comunica, email: e.target.value })}
                         className={styles.faleConosco__input} />
                     <TextField id="Fale-Conosco"
-                        label="Dúvidas/sugestões"
+                        label="Escreva Aqui"
                         value={comunica.texto}
                         rows={4}
                         multiline
