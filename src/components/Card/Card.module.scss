@@ -64,8 +64,11 @@
     &__text {
         color: $texto;
         max-width: 300px;
+        max-height: 70px;
         font-size: calc(10px + 1vmin);
         font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         @media(min-width: $tablet) {
             min-width: 200px;
@@ -77,7 +80,10 @@
     color: $texto_secundario;
     font-size: calc(8px + 1vmin);
     width: 100%;
-    min-height: 50px;
+    height: 60px;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
 }
 
 .classification {

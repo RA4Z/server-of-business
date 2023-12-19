@@ -9,6 +9,7 @@
     position: fixed;
     right: 20px;
     bottom: 0;
+    z-index: 2;
 
     @media(max-width: $tablet) {
         width: 60vw;
@@ -29,6 +30,9 @@
         width: 100%;
         color: white;
         height: 5vh;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         li {
             font-size: calc(12px + 1vmin);
@@ -59,6 +63,7 @@
     align-self: flex-end;
     flex-direction: column;
     width: fit-content;
+    word-wrap: break-word;
     max-width: 70%;
     background-color: $primary;
     padding: 7px;
@@ -78,6 +83,7 @@
     align-self: flex-start;
     flex-direction: column;
     width: fit-content;
+    word-wrap: break-word;
     background-color: $secondary;
     max-width: 70%;
     padding: 7px;
