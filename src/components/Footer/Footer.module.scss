@@ -9,6 +9,7 @@
 
     button,
     p,
+    li,
     a {
         border: none;
         text-decoration: none;
@@ -40,8 +41,20 @@
     flex-direction: column;
     margin: 15px;
 
+    li {
+        font-size: calc(9px + 1vmin);
+        text-align: start;
+    }
+
     a {
-        font-size: calc(7px + 1vmin);
+        li {
+            transition: 0.5s;
+            cursor: pointer;
+
+            &:hover {
+                color: $texto-secundario;
+            }
+        }
     }
 }
 
