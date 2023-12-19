@@ -64,9 +64,19 @@
     &__text {
         color: $texto;
         max-width: 300px;
-        max-height: 70px;
         font-size: calc(10px + 1vmin);
         font-weight: bold;
+
+        @media(min-width: $tablet) {
+            min-width: 200px;
+        }
+    }
+
+    &__descStar {
+        color: $texto;
+        font-size: calc(10px + 1vmin);
+        width: 100%;
+        height: 40px;
         overflow: hidden;
         text-overflow: ellipsis;
 
@@ -80,10 +90,7 @@
     color: $texto_secundario;
     font-size: calc(8px + 1vmin);
     width: 100%;
-    height: 60px;
-    overflow: hidden;
-    word-wrap: break-word;
-    text-overflow: ellipsis;
+    min-height: 50px;
 }
 
 .classification {

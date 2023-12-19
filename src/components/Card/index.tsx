@@ -28,7 +28,7 @@ function Card(props: Props) {
                         props.subtitulo !== undefined && props.subtitulo !== '' ?
                             <div className={styles.classification}>
                                 <img src={Estrela} alt='Estrela amarela' className={styles.classification__star} />
-                                <p className={styles.top__text}>{props.subtitulo}</p>
+                                <p className={styles.top__descStar}>{props.subtitulo}</p>
                             </div>
                             : ''
                     }
