@@ -118,7 +118,7 @@ export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoU
 }
 export async function visualizarSolicitados(setSolicitados: any, setBackup?: any, estadoUser?: string) {
   if (estadoUser !== '') {
-    const ref = query(collection(db, "solicitados"), where('estado', '==', estadoUser))
+    const ref = query(collection(db, "solicitados"), where('estado', '==', estadoUser), where('idContratado', '==', ''))
     onSnapshot(ref, (querySnapshot) => {
       const users: any[] = []
       querySnapshot.forEach((doc) => {
