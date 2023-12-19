@@ -53,11 +53,16 @@ export default function Chat(props: Props) {
                 </div>
                 <div id='texto_chat' className={styles.container__chat}>
                     {historico.map((message, index) => (
-                        <div className={message.enviadoPor === props.user.email ? styles.enviada : styles.recebida} key={index}>
-                            <li>{message.mensagem}</li>
-                            <li className={message.enviadoPor === props.user.email ? styles.enviada__chat : styles.recebida__chat}>
-                                {dayjs(new Date(message.timestamp).toString()).format('HH:mm:ss')}</li>
-                        </div>
+                        <>
+                            <div className={message.enviadoPor === props.user.email ? styles.enviada : styles.recebida} key={index}>
+                                <li>{message.mensagem}</li>
+                                <li className={message.enviadoPor === props.user.email ? styles.enviada__chat : styles.recebida__chat}>
+                                    {dayjs(new Date(message.timestamp)).isBefore(dayjs(), 'day') ?
+                                        dayjs(new Date(message.timestamp).toString()).format('DD MMM YY - HH:mm:ss')
+                                        :
+                                        dayjs(new Date(message.timestamp).toString()).format('HH:mm:ss')}</li>
+                            </div>
+                        </>
                     ))}
                 </div>
                 <div className={styles.sendMessage}>
