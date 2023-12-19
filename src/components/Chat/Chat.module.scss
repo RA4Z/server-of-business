@@ -63,6 +63,14 @@
     background-color: $secondary;
     padding: 7px;
     border-radius: 10px;
+    border: 1px solid black;
+
+    &__chat {
+        align-self: flex-end;
+        font-size: calc(5px + 1vmin);
+        color: $backgrounds;
+        padding: 3px;
+    }
 }
 
 .recebida {
@@ -74,6 +82,14 @@
     max-width: 70%;
     padding: 7px;
     border-radius: 10px;
+    border: 1px solid black;
+
+    &__chat {
+        align-self: flex-start;
+        font-size: calc(5px + 1vmin);
+        color: $backgrounds;
+        padding: 3px;
+    }
 }
 
 .input {
