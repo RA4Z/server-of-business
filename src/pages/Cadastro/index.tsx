@@ -14,7 +14,6 @@ import { TextMaskCustom } from 'utils/genericos';
 export default function Cadastro() {
     const navigate = useNavigate();
     const [extras, setExtras] = useState({ repeatPassword: '', termos: false, senha: '' })
-
     const [data, setData] = useState({
         avatar: '',
         nome: '',
