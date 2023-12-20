@@ -114,7 +114,7 @@ export default function Info(usuarioLogado: User_Interface) {
         let inscritos = service.inscritos.filter(idInscrito => idInscrito !== usuarioLogado.id)
         const response = await atualizarInfoService(id!, { idContratado: '', inscritos: inscritos })
         if (response === 'ok') {
-            await sendNotification(service.idSolicitante, `Abandono de serviço "${service.titulo}"`, `O usuário ${usuarioLogado.nome} abandonou o serviço "${service.titulo}"!`, 'Abandono')
+            await sendNotification(service.idSolicitante, `Abandono de serviço`, `O usuário ${usuarioLogado.nome} abandonou o serviço "${service.titulo}"!`, 'Abandono')
             setStatusToast({ message: 'Solicitação abandonada com sucesso!', visivel: true })
             setAbandonarProjeto(false)
             await timeout(2000)
