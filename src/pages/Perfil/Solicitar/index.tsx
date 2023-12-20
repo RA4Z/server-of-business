@@ -26,6 +26,7 @@ export default function Solicitar({ visible, infoUser }: Props) {
     })
     const [serviceInfo, setServiceInfo] = useState({
         titulo: '',
+        idSolicitante: infoUser.id,
         solicitante: infoUser.nome,
         descricao: '',
         premium: infoUser.premium,

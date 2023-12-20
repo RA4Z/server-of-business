@@ -15,6 +15,7 @@ export async function infoUsuario(emailUser: string, setUser: any) {
     });
     if (usuario[0] === undefined) return 'error'
     setUser(usuario[0])
+
   } catch (error) {
     return 'error'
   }

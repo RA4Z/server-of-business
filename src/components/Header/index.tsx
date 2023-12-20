@@ -11,7 +11,7 @@ import OptionMenu from 'components/OptionMenu'
 import { auth } from 'config/firebase';
 import Notifications from 'components/Notifications';
 
-function Header({ selected, childToParent, avatar }: any) {
+function Header({ selected, childToParent, usuarioLogado }: any) {
     const [option, setOption] = useState(false)
     const [notification, setNotification] = useState(false)
     const [logado, setLogado] = useState(false)
@@ -92,7 +92,7 @@ function Header({ selected, childToParent, avatar }: any) {
                     <>
                         <ul className={styles.menu__buttons}>
                             <li className={styles.menu__button}>
-                                <img className={styles.user} src={avatar !== '' ? avatar : user} alt='Perfil de usuário' onClick={() => pressionarMenu()} />
+                                <img className={styles.user} src={usuarioLogado.avatar !== '' ? usuarioLogado.avatar : user} alt='Perfil de usuário' onClick={() => pressionarMenu()} />
                             </li>
                         </ul>
                     </>
@@ -113,7 +113,7 @@ function Header({ selected, childToParent, avatar }: any) {
             </div>
 
             {notification ? <div className={styles.container}>
-                <Notifications notification={notification} setNotification={setNotification} registrados={[{ titulo: 'Testando', descricao: 'Descrição desenvolvida testando fundamento', link: '' }]} />
+                <Notifications notification={notification} setNotification={setNotification} usuarioLogado={usuarioLogado} />
             </div> : ''}
 
             {option ? <div className={styles.container}>

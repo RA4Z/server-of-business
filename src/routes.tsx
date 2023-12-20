@@ -46,7 +46,7 @@ export default function AppRouter() {
                 <LinearProgress />
             </Box>}>
                 <Routes>
-                    <Route path='/' element={<Header selected={pagina} childToParent={childToParent} avatar={infoUser.avatar} />}>
+                    <Route path='/' element={<Header selected={pagina} childToParent={childToParent} usuarioLogado={infoUser} />}>
                         <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
                         <Route path='/cadastro' element={<Cadastro />} />
                         <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} estado={infoUser.estado} />} />

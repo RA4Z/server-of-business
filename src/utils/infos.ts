@@ -26,6 +26,7 @@ export const info_servicos = [
         descricao: '',
         premium: false,
         imagem: '',
+        idSolicitante: '',
         idContratado: '',
         horarioProcurado: '',
         diaProcurado: '',

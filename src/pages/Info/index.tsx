@@ -18,6 +18,7 @@ import { auth } from 'config/firebase';
 import dayjs from 'dayjs'
 import NotFound from 'pages/NotFound';
 import { timeout } from 'utils/common';
+import { sendNotification } from 'services/database';
 
 const Chat = lazy(() => import('components/Chat'));
 
@@ -90,6 +91,7 @@ export default function Info(usuarioLogado: User_Interface) {
         cidade: categoria === 'services' ? service.cidade : '',
         estado: categoria === 'services' ? service.estado : '',
         solicitante: categoria === 'services' ? service.solicitante : '',
+        idSolicitante: categoria === 'services' ? service.idSolicitante : '',
         idContratado: categoria === 'services' ? service.idContratado : '',
         endereco: categoria === 'services' ? service.endereco : '',
     }
@@ -99,6 +101,7 @@ export default function Info(usuarioLogado: User_Interface) {
         inscritos.push(usuarioLogado.id)
         const response = await atualizarInfoService(id!, { inscritos: inscritos })
         if (response === 'ok') {
+            await sendNotification(service.idSolicitante, `Inscrição no serviço "${service.titulo}"`, `O usuário ${usuarioLogado.nome} se candidatou no serviço "${service.titulo}" registrado em seu nome, dê uma olhada no mesmo!`, 'Inscrição')
             setStatusToast({ message: 'Você se inscreveu com sucesso na solicitação!', visivel: true })
             setAskCandidatar(false)
             await timeout(2000)

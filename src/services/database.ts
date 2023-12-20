@@ -1,5 +1,5 @@
 import { database } from "config/firebase";
-import { child, push, set, ref, serverTimestamp, onValue, limitToLast, query, remove } from "firebase/database";
+import { child, push, set, ref, serverTimestamp, onValue, limitToLast, query, remove, get } from "firebase/database";
 
 export async function sendMessage(serviceId: string, message: string, user: string) {
     const id = push(child(ref(database), 'chats')).key
@@ -48,3 +48,30 @@ export async function faleConosco(texto: string, email: string) {
         email: email, texto: texto, timestamp: serverTimestamp()
     })
 }
+
+export async function sendNotification(userId: string, titulo: string, descricao: string, tipo: string) {
+    const id = push(child(ref(database), `notifications/${userId}`)).key
+    set(ref(database, `notifications/${userId}/${id}`), {
+        titulo: titulo, descricao: descricao, tipo: tipo, timestamp: serverTimestamp()
+    })
+}
+
+export async function getNotifications(userId: string, setNotifica: any) {
+    try {
+        const messagesRef = ref(database, `notifications/${userId}`);
+        const limitedMessagesQuery = query(messagesRef, limitToLast(30)); // Limitando para buscar apenas as últimas 30 notificações
+
+        const snapshot = await get(limitedMessagesQuery); // Obtém os dados uma vez
+
+        const messagesData: any[] = [];
+        snapshot.forEach((childSnapshot) => {
+            messagesData.push({ id: childSnapshot.key, ...childSnapshot.val() });
+        });
+        setNotifica(messagesData);
+        return messagesData
+    } catch (error) {
+        console.error('Erro ao buscar as últimas notificações:', error);
+        return []
+    }
+}
+
