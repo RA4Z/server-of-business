@@ -57,7 +57,7 @@ export default function Cadastro() {
     return (
         <>
             <div className={styles.container}>
-                <form className={styles.container__left}
+                <div className={styles.container__left}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             e.preventDefault();
@@ -127,7 +127,7 @@ export default function Cadastro() {
                         Já possui uma conta?
                         <button onClick={() => navigate('/login')}>Login</button>
                     </div>
-                </form>
+                </div>
 
                 <div className={styles.container__right}>
                     <img src={Imagem} alt='Imagem representando profissões' />

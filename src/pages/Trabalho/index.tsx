@@ -150,7 +150,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
             setStatusToast({ message: 'Não é permitido dar nota zero ao Especialista contratado!', visivel: true })
             return
         }
-        const numeroAvalia = (((trabalhoInfo.contratado.estrelas * trabalhoInfo.contratado.avaliacoes) + avaliacao) / (trabalhoInfo.contratado.avaliacoes + 1)).toFixed(2)
+        const numeroAvalia = Number((((trabalhoInfo.contratado.estrelas * trabalhoInfo.contratado.avaliacoes) + avaliacao) / (trabalhoInfo.contratado.avaliacoes + 1)).toFixed(2))
         const response = await deletarSolicitacao(jobId!)
         if (response === 'ok') {
             await sendNotification(trabalhoInfo.info.idContratado, `Serviço Concluído com sucesso`, `O usuário ${usuarioLogado.nome} registrou o serviço "${trabalhoInfo.info.titulo}" como concluído, obrigado pela ajuda!`, 'Concluído')
@@ -251,7 +251,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                                     <img className={styles.especialistas__card__avatar} src={inscrito.avatar ? inscrito.avatar : UserIMG} alt='Perfil de usuário' />
                                     <div>
                                         <p>{inscrito.nome}</p>
-                                        <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas}</p>
+                                        <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas.toFixed(2)}</p>
                                     </div>
                                 </div>
                             ))
@@ -260,7 +260,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
                                 <img className={styles.especialistas__card__avatar} src={trabalhoInfo.contratado.avatar ? trabalhoInfo.contratado.avatar : UserIMG} alt='Perfil de usuário' />
                                 <div>
                                     <p>{trabalhoInfo.contratado.nome}</p>
-                                    <p><img src={Estrela} alt='Estrela' />{trabalhoInfo.contratado.estrelas}</p>
+                                    <p><img src={Estrela} alt='Estrela' />{trabalhoInfo.contratado.estrelas.toFixed(2)}</p>
                                 </div>
                             </div>}
                     </div>

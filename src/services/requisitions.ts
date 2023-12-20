@@ -15,7 +15,7 @@ function errosFirebase(error: any) {
       mensagem = "A senha precisa de no mínimo 6 caracteres"
       break;
     default:
-      mensagem = "Erro desconhecido"
+      mensagem = error
   }
   return mensagem
 }
