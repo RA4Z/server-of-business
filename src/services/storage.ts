@@ -8,7 +8,7 @@ export async function salvarImagem(imagem: string | null, imagemNome: string, pa
     const downloadImagem = await fetch(imagem);
     const blobImagem = await downloadImagem.blob();
 
-    const storageRef = ref(storage, `${path}/${imagemNome}.png`);
+    const storageRef = ref(storage, `${path}/${imagemNome}`);
     await uploadBytes(storageRef, blobImagem);
 
     const url = await getDownloadURL(storageRef);
