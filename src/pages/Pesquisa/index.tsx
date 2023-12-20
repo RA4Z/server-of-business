@@ -149,7 +149,7 @@ function Pesquisa({ childToParent, estado }: Props) {
                                 <Card
                                     key={card.id}
                                     titulo={card.nome}
-                                    subtitulo={`${card.estrelas.toFixed(2)} - ${card.cargos[0]}`}
+                                    subtitulo={`${Number(card.estrelas).toFixed(2)} - ${card.cargos[0]}`}
                                     imagem={card.avatar ? card.avatar : UserIMG}
                                     premium={card.premium}
                                     onClick={() => navigate(`/info/users/${card.id}`)}

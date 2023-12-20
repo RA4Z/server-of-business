@@ -60,7 +60,7 @@ function Perfil({ infoUser, setLoad }: any) {
 
                 <div>
                     <p className={styles.info__nome}>{infoUser.nome}</p>
-                    <p className={styles.info__especialidade}><img src={Estrela} alt='Estrela' />{infoUser.estrelas.toFixed(2)} {infoUser.cargos[0]}</p>
+                    <p className={styles.info__especialidade}><img src={Estrela} alt='Estrela' />{Number(infoUser.estrelas).toFixed(2)} {infoUser.cargos[0]}</p>
                     <p className={styles.info__regiao}>{infoUser.estado}, {infoUser.pais}</p>
                 </div>
                 <Card

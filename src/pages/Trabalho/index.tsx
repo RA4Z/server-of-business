@@ -254,7 +254,7 @@ export default function Trabalho({ usuarioLogado, setLoad }: any) {
                                     <img className={styles.especialistas__card__avatar} src={inscrito.avatar ? inscrito.avatar : UserIMG} alt='Perfil de usuário' />
                                     <div>
                                         <p>{inscrito.nome}</p>
-                                        <p><img src={Estrela} alt='Estrela' />{inscrito.estrelas.toFixed(2)}</p>
+                                        <p><img src={Estrela} alt='Estrela' />{Number(inscrito.estrelas).toFixed(2)}</p>
                                     </div>
                                 </div>
                             ))
@@ -263,7 +263,7 @@ export default function Trabalho({ usuarioLogado, setLoad }: any) {
                                 <img className={styles.especialistas__card__avatar} src={trabalhoInfo.contratado.avatar ? trabalhoInfo.contratado.avatar : UserIMG} alt='Perfil de usuário' />
                                 <div>
                                     <p>{trabalhoInfo.contratado.nome}</p>
-                                    <p><img src={Estrela} alt='Estrela' />{trabalhoInfo.contratado.estrelas.toFixed(2)}</p>
+                                    <p><img src={Estrela} alt='Estrela' />{Number(trabalhoInfo.contratado.estrelas).toFixed(2)}</p>
                                 </div>
                             </div>}
                     </div>

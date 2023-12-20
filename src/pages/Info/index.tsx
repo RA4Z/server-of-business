@@ -85,7 +85,7 @@ export default function Info(usuarioLogado: User_Interface) {
         descricao: aba_atual.descricao,
         premium: aba_atual.premium,
         cargo: categoria === 'users' ? user.cargos[0] : '',
-        estrelas: categoria === 'users' ? user.estrelas.toFixed(2) : '',
+        estrelas: categoria === 'users' ? Number(user.estrelas).toFixed(2) : '',
         data: categoria === 'services' ? service.diaProcurado : '',
         hora: categoria === 'services' ? service.horarioProcurado : '',
         cidade: categoria === 'services' ? service.cidade : '',
