@@ -51,12 +51,18 @@ export default function Login() {
             <div className={styles.container}>
                 <img src={Logo} onClick={() => navigate('/')} alt='Logotipo da empresa' />
                 <p className={styles.container__title}>Server of Business</p>
-                <form className={styles.container__inputs}>
+                <form className={styles.container__inputs}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            realizarLogin()
+                        }
+                    }}>
                     <TextField id="outlined-basic" value={dados.email} onChange={(valor) => setDados({ email: valor.target.value, senha: dados.senha })} label="E-mail" variant="outlined" autoComplete="email" className={styles.input} />
                     <TextField id="outlined-password-input" value={dados.senha} onChange={valor => setDados({ email: dados.email, senha: valor.target.value })} label="Senha" variant="outlined" type='password' autoComplete="current-password" className={styles.input} />
+                    <p className={styles.container__password} onClick={() => setForgotPassWordVisible(true)}>Esqueceu sua senha?</p>
+                    <Button texto='Login' dark={true} onClick={() => realizarLogin()} />
                 </form>
-                <p className={styles.container__password} onClick={() => setForgotPassWordVisible(true)}>Esqueceu sua senha?</p>
-                <Button texto='Login' dark={true} onClick={() => realizarLogin()} />
 
                 <div className={styles.container__criar}>
                     <p>Ainda não possui uma conta?</p>

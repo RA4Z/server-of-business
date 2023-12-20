@@ -13,11 +13,6 @@ interface Props {
 export default function Adicionar(props: Props) {
     const [texto, setTexto] = useState('')
     const [especializacoes, setEspecializacoes] = useState(props.defaultList)
-    const form = document.getElementById('adicionar-especialista')
-
-    form?.addEventListener('submit', e => {
-        e.preventDefault()
-    })
 
     function removerEspecializacao(especializacao: string) {
         setEspecializacoes(especializacoes.filter(especial => especial !== especializacao))
@@ -36,7 +31,12 @@ export default function Adicionar(props: Props) {
             <div className={styles.overlay} onClick={() => props.visible(false)} />
             <div className={styles.container}>
                 <h2>Adição de Especializações</h2>
-                <form id='adicionar-especialista'>
+                <form onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            adicionarEspecializacao(texto)
+                        }
+                    }}>
                     <TextField id="add-especialist" label="Nome da Especialização" value={texto} onChange={(e) => setTexto(e.target.value)} variant="outlined" autoComplete="especialização" className={styles.input} />
                     <Button texto='Adicionar' dark={false} onClick={() => adicionarEspecializacao(texto)} />
                 </form>

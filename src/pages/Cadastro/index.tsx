@@ -13,11 +13,7 @@ import { TextMaskCustom } from 'utils/genericos';
 
 export default function Cadastro() {
     const navigate = useNavigate();
-    const form = document.getElementById('cadastro')
     const [extras, setExtras] = useState({ repeatPassword: '', termos: false, senha: '' })
-    form?.addEventListener('submit', e => {
-        e.preventDefault()
-    })
 
     const [data, setData] = useState({
         avatar: '',
@@ -62,7 +58,13 @@ export default function Cadastro() {
     return (
         <>
             <div className={styles.container}>
-                <form id='cadastro' className={styles.container__left}>
+                <form className={styles.container__left}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            criarConta()
+                        }
+                    }}>
                     <p>Criação de conta</p>
                     <TextField id="outlined-username"
                         label="Nome completo"
