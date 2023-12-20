@@ -103,7 +103,6 @@ function Pesquisa({ childToParent, estado }: Props) {
                             value={filtro.nome}
                             onChange={e => setFiltro({ ...filtro, nome: e.target.value })}
                             variant="outlined"
-                            autoComplete="username"
                             className={styles.input} />
                         <div>
                             <FormControlLabel control={
@@ -126,7 +125,7 @@ function Pesquisa({ childToParent, estado }: Props) {
                             value={filtro.cidade}
                             onChange={e => setFiltro({ ...filtro, cidade: e.target.value })}
                             variant="outlined"
-                            autoComplete="city"
+                            autoComplete="cidade"
                             className={styles.input} />
 
                         <TextField id="outlined-special"
@@ -134,7 +133,6 @@ function Pesquisa({ childToParent, estado }: Props) {
                             value={filtro.especializacao}
                             onChange={e => setFiltro({ ...filtro, especializacao: e.target.value })}
                             variant="outlined"
-                            autoComplete="type"
                             className={styles.input} />
 
                     </div>

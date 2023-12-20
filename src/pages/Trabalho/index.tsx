@@ -17,6 +17,7 @@ import Button from 'components/Button';
 import { Rating } from '@mui/material'
 import { timeout } from 'utils/common';
 import Chat from 'components/Chat';
+import { sendNotification } from 'services/database';
 
 interface UserInformation {
     id: any,
@@ -130,6 +131,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
     async function cancelarSolicitacao() {
         const response = await deletarSolicitacao(jobId!)
         if (response === 'ok') {
+            if (trabalhoInfo.info.idContratado !== '') await sendNotification(trabalhoInfo.info.idContratado, `Serviço Cancelado`, `O usuário ${usuarioLogado.nome} cancelou o serviço "${trabalhoInfo.info.titulo}"!`, 'Cancelado')
             setStatusToast({ message: 'Solicitação deletada com sucesso!', visivel: true })
             await timeout(3000)
             navigate(-1)
@@ -151,6 +153,7 @@ export default function Trabalho(usuarioLogado: User_Interface) {
         const numeroAvalia = (((trabalhoInfo.contratado.estrelas * trabalhoInfo.contratado.avaliacoes) + avaliacao) / (trabalhoInfo.contratado.avaliacoes + 1)).toFixed(2)
         const response = await deletarSolicitacao(jobId!)
         if (response === 'ok') {
+            await sendNotification(trabalhoInfo.info.idContratado, `Serviço Concluído com sucesso`, `O usuário ${usuarioLogado.nome} registrou o serviço "${trabalhoInfo.info.titulo}" como concluído, obrigado pela ajuda!`, 'Concluído')
             setStatusToast({ message: 'Solicitação concluída com sucesso! Aguarde um momento...', visivel: true })
             await atualizarInfoUser(trabalhoInfo.info.idContratado, { avaliacoes: trabalhoInfo.contratado.avaliacoes + 1, estrelas: numeroAvalia })
             await timeout(2000)
