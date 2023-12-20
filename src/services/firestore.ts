@@ -72,14 +72,13 @@ export async function cadastrarSolicitacao(data: any) {
 }
 
 export async function atualizarInfoUser(userId: string, data: any) {
-  console.log(userId)
   try {
     const postRef = doc(db, "usuários", userId);
     await updateDoc(postRef, data)
     return 'ok'
   }
   catch (error) {
-    return 'error'
+    return error
   }
 }
 export async function atualizarInfoService(serviceId: string, data: any) {

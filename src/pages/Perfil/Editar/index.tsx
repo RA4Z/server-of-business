@@ -29,9 +29,11 @@ export default function Editar({ visible, infoUser }: Props) {
 
     async function saveChanges() {
         const result = await atualizarInfoUser(infoUser.id, infoTemp)
-        if (result) {
+        if (result === 'ok') {
             alert('Informações atualizadas com sucesso!')
             window.location.reload()
+        } else {
+            alert(`Ocorreu o erro ${result}`)
         }
     }
 
