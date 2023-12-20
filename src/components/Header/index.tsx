@@ -9,9 +9,11 @@ import styles from './Header.module.scss'
 import OptionMenu from 'components/OptionMenu'
 
 import { auth } from 'config/firebase';
+import Notifications from 'components/Notifications';
 
 function Header({ selected, childToParent, avatar }: any) {
     const [option, setOption] = useState(false)
+    const [notification, setNotification] = useState(false)
     const [logado, setLogado] = useState(false)
     const navigate = useNavigate();
 
@@ -55,6 +57,18 @@ function Header({ selected, childToParent, avatar }: any) {
         }
     }
 
+    function pressionarLogo() {
+        if (logado) {
+            setNotification(!notification)
+        } else {
+            navigate('/')
+        }
+    }
+
+    function pressionarMenu() {
+        setOption(!option)
+    }
+
     if (window.location.pathname.toLowerCase().indexOf('cadastro') > 0 || window.location.pathname.toLowerCase().indexOf('perfil') > 0 || window.location.pathname.toLowerCase().indexOf('trabalho') > 0) {
         selected = 0
     }
@@ -62,7 +76,7 @@ function Header({ selected, childToParent, avatar }: any) {
     return (
         <>
             <div className={styles.header}>
-                <img className={styles.img} src={logo} onClick={() => navigate('/')} alt='Logo do projeto' />
+                <img className={styles.img} src={logo} onClick={() => pressionarLogo()} alt='Logo do projeto' />
 
                 <ul className={styles.menu__list}>
                     {rotas.map((rotas, index) => (
@@ -78,7 +92,7 @@ function Header({ selected, childToParent, avatar }: any) {
                     <>
                         <ul className={styles.menu__buttons}>
                             <li className={styles.menu__button}>
-                                <img className={styles.user} src={avatar !== '' ? avatar : user} alt='Perfil de usuário' onClick={() => setOption(!option)} />
+                                <img className={styles.user} src={avatar !== '' ? avatar : user} alt='Perfil de usuário' onClick={() => pressionarMenu()} />
                             </li>
                         </ul>
                     </>
@@ -95,8 +109,12 @@ function Header({ selected, childToParent, avatar }: any) {
                         </ul>
                     </>
                 }
-                <img className={styles.hamburguer} src={hamburguer} alt='Menu Hamburguer' onClick={() => setOption(!option)} />
+                <img className={styles.hamburguer} src={hamburguer} alt='Menu Hamburguer' onClick={() => pressionarMenu()} />
             </div>
+
+            {notification ? <div className={styles.container}>
+                <Notifications notification={notification} setNotification={setNotification} registrados={[{ titulo: 'Testando', descricao: 'Descrição desenvolvida testando fundamento', link: '' }]} />
+            </div> : ''}
 
             {option ? <div className={styles.container}>
                 <OptionMenu logado={logado} mostrarOption={mostrarOption} />
