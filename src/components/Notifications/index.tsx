@@ -4,6 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useState } from "react";
 import { getNotifications } from "services/database";
 import { User_Interface } from "types/User";
+import classNames from "classnames";
 
 interface Props {
     usuarioLogado: User_Interface
@@ -40,7 +41,9 @@ export default function Notifications(props: Props) {
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1a-content">
-                                    <Typography>{registro.titulo}</Typography>
+                                    <Typography className={classNames(
+                                        [styles['titulo']],
+                                        styles[`titulo__${registro.tipo}`])}>{registro.titulo}</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Typography>

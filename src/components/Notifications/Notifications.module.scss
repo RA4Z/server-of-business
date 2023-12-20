@@ -5,3 +5,23 @@
     height: 300px;
     overflow-y: auto;
 }
+
+.titulo {
+    font-weight: bold;
+
+    &__inscricao {
+        color: #5590EA;
+    }
+
+    &__abandono {
+        color: #BAB310;
+    }
+
+    &__concluido {
+        color: #369227;
+    }
+
+    &__cancelado {
+        color: #9D1010;
+    }
+}

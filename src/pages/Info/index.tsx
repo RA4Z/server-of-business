@@ -101,7 +101,7 @@ export default function Info(usuarioLogado: User_Interface) {
         inscritos.push(usuarioLogado.id)
         const response = await atualizarInfoService(id!, { inscritos: inscritos })
         if (response === 'ok') {
-            await sendNotification(service.idSolicitante, `Inscrição em Serviço`, `O usuário ${usuarioLogado.nome} se candidatou no serviço "${service.titulo}"!`, 'Inscrição')
+            await sendNotification(service.idSolicitante, `Inscrição em Serviço`, `O usuário ${usuarioLogado.nome} se candidatou no serviço "${service.titulo}"!`, 'inscricao')
             setStatusToast({ message: 'Você se inscreveu com sucesso na solicitação!', visivel: true })
             setAskCandidatar(false)
             await timeout(2000)
@@ -114,7 +114,7 @@ export default function Info(usuarioLogado: User_Interface) {
         let inscritos = service.inscritos.filter(idInscrito => idInscrito !== usuarioLogado.id)
         const response = await atualizarInfoService(id!, { idContratado: '', inscritos: inscritos })
         if (response === 'ok') {
-            await sendNotification(service.idSolicitante, `Abandono de serviço`, `O usuário ${usuarioLogado.nome} abandonou o serviço "${service.titulo}"!`, 'Abandono')
+            await sendNotification(service.idSolicitante, `Abandono de serviço`, `O usuário ${usuarioLogado.nome} abandonou o serviço "${service.titulo}"!`, 'abandono')
             setStatusToast({ message: 'Solicitação abandonada com sucesso!', visivel: true })
             setAbandonarProjeto(false)
             await timeout(2000)
