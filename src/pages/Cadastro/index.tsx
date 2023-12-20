@@ -11,7 +11,11 @@ import { cadastrar } from 'services/requisitions';
 import { salvarInfoUser } from 'services/firestore';
 import { TextMaskCustom } from 'utils/genericos';
 
-export default function Cadastro() {
+interface Props {
+    setLoad: any
+}
+
+export default function Cadastro(props: Props) {
     const navigate = useNavigate();
     const [extras, setExtras] = useState({ repeatPassword: '', termos: false, senha: '' })
     const [data, setData] = useState({
@@ -46,7 +50,9 @@ export default function Cadastro() {
         if (data.nome === '') return alert('O nome de usuário está em branco!')
         if (data.pais === '' || data.estado === '') return alert('Selecione um país e um estado válidos!')
         if (!extras.termos) return alert('Os termos de serviço e a política de privacidade não foram aceitas!')
+        props.setLoad(true)
         const response = await cadastrar(data.email, extras.senha)
+        props.setLoad(false)
         if (response === 'sucesso') {
             salvarInfoUser(data)
         } else {
@@ -76,7 +82,7 @@ export default function Cadastro() {
                         label="E-mail"
                         autoComplete="email"
                         value={data.email}
-                        onChange={e => setData({ ...data, email: e.target.value })}
+                        onChange={e => setData({ ...data, email: e.target.value.toLowerCase() })}
                         className={styles.input}
                     />
                     <TextField id="outlined-password-input"

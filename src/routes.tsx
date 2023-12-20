@@ -5,6 +5,7 @@ import { infoUsuario } from 'services/firestore';
 import { signOut } from 'firebase/auth';
 import { info_especialistas } from 'utils/infos';
 import { Box, LinearProgress } from '@mui/material';
+import Loading from 'components/Loading';
 
 const Home = lazy(() => import('pages/Home'));
 const Login = lazy(() => import('pages/Login'));
@@ -20,7 +21,7 @@ const Trabalho = lazy(() => import('pages/Trabalho'));
 export default function AppRouter() {
     const [pagina, setPagina] = useState(1)
     const [infoUser, setInfoUser] = useState(info_especialistas[0])
-
+    const [load, setLoad] = useState(false)
     async function buscarUserInfo(emailAdress: any) {
         const result = await infoUsuario(emailAdress, setInfoUser)
         if (result === 'error') signOut(auth)
@@ -41,24 +42,27 @@ export default function AppRouter() {
     }
 
     return (
-        <Router>
-            <Suspense fallback={<Box sx={{ width: '100%' }}>
-                <LinearProgress />
-            </Box>}>
-                <Routes>
-                    <Route path='/' element={<Header selected={pagina} childToParent={childToParent} usuarioLogado={infoUser} />}>
-                        <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
-                        <Route path='/cadastro' element={<Cadastro />} />
-                        <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} estado={infoUser.estado} />} />
-                        <Route path='info/:categoria/:id' element={<Info  {...infoUser} setInfoUser={setInfoUser} />} />
-                        <Route path='/perfil' element={<Perfil {...infoUser} setInfoUser={setInfoUser} />} />
-                        <Route path='/trabalho/:jobId' element={<Trabalho {...infoUser} setInfoUser={setInfoUser} />} />
-                        <Route path='*' element={<NotFound />} />
-                    </Route>
-                    <Route path='/login' element={<Login />} />
-                </Routes>
-                <Footer />
-            </Suspense>
-        </Router>
+        <>
+            <Loading open={load} />
+            <Router>
+                <Suspense fallback={<Box sx={{ width: '100%' }}>
+                    <LinearProgress />
+                </Box>}>
+                    <Routes>
+                        <Route path='/' element={<Header selected={pagina} childToParent={childToParent} usuarioLogado={infoUser} />}>
+                            <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
+                            <Route path='/cadastro' element={<Cadastro setLoad={setLoad} />} />
+                            <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} estado={infoUser.estado} />} />
+                            <Route path='info/:categoria/:id' element={<Info  {...infoUser} setInfoUser={setInfoUser} />} />
+                            <Route path='/perfil' element={<Perfil infoUser={infoUser} setInfoUser={setInfoUser} setLoad={setLoad} />} />
+                            <Route path='/trabalho/:jobId' element={<Trabalho usuarioLogado={infoUser} setLoad={setLoad} />} />
+                            <Route path='*' element={<NotFound />} />
+                        </Route>
+                        <Route path='/login' element={<Login setLoad={setLoad} />} />
+                    </Routes>
+                    <Footer />
+                </Suspense>
+            </Router>
+        </>
     )
 }

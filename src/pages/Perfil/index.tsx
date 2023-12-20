@@ -11,12 +11,12 @@ import { useState, memo, useEffect } from 'react'
 import { Divider } from '@mui/material'
 import Editar from './Editar'
 import Solicitar from './Solicitar'
-import { Service_Interface, User_Interface } from 'types/User'
+import { Service_Interface } from 'types/User'
 import { auth } from 'config/firebase'
 import { infoProjetosContratados, infoSolicitados } from 'services/firestore'
 import ImportImage from 'components/ImportImage'
 
-function Perfil(infoUser: User_Interface) {
+function Perfil({ infoUser, setLoad }: any) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const navigate = useNavigate()
     auth.onAuthStateChanged(usuario => {
@@ -45,10 +45,10 @@ function Perfil(infoUser: User_Interface) {
     return (
         <>
             {editar ? <div className={styles.pagina_editar}>
-                <Editar visible={visible} infoUser={infoUser} />
+                <Editar visible={visible} infoUser={infoUser} setLoad={setLoad} />
             </div> : ''}
             {solicitar ? <div className={styles.pagina_editar}>
-                <Solicitar visible={service} infoUser={infoUser} />
+                <Solicitar visible={service} infoUser={infoUser} setLoad={setLoad} />
             </div> : ''}
 
             <div className={styles.container}>

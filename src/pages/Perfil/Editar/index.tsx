@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormControlLabel, Input, InputLabel, TextField } from '@mui/material'
+import { Checkbox, FormControl, FormControlLabel, Input, InputLabel, Snackbar, TextField } from '@mui/material'
 import { useState } from 'react'
 import styles from './Editar.module.scss'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
@@ -7,14 +7,20 @@ import Adicionar from '../Adicionar'
 import { User_Interface } from 'types/User'
 import { TextMaskCustom } from 'utils/genericos';
 import { atualizarInfoUser } from 'services/firestore'
+import { timeout } from 'utils/common'
 
 interface Props {
     visible: any,
-    infoUser: User_Interface
+    infoUser: User_Interface,
+    setLoad: any
 }
 
-export default function Editar({ visible, infoUser }: Props) {
+export default function Editar({ visible, infoUser, setLoad }: Props) {
     const [adicionar, setAdicionar] = useState(false)
+    const [statusToast, setStatusToast] = useState({
+        visivel: false,
+        message: ''
+    })
     const [infoTemp, setInfoTemp] = useState({
         nome: infoUser.nome,
         cidade: infoUser.cidade,
@@ -28,12 +34,15 @@ export default function Editar({ visible, infoUser }: Props) {
     })
 
     async function saveChanges() {
+        setLoad(true)
         const result = await atualizarInfoUser(infoUser.id, infoTemp)
+        setLoad(false)
         if (result === 'ok') {
-            alert('Informações atualizadas com sucesso!')
+            setStatusToast({ message: 'Informações atualizadas com sucesso!', visivel: true })
+            await timeout(1000)
             window.location.reload()
         } else {
-            alert(`Ocorreu o erro ${result}`)
+            setStatusToast({ message: `Ocorreu o erro ${result}`, visivel: true })
         }
     }
 
@@ -46,6 +55,12 @@ export default function Editar({ visible, infoUser }: Props) {
 
     return (
         <>
+            <Snackbar
+                open={statusToast.visivel}
+                onClose={() => setStatusToast({ ...statusToast, visivel: false })}
+                autoHideDuration={3000}
+                message={statusToast.message}
+            />
             <div className={styles.overlay} onClick={() => visible(false)} />
 
             <div className={styles.container}>

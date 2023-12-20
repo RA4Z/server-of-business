@@ -16,9 +16,10 @@ import { timeout, verificarSolicitacaoValida } from 'utils/common'
 interface Props {
     visible: any,
     infoUser: User_Interface
+    setLoad: any
 }
 
-export default function Solicitar({ visible, infoUser }: Props) {
+export default function Solicitar({ visible, infoUser, setLoad }: Props) {
     const [adicionar, setAdicionar] = useState(false)
     const [statusToast, setStatusToast] = useState({
         visivel: false,
@@ -51,12 +52,14 @@ export default function Solicitar({ visible, infoUser }: Props) {
             setStatusToast({ message: verifica, visivel: true })
             return
         }
+        setLoad(true)
         const response = await cadastrarSolicitacao(serviceInfo)
+        setLoad(false)
         if (response === 'erro') {
             setStatusToast({ message: 'Ocorreu algum erro ao tentar cadastrar a solicitação!', visivel: true })
         } else {
             setStatusToast({ message: 'Solicitação cadastrada com sucesso!', visivel: true })
-            await timeout(2000);
+            await timeout(1000);
             window.location.reload()
         }
     }

@@ -11,7 +11,6 @@ import Estrela from 'images/estrela.svg';
 import ImportImage from 'components/ImportImage';
 import dayjs from 'dayjs'
 import NotFound from 'pages/NotFound';
-import { User_Interface } from 'types/User';
 import { auth } from 'config/firebase';
 import Button from 'components/Button';
 import { Rating } from '@mui/material'
@@ -29,7 +28,7 @@ interface UserInformation {
     avaliacoes: number
 }
 
-export default function Trabalho(usuarioLogado: User_Interface) {
+export default function Trabalho({ usuarioLogado, setLoad }: any) {
     const { jobId } = useParams();
     const navigate = useNavigate();
     auth.onAuthStateChanged(usuario => {
@@ -129,11 +128,13 @@ export default function Trabalho(usuarioLogado: User_Interface) {
     };
 
     async function cancelarSolicitacao() {
+        setLoad(true)
         const response = await deletarSolicitacao(jobId!)
+        setLoad(false)
         if (response === 'ok') {
             if (trabalhoInfo.info.idContratado !== '') await sendNotification(trabalhoInfo.info.idContratado, `Serviço Cancelado`, `O usuário ${usuarioLogado.nome} cancelou o serviço "${trabalhoInfo.info.titulo}"!`, 'Cancelado')
             setStatusToast({ message: 'Solicitação deletada com sucesso!', visivel: true })
-            await timeout(3000)
+            await timeout(2000)
             navigate(-1)
         } else {
             setStatusToast({ message: 'Ocorreu algum erro ao tentar deletar a solicitação! Tente novamente mais tarde!', visivel: true })
@@ -151,7 +152,9 @@ export default function Trabalho(usuarioLogado: User_Interface) {
             return
         }
         const numeroAvalia = Number((((trabalhoInfo.contratado.estrelas * trabalhoInfo.contratado.avaliacoes) + avaliacao) / (trabalhoInfo.contratado.avaliacoes + 1)).toFixed(2))
+        setLoad(true)
         const response = await deletarSolicitacao(jobId!)
+        setLoad(false)
         if (response === 'ok') {
             await sendNotification(trabalhoInfo.info.idContratado, `Serviço Concluído com sucesso`, `O usuário ${usuarioLogado.nome} registrou o serviço "${trabalhoInfo.info.titulo}" como concluído, obrigado pela ajuda!`, 'Concluído')
             setStatusToast({ message: 'Solicitação concluída com sucesso! Aguarde um momento...', visivel: true })

@@ -7,7 +7,7 @@ interface Props {
 export default function Loading({ open }: Props) {
     return (
         <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1000 }}
             open={open}
         >
             <CircularProgress color="inherit" />

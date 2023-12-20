@@ -10,7 +10,11 @@ import { logar } from 'services/requisitions';
 import { auth } from 'config/firebase';
 import { verificaSeTemEntradaVazia } from 'utils/common';
 
-export default function Login() {
+interface Props {
+    setLoad: any
+}
+
+export default function Login(props: Props) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const navigate = useNavigate();
     const [statusToast, setStatusToast] = useState({ visivel: false, message: '' })
@@ -31,6 +35,7 @@ export default function Login() {
     })
 
     async function realizarLogin() {
+        props.setLoad(true)
         if (verificaSeTemEntradaVazia(dados, setDados)) {
             setStatusToast({ message: 'Insira seu E-mail e senha!', visivel: true })
             return
@@ -40,6 +45,7 @@ export default function Login() {
             setStatusToast({ message: 'E-mail ou senha inválidos!', visivel: true })
             return
         }
+        props.setLoad(false)
         navigate('/Perfil')
     }
 
