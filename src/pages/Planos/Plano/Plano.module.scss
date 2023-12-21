@@ -1,0 +1,25 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.container {
+    box-shadow: 5px 5px 7px #888888;
+    background-color: $backgrounds;
+    height: 200px;
+    width: 200px;
+
+    &__header {
+        background-color: $secondary;
+        padding: 5px;
+        color: white;
+    }
+
+    &__valor {
+        font-weight: bold;
+        padding: 5px;
+    }
+
+    &__body {
+        color: $texto-secundario;
+        padding: 5px;
+    }
+}

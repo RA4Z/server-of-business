@@ -1,7 +1,24 @@
 @import "styles/variaveis";
 @import "styles/breakpoints";
 
+.logotipo {
+    width: calc(60px + 50vmin);
+    padding: 10px;
+}
+
 .container {
     color: $primary;
     text-align: center;
+    list-style-type: none;
+
+    &__texto {
+        font-size: calc(5px + 2vmin);
+    }
+
+    &__planos {
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+        flex-wrap: wrap;
+    }
 }
