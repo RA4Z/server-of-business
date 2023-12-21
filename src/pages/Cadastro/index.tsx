@@ -26,6 +26,8 @@ export default function Cadastro(props: Props) {
         cidade: '',
         estado: '',
         telefone: '',
+        dataExpira: '',
+        planoAtual: '',
         premium: false,
         autonomo: false,
         freelancer: false,

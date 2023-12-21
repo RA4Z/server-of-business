@@ -9,6 +9,8 @@ export interface User_Interface {
     pais: string,
     descricao: string,
     telefone: string,
+    dataExpira: string,
+    planoAtual: string,
     premium: boolean,
     autonomo: boolean,
     freelancer: boolean,

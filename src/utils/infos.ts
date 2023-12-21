@@ -10,6 +10,8 @@ export const info_especialistas = [
         pais: '',
         descricao: '',
         telefone: '',
+        dataExpira: '',
+        planoAtual: '',
         premium: false,
         autonomo: false,
         freelancer: false,
