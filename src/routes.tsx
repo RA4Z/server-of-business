@@ -16,6 +16,7 @@ const Footer = lazy(() => import('components/Footer'));
 const Pesquisa = lazy(() => import('pages/Pesquisa'));
 const Info = lazy(() => import('pages/Info'));
 const Perfil = lazy(() => import('pages/Perfil'));
+const Planos = lazy(() => import('pages/Planos'));
 const Trabalho = lazy(() => import('pages/Trabalho'));
 
 export default function AppRouter() {
@@ -53,8 +54,9 @@ export default function AppRouter() {
                             <Route index element={<Home pagina={pagina} childToParent={childToParent} />} />
                             <Route path='/cadastro' element={<Cadastro setLoad={setLoad} />} />
                             <Route path='pesquisa/:categoria/:especifico?' element={<Pesquisa childToParent={childToParent} estado={infoUser.estado} />} />
-                            <Route path='info/:categoria/:id' element={<Info  {...infoUser} setInfoUser={setInfoUser} />} />
+                            <Route path='info/:categoria/:id' element={<Info {...infoUser} setInfoUser={setInfoUser} />} />
                             <Route path='/perfil' element={<Perfil infoUser={infoUser} setInfoUser={setInfoUser} setLoad={setLoad} />} />
+                            <Route path='/planos' element={<Planos {...infoUser} setInfoUser={setInfoUser} />} />
                             <Route path='/trabalho/:jobId' element={<Trabalho usuarioLogado={infoUser} setLoad={setLoad} />} />
                             <Route path='*' element={<NotFound />} />
                         </Route>

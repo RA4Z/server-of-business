@@ -70,7 +70,10 @@ function Header({ selected, childToParent, usuarioLogado }: any) {
         setOption(!option)
     }
 
-    if (window.location.pathname.toLowerCase().indexOf('cadastro') > 0 || window.location.pathname.toLowerCase().indexOf('perfil') > 0 || window.location.pathname.toLowerCase().indexOf('trabalho') > 0) {
+    if (window.location.pathname.toLowerCase().indexOf('cadastro') > 0 ||
+        window.location.pathname.toLowerCase().indexOf('perfil') > 0 ||
+        window.location.pathname.toLowerCase().indexOf('trabalho') > 0 ||
+        window.location.pathname.toLowerCase().indexOf('planos') > 0) {
         selected = 0
     }
 
