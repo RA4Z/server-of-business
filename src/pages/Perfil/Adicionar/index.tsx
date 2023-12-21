@@ -1,7 +1,7 @@
 import { Divider, TextField } from '@mui/material'
 import { useState } from 'react'
 import styles from './Adicionar.module.scss'
-import Cancelar from 'images/cancelar.png'
+import Cancelar from '@mui/icons-material/Close';
 import Button from 'components/Button'
 
 interface Props {
@@ -46,7 +46,7 @@ export default function Adicionar(props: Props) {
                     {especializacoes.map((especializacao) => (
                         <div className={styles.especializacoes__especializacao} key={especializacao}>
                             <li>{especializacao}</li>
-                            <img src={Cancelar} alt='Botão de remover' onClick={() => removerEspecializacao(especializacao)} />
+                            <Cancelar onClick={() => removerEspecializacao(especializacao)} />
                         </div>
                     ))}
                 </div>
