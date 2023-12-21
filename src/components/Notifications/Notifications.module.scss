@@ -25,3 +25,28 @@
         color: #9D1010;
     }
 }
+
+.textoDescritivo {
+    display: flex;
+    list-style-type: none;
+
+    &__delete {
+        right: 0;
+        justify-self: flex-end;
+        align-self: flex-end;
+        cursor: pointer;
+        transition: .5s;
+
+        &:hover {
+            color: $primary;
+        }
+
+        @media(max-width:300px) {
+            align-self: center;
+        }
+    }
+
+    @media(max-width:$mobile) {
+        flex-direction: column;
+    }
+}

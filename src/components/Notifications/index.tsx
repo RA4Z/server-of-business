@@ -1,11 +1,12 @@
-import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Dialog, DialogContent, DialogTitle, Snackbar, Typography } from "@mui/material"
 import styles from './Notifications.module.scss'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useState } from "react";
-import { getNotifications } from "services/database";
+import { deleteNotification, getNotifications } from "services/database";
 import { User_Interface } from "types/User";
 import classNames from "classnames";
 import TextoTitulos from "components/TextoTitulos";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Props {
     usuarioLogado: User_Interface
@@ -14,8 +15,12 @@ interface Props {
 }
 
 export default function Notifications(props: Props) {
-    const [notificacoes, setNotificacoes] = useState<{ titulo: string, descricao: string, tipo: string, timestamp: number }[]>([])
+    const [notificacoes, setNotificacoes] = useState<{ id: any, titulo: string, descricao: string, tipo: string, timestamp: number }[]>([])
     const [loading, setLoading] = useState(true)
+    const [statusToast, setStatusToast] = useState({
+        visivel: false,
+        message: ''
+    })
 
     useEffect(() => {
         async function coletarNotifica() {
@@ -24,6 +29,14 @@ export default function Notifications(props: Props) {
         }
         coletarNotifica()
     }, [props.usuarioLogado.id])
+
+    async function deletarNotificacao(idNotificacao: string) {
+        setNotificacoes(notificacoes.filter(especial => especial.id !== idNotificacao))
+        const result = await deleteNotification(props.usuarioLogado.id, idNotificacao)
+        if (!result) {
+            setStatusToast({ message: 'Ocorreu algum erro ao tentar deletar! Tente novamente mais tarde', visivel: true })
+        }
+    }
 
     return (
         <Dialog
@@ -34,9 +47,9 @@ export default function Notifications(props: Props) {
                 {`Caixa de Entrada de Notificações`}
             </DialogTitle>
             <DialogContent className={styles.caixa}>
-
                 {loading ? <CircularProgress color="inherit" /> :
                     <>
+                        {/* <Button dark={false} texto='Limpar caixa de entrada' /> */}
                         {notificacoes.length > 0 ? notificacoes.map((registro, index) => (
                             <Accordion key={index}>
                                 <AccordionSummary
@@ -47,8 +60,9 @@ export default function Notifications(props: Props) {
                                         styles[`titulo__${registro.tipo}`])}>{registro.titulo}</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography>
-                                        {registro.descricao}
+                                    <Typography className={styles.textoDescritivo}>
+                                        <li>{registro.descricao}</li>
+                                        <DeleteIcon fontSize="large" onClick={() => deletarNotificacao(registro.id)} className={styles.textoDescritivo__delete} />
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
@@ -57,6 +71,12 @@ export default function Notifications(props: Props) {
                 }
 
             </DialogContent>
+            <Snackbar
+                open={statusToast.visivel}
+                onClose={() => setStatusToast({ ...statusToast, visivel: false })}
+                autoHideDuration={3000}
+                message={statusToast.message}
+            />
         </Dialog>
     )
 }

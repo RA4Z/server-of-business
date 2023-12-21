@@ -75,3 +75,19 @@ export async function getNotifications(userId: string, setNotifica: any) {
     }
 }
 
+export async function deleteNotification(userId: string, notificationId: string) {
+    const notifyRef = ref(database, `notifications/${userId}/${notificationId}`);
+    const result = await remove(notifyRef)
+        .then(() => {
+            return true
+        })
+        .catch(() => {
+            return false
+        });
+    if (result) {
+        return true
+    } else {
+        return false
+    }
+}
+
