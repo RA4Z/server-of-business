@@ -53,8 +53,10 @@ function Perfil({ infoUser, setLoad }: any) {
 
             <div className={styles.container}>
                 <div className={styles.user}>
-                    <img className={styles.user__avatar} src={infoUser.avatar !== '' ? infoUser.avatar : UserImg} alt='Imagem do perfil de usuário' />
-                    <ImportImage userInfo={infoUser} />
+                    <div className={styles.user__image}>
+                        <img className={styles.user__image__avatar} src={infoUser.avatar !== '' ? infoUser.avatar : UserImg} alt='Imagem do perfil de usuário' />
+                        <div className={styles.use__image__import}><ImportImage userInfo={infoUser} /></div>
+                    </div>
                     <p className={styles.user__editar} onClick={() => setEditar(true)}>Editar perfil</p>
                 </div>
 

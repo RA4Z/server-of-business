@@ -39,6 +39,11 @@
     align-items: center;
     gap: 10px;
 
+    @media(max-width: 200px) {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
     &__img {
         @media(max-width: $tablet) {
             height: 88px;

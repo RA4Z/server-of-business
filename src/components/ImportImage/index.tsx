@@ -3,6 +3,7 @@ import styles from './ImportImage.module.scss';
 import { atualizarInfoService, atualizarInfoUser } from 'services/firestore';
 import { salvarImagem } from 'services/storage';
 import { User_Interface } from 'types/User';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 interface Props {
   userInfo?: User_Interface;
@@ -58,8 +59,8 @@ function ImportImage(props: Props) {
   };
 
   return (
-    <div className={styles.export}>
-      <label htmlFor='selecao-arquivo'>Alterar Imagem</label>
+    <div className={styles.export} >
+      <label htmlFor='selecao-arquivo'><AddPhotoAlternateIcon fontSize='large' /></label>
       <input id='selecao-arquivo' type="file" accept="image/png, image/jpeg, image/jpg" onChange={handleFileChange} />
     </div>
   );
