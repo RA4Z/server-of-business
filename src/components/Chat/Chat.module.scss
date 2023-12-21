@@ -123,3 +123,13 @@
     }
 
 }
+
+.send {
+    color: $secondary;
+    transition: .5s;
+    cursor: pointer;
+
+    &:hover {
+        color: $primary
+    }
+}

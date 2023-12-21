@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
 import styles from './Chat.module.scss'
 import Cancelar from '@mui/icons-material/Close';
-import Send from 'images/send.png'
+import Send from '@mui/icons-material/Send';
 import { useEffect, useState } from 'react'
 import { getMessages, sendMessage } from 'services/database'
 import { User_Interface } from 'types/User'
@@ -82,9 +82,9 @@ export default function Chat(props: Props) {
                         }}
                     />
 
-                    <img
-                        src={Send}
-                        alt='Enviar mensagem'
+                    <Send
+                        fontSize='large'
+                        className={styles.send}
                         onClick={() => {
                             if (mensagem.trim() !== '') {
                                 enviarMensagem();
