@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material'
 import styles from './Chat.module.scss'
-import Cancelar from 'images/cancelar.png'
+import Cancelar from '@mui/icons-material/Close';
 import Send from 'images/send.png'
 import { useEffect, useState } from 'react'
 import { getMessages, sendMessage } from 'services/database'
@@ -49,7 +49,7 @@ export default function Chat(props: Props) {
             {props.contatarChat && <div className={styles.container}>
                 <div className={styles.container__header}>
                     <li>{props.receptor}</li>
-                    <img src={Cancelar} alt='Fechar Chat' onClick={() => props.setContatarChat(false)} />
+                    <Cancelar fontSize='large' onClick={() => props.setContatarChat(false)} className={styles.container__header__close} />
                 </div>
                 <div id='texto_chat' className={styles.container__chat}>
                     {historico.map((message, index) => (

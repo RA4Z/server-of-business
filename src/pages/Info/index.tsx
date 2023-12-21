@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from 'components/Button';
 
-import Voltar from 'images/voltar.png'
+import Voltar from '@mui/icons-material/Reply';
 import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import Estrela from 'images/estrela.svg'
 import UserIMG from 'images/user.png'
@@ -165,7 +165,7 @@ export default function Info(usuarioLogado: User_Interface) {
                 </DialogActions>
             </Dialog>
             <div className={styles.container}>
-                <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
+                <Voltar fontSize='large' onClick={() => navigate(-1)} className={styles.seta_volta} />
                 <div className={styles.info}>
                     <div className={styles.info__titulo}>{info.titulo}</div>
                     <div className={styles.info__desc}>

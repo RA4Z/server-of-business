@@ -30,6 +30,11 @@
     width: 36px;
     height: 36px;
     cursor: pointer;
+    transition: .5s;
+
+    &:hover {
+        color: $primary;
+    }
 }
 
 
@@ -129,9 +134,6 @@
         }
 
         p {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
 
             img {
                 height: 20px;
@@ -139,7 +141,7 @@
         }
 
         @media(max-width: $mobile) {
-            min-width: auto;
+            min-width: 100vw;
         }
 
         img {

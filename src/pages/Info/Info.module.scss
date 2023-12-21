@@ -13,6 +13,11 @@
     width: 36px;
     height: 36px;
     cursor: pointer;
+    transition: .5s;
+
+    &:hover {
+        color: $primary;
+    }
 }
 
 .textos {

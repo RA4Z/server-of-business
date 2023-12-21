@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Snackbar } from '@mui/material';
 import { atualizarInfoUser, deletarSolicitacao, infoSolicitado, infoUser, userInscrito } from 'services/firestore';
-import Voltar from 'images/voltar.png';
+import Voltar from '@mui/icons-material/Reply';
 import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import UserIMG from 'images/user.png';
 import User from './User';
@@ -229,7 +229,7 @@ export default function Trabalho({ usuarioLogado, setLoad }: any) {
                     : ''}
             </div>
             <div className={styles.container}>
-                <img src={Voltar} alt='Seta para retornar à página anterior' onClick={() => navigate(-1)} className={styles.seta_volta} />
+                <Voltar onClick={() => navigate(-1)} className={styles.seta_volta} />
                 <div className={styles.info}>
                     <div className={styles.info__titulo}>{info.titulo}</div>
                     <div className={styles.info__desc}>
