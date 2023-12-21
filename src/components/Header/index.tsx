@@ -1,8 +1,9 @@
 import { useState, useEffect, memo } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import logo from 'images/logo.svg'
-import hamburguer from 'images/hamburguer.png'
+import MenuIcon from '@mui/icons-material/Menu';
 import user from 'images/user.png'
+import EmailIcon from '@mui/icons-material/Email';
 
 import Button from 'components/Button'
 import styles from './Header.module.scss'
@@ -76,7 +77,10 @@ function Header({ selected, childToParent, usuarioLogado }: any) {
     return (
         <>
             <div className={styles.header}>
-                <img className={styles.img} src={logo} onClick={() => pressionarLogo()} alt='Logo do projeto' />
+                <div className={styles.cover}>
+                    <img className={styles.cover__img} src={logo} onClick={() => navigate('/')} alt='Logo do projeto' />
+                    {logado && <EmailIcon fontSize='large' className={styles.cover__mail} onClick={() => pressionarLogo()} />}
+                </div>
 
                 <ul className={styles.menu__list}>
                     {rotas.map((rotas, index) => (
@@ -109,7 +113,7 @@ function Header({ selected, childToParent, usuarioLogado }: any) {
                         </ul>
                     </>
                 }
-                <img className={styles.hamburguer} src={hamburguer} alt='Menu Hamburguer' onClick={() => pressionarMenu()} />
+                <MenuIcon fontSize='large' className={styles.hamburguer} onClick={() => pressionarMenu()} />
             </div>
 
             {notification ? <div className={styles.container}>

@@ -19,11 +19,31 @@
 .title {
     align-self: start;
 }
-.img {
-    height: auto;
-    width: calc(100px + 15vmin);
-    cursor: pointer;
+
+.cover {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    &__img {
+        cursor: pointer;
+        height: auto;
+        width: calc(100px + 15vmin);
+
+    }
+
+    &__mail {
+        cursor: pointer;
+        position: absolute;
+        color: $secondary;
+        transition: .5s;
+
+        &:hover {
+            color: $primary;
+        }
+    }
 }
+
 .user {
     height: 70px;
     width: 70px;
@@ -35,20 +55,20 @@
 
 .hamburguer {
     display: none;
-    width: calc(70px + 2vmin);
     @media(max-width: $tablet) {
         display: block;
     }
-    padding: 20px;
 }
 
 .menu {
     display: flex;
     padding: 20px 20px;
+
     &__list {
         @media(max-width: $mobile) {
             display: none;
         }
+
         align-items: center;
         display: flex;
         text-wrap: nowrap;
@@ -68,10 +88,12 @@
             font-size: calc(5px + 2vmin);
             transition: .3s;
             border: 0;
+
             &:hover {
                 color: $secondary;
             }
         }
+
         p {
             color: $secondary;
             font-size: calc(5px + 2vmin);
@@ -82,9 +104,11 @@
         @media(max-width: $tablet) {
             display: none;
         }
+
         align-items: center;
         display: flex;
     }
+
     &__button {
         list-style-type: none;
         padding: 0 10px;
