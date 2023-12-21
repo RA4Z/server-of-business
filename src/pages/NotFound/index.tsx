@@ -2,8 +2,10 @@ import styles from './NotFound.module.scss';
 import { ReactComponent as NotFoundImage } from 'images/not_found.svg';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import TextoTitulos from 'components/TextoTitulos';
+import { memo } from 'react';
 
-export default function NotFound() {
+export function NotFound() {
     const navigate = useNavigate();
     return (
         <div className={classNames({
@@ -15,7 +17,8 @@ export default function NotFound() {
                 </button>
             </div>
             <NotFoundImage className={styles.image} />
-            <h2>Página não encontrada!</h2>
+            <TextoTitulos>Página não encontrada!</TextoTitulos>
         </div>
     );
 }
+export default memo(NotFound)

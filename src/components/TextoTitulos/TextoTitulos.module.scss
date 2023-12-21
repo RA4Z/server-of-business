@@ -1,0 +1,10 @@
+@import "styles/variaveis";
+@import "styles/breakpoints";
+
+.titulo {
+    font-size: calc(12px + 3vmin);
+    color: $secondary;
+    text-align: center;
+    padding: 10px;
+    list-style-type: none;
+}

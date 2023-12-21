@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getNotifications } from "services/database";
 import { User_Interface } from "types/User";
 import classNames from "classnames";
+import TextoTitulos from "components/TextoTitulos";
 
 interface Props {
     usuarioLogado: User_Interface
@@ -51,7 +52,7 @@ export default function Notifications(props: Props) {
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
-                        )) : <h2>Não há notificações a serem visualizadas!</h2>}
+                        )) : <TextoTitulos>Não há notificações a serem visualizadas!</TextoTitulos>}
                     </>
                 }
 

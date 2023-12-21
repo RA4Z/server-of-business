@@ -10,6 +10,7 @@ import UserIMG from 'images/user.png'
 
 import { info_especialistas, info_servicos } from 'utils/infos'
 import { visualizarSolicitados, visualizarUsuarios } from 'services/firestore'
+import TextoTitulos from 'components/TextoTitulos'
 
 interface Props {
     childToParent: any,
@@ -155,7 +156,7 @@ function Pesquisa({ childToParent, estado }: Props) {
                                     onClick={() => navigate(`/info/users/${card.id}`)}
                                     buttonText='Ver mais informações'
                                 />
-                            )) : <h1 style={{ textAlign: 'center', padding: 10 }}>Nenhum usuário encontrado!</h1>}
+                            )) : <TextoTitulos>Nenhum usuário encontrado!</TextoTitulos>}
                         </>
                         :
                         <>
@@ -168,10 +169,10 @@ function Pesquisa({ childToParent, estado }: Props) {
                                     onClick={() => navigate(`/info/services/${card.id}`)}
                                     buttonText='Ver mais informações'
                                 />
-                            )) : <h1 style={{ textAlign: 'center', padding: 10 }}>Nenhum serviço em aberto na sua região encontrado!</h1>}
+                            )) : <TextoTitulos>Nenhum serviço em aberto na sua região encontrado!</TextoTitulos>}
                         </>
                     }
-                </> : <h1 style={{ textAlign: 'center', padding: 10 }}>Entre em sua conta para conseguir visualizar os {categoria === '1' ? 'especialistas cadastrados' : 'serviços em aberto'}</h1>}
+                </> : <TextoTitulos>Entre em sua conta para conseguir visualizar os {categoria === '1' ? 'especialistas cadastrados' : 'serviços em aberto'}</TextoTitulos>}
             </div>
         </>
     )
