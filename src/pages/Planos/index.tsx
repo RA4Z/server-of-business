@@ -30,12 +30,12 @@ export default function Planos(usuarioLogado: User_Interface) {
                 <Plano titulo='Premium Padrão'
                     valor={19.99}
                     onClick={() => selecionarPlano('Padrão')}
-                    descricao='Com esse plano você enviará/receberá notificações de serviços para/de outros usuários Premium quando as Especialidades batem com os requisitos.' />
+                    descricao='Com esse plano você enviará e receberá notificações de serviços de outros usuários Premium quando as Especialidades batem com os requisitos.' />
 
                 <Plano titulo='Premium Especial'
                     valor={39.99}
                     onClick={() => selecionarPlano('Especial')}
-                    descricao='Com esse plano você enviará/receberá notificações de serviços para/de todos os usuários quando as Especialidades batem com os requisitos.' />
+                    descricao='Com esse plano você enviará e receberá notificações de serviços de todos os usuários quando as Especialidades batem com os requisitos.' />
             </div>
             <Snackbar
                 open={statusToast.visivel}

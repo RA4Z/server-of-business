@@ -23,11 +23,9 @@ function errosFirebase(error: any) {
 export async function cadastrar(email: string, senha: string) {
   const resultado = await createUserWithEmailAndPassword(auth, email, senha)
     .then((dadosDoUsuario) => {
-      console.log(dadosDoUsuario)
       return "sucesso"
     })
     .catch((error) => {
-      console.log(error)
       return errosFirebase(error)
     });
   return resultado;
@@ -35,12 +33,10 @@ export async function cadastrar(email: string, senha: string) {
 
 export async function logar(email: string, senha: string) {
   const resultado = await signInWithEmailAndPassword(auth, email, senha)
-    .then((dadosDoUsuario) => {
-      console.log(dadosDoUsuario)
+    .then(() => {
       return "sucesso"
     })
-    .catch((error) => {
-      console.log(error)
+    .catch(() => {
       return "erro"
     });
   return resultado;

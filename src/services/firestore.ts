@@ -58,7 +58,6 @@ export async function salvarInfoUser(data: any) {
     const result = await addDoc(collection(db, 'usuários'), data)
     return result.id
   } catch (error) {
-    console.log('Erro add post:', error)
     return 'erro'
   }
 }
