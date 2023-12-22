@@ -128,7 +128,7 @@ export default function Info(usuarioLogado: User_Interface) {
 
     return (
         <>
-            <Convidar show={show} setShow={setShow} usuarioLogado={usuarioLogado} />
+            <Convidar show={show} setShow={setShow} usuarioLogado={usuarioLogado} usuarioAlvoId={id} />
             <Dialog
                 open={askCandidatar}
                 onClose={() => setAskCandidatar(false)}

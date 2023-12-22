@@ -49,11 +49,17 @@ export async function faleConosco(texto: string, email: string) {
     })
 }
 
-export async function sendNotification(userId: string, titulo: string, descricao: string, tipo: string) {
+export async function sendNotification(userId: string, titulo: string, descricao: string, tipo: string, idService?: string) {
     const id = push(child(ref(database), `notifications/${userId}`)).key
-    set(ref(database, `notifications/${userId}/${id}`), {
-        titulo: titulo, descricao: descricao, tipo: tipo, timestamp: serverTimestamp()
-    })
+    if (idService !== undefined) {
+        set(ref(database, `notifications/${userId}/${id}`), {
+            titulo: titulo, descricao: descricao, tipo: tipo, timestamp: serverTimestamp(), idService: idService
+        })
+    } else {
+        set(ref(database, `notifications/${userId}/${id}`), {
+            titulo: titulo, descricao: descricao, tipo: tipo, timestamp: serverTimestamp()
+        })
+    }
 }
 
 export async function getNotifications(userId: string, setNotifica: any) {

@@ -4,11 +4,13 @@ import TextoTitulos from 'components/TextoTitulos'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Service_Interface, User_Interface } from 'types/User';
 import { useEffect, useState } from 'react';
-import { infoSolicitados } from 'services/firestore';
+import { infoProjetosNaoContratados } from 'services/firestore';
 import AddAlertIcon from '@mui/icons-material/AddAlert';
+import { sendNotification } from 'services/database';
 
 interface Props {
     usuarioLogado: User_Interface
+    usuarioAlvoId: any
     show: any,
     setShow: any
 }
@@ -23,14 +25,17 @@ export default function Convidar(props: Props) {
 
     useEffect(() => {
         async function Solicitar() {
-            await infoSolicitados(props.usuarioLogado.email, setSolicitados)
+            await infoProjetosNaoContratados(props.usuarioLogado.email, setSolicitados)
             setLoading(false)
         }
         Solicitar()
     }, [props.usuarioLogado.email])
 
-    async function inviteUser() {
-        console.log('Convidar usuário')
+    async function inviteUser(service: Service_Interface) {
+        await sendNotification(props.usuarioAlvoId, `Convite de Serviço`,
+            `O usuário ${props.usuarioLogado.nome} te convidou para o serviço "${service.titulo}"!`,
+            'convite', service.id)
+        setStatusToast({ visivel: true, message: 'Usuário convidado com sucesso!' })
     }
 
     return (
@@ -39,7 +44,7 @@ export default function Convidar(props: Props) {
             onClose={() => props.setShow(false)}
             style={{ textAlign: 'center' }}>
             <DialogTitle>
-                {`Solicitações em aberto`}
+                {`Convidar usuário para serviço`}
             </DialogTitle>
             <DialogContent className={styles.caixa}>
                 {loading ? <CircularProgress color="inherit" /> :
@@ -54,7 +59,7 @@ export default function Convidar(props: Props) {
                                 <AccordionDetails>
                                     <Typography className={styles.cargos}>
                                         <li>{registro.descricao}</li>
-                                        <AddAlertIcon onClick={() => inviteUser()} titleAccess='Convidar usuário para o serviço'
+                                        <AddAlertIcon onClick={() => inviteUser(registro)} titleAccess='Convidar usuário para o serviço'
                                             fontSize='large' className={styles.cargos__invite} />
                                         <div className={styles.cargos__container}>
                                             {registro.cargos.map((cargo, index) => (
@@ -75,8 +80,7 @@ export default function Convidar(props: Props) {
                 open={statusToast.visivel}
                 onClose={() => setStatusToast({ ...statusToast, visivel: false })}
                 autoHideDuration={3000}
-                message={statusToast.message}
-            />
+                message={statusToast.message} />
         </Dialog>
     )
 }

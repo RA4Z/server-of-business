@@ -24,6 +24,10 @@
     &__cancelado {
         color: #9D1010;
     }
+
+    &__convite {
+        color: #109d8f;
+    }
 }
 
 .textoDescritivo {
@@ -44,6 +48,17 @@
         @media(max-width:300px) {
             align-self: center;
         }
+    }
+
+    &__link {
+        color: $secondary;
+        cursor: pointer;
+        transition: .5s;
+
+        &:hover {
+            color: $primary;
+        }
+
     }
 
     @media(max-width:$mobile) {

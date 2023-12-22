@@ -19,11 +19,29 @@ export async function infoUsuario(emailUser: string, setUser: any) {
     return error
   }
 }
+
 export async function infoSolicitados(emailUser: string, setSolicitado: any) {
   try {
     let solicitar: any[] = []
     const userRef = collection(db, 'solicitados');
     const q = query(userRef, where("email", "==", emailUser));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      let info = { id: doc.id, ...doc.data() }
+      solicitar.push(info)
+    });
+    solicitar.sort((a, b) => (a.diaProcurado < b.diaProcurado) ? -1 : 1)
+    setSolicitado(solicitar)
+  } catch (error) {
+    return 'error'
+  }
+}
+
+export async function infoProjetosNaoContratados(emailUser: string, setSolicitado: any) {
+  try {
+    let solicitar: any[] = []
+    const userRef = collection(db, 'solicitados');
+    const q = query(userRef, where("email", "==", emailUser), where("idContratado", "==", ''));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       let info = { id: doc.id, ...doc.data() }

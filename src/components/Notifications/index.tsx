@@ -7,6 +7,7 @@ import { User_Interface } from "types/User";
 import classNames from "classnames";
 import TextoTitulos from "components/TextoTitulos";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     usuarioLogado: User_Interface
@@ -15,7 +16,8 @@ interface Props {
 }
 
 export default function Notifications(props: Props) {
-    const [notificacoes, setNotificacoes] = useState<{ id: any, titulo: string, descricao: string, tipo: string, timestamp: number }[]>([])
+    const navigate = useNavigate()
+    const [notificacoes, setNotificacoes] = useState<{ id: any, titulo: string, descricao: string, tipo: string, timestamp: number, idService?: string }[]>([])
     const [loading, setLoading] = useState(true)
     const [statusToast, setStatusToast] = useState({
         visivel: false,
@@ -36,6 +38,11 @@ export default function Notifications(props: Props) {
         if (!result) {
             setStatusToast({ message: 'Ocorreu algum erro ao tentar deletar! Tente novamente mais tarde', visivel: true })
         }
+    }
+
+    function acessarService(path: string) {
+        navigate(path)
+        props.setNotification(false)
     }
 
     return (
@@ -60,8 +67,11 @@ export default function Notifications(props: Props) {
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Typography className={styles.textoDescritivo}>
-                                        <li>{registro.descricao}</li>
-                                        <DeleteIcon fontSize="large" onClick={() => deletarNotificacao(registro.id)} className={styles.textoDescritivo__delete} />
+                                        <div>
+                                            <li>{registro.descricao}</li>
+                                            {registro.idService !== undefined && <li className={styles.textoDescritivo__link} onClick={() => acessarService(`/info/services/${registro.idService}`)}>Acessar o serviço correspondente</li>}
+                                        </div>
+                                        <DeleteIcon titleAccess='Apagar Notificação' fontSize="large" onClick={() => deletarNotificacao(registro.id)} className={styles.textoDescritivo__delete} />
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
