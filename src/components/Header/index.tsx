@@ -1,7 +1,6 @@
 import { useState, useEffect, memo } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import logo from 'images/logo.svg'
-import MenuIcon from '@mui/icons-material/Menu';
 import user from 'images/user.png'
 import EmailIcon from '@mui/icons-material/Email';
 
@@ -116,7 +115,7 @@ function Header({ selected, childToParent, usuarioLogado }: any) {
                         </ul>
                     </>
                 }
-                <MenuIcon style={{display:'none'}} fontSize='large' onClick={() => pressionarMenu()} />
+                {/* <MenuIcon className={styles.hamburguer} fontSize='large' onClick={() => pressionarMenu()} /> */}
             </div>
 
             {notification ? <div className={styles.container}>
