@@ -55,6 +55,7 @@
 
 .hamburguer {
     display: none;
+    width: calc(20px + 1vmin);;
 
     @media(max-width: $tablet) {
         display: block;

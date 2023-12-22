@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import logo from 'images/logo.svg'
 import user from 'images/user.png'
 import EmailIcon from '@mui/icons-material/Email';
+import Menu from 'images/menu.png'
 
 import Button from 'components/Button'
 import styles from './Header.module.scss'
@@ -115,7 +116,7 @@ function Header({ selected, childToParent, usuarioLogado }: any) {
                         </ul>
                     </>
                 }
-                {/* <MenuIcon className={styles.hamburguer} fontSize='large' onClick={() => pressionarMenu()} /> */}
+                <img src={Menu} alt='Menu Hamburguer' className={styles.hamburguer} onClick={() => pressionarMenu()} />
             </div>
 
             {notification ? <div className={styles.container}>
