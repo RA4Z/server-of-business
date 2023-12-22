@@ -19,6 +19,7 @@ import dayjs from 'dayjs'
 import NotFound from 'pages/NotFound';
 import { timeout } from 'utils/common';
 import { sendNotification } from 'services/database';
+import Convidar from 'components/Convidar';
 
 const Chat = lazy(() => import('components/Chat'));
 
@@ -33,6 +34,7 @@ export default function Info(usuarioLogado: User_Interface) {
         visivel: false,
         message: ''
     })
+    const [show, setShow] = useState(false)
     const [contatarChat, setContatarChat] = useState(false)
     const [abandonarProjeto, setAbandonarProjeto] = useState(false)
     const [askCandidatar, setAskCandidatar] = useState(false)
@@ -74,7 +76,7 @@ export default function Info(usuarioLogado: User_Interface) {
                 setStatusToast({ message: 'Não é possível se inscrever, alguém já foi contratado para este serviço!', visivel: true })
             } else setAskCandidatar(true)
         } else {
-            console.log('Direcionar a um chat')
+            setShow(true)
         }
     }
 
@@ -126,6 +128,7 @@ export default function Info(usuarioLogado: User_Interface) {
 
     return (
         <>
+            <Convidar show={show} setShow={setShow} usuarioLogado={usuarioLogado} />
             <Dialog
                 open={askCandidatar}
                 onClose={() => setAskCandidatar(false)}

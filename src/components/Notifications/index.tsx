@@ -49,7 +49,6 @@ export default function Notifications(props: Props) {
             <DialogContent className={styles.caixa}>
                 {loading ? <CircularProgress color="inherit" /> :
                     <>
-                        {/* <Button dark={false} texto='Limpar caixa de entrada' /> */}
                         {notificacoes.length > 0 ? notificacoes.map((registro, index) => (
                             <Accordion key={index}>
                                 <AccordionSummary
