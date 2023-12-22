@@ -55,6 +55,7 @@
 
 .hamburguer {
     display: none;
+
     @media(max-width: $tablet) {
         display: block;
     }
@@ -101,12 +102,12 @@
     }
 
     &__buttons {
+        align-items: center;
+        display: flex;
+
         @media(max-width: $tablet) {
             display: none;
         }
-
-        align-items: center;
-        display: flex;
     }
 
     &__button {
