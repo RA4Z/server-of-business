@@ -116,7 +116,7 @@ function Header({ selected, childToParent, usuarioLogado }: any) {
                         </ul>
                     </>
                 }
-                <MenuIcon className={styles.hamburguer} fontSize='large' onClick={() => pressionarMenu()} />
+                <MenuIcon style={{display:'none'}} fontSize='large' onClick={() => pressionarMenu()} />
             </div>
 
             {notification ? <div className={styles.container}>
