@@ -9,7 +9,7 @@ import { auth } from 'config/firebase';
 
 interface Props {
     logado: boolean,
-    mostrarOption: any
+    mostrarOption: any,
 }
 
 function OptionMenu(props: Props) {
@@ -50,7 +50,7 @@ function OptionMenu(props: Props) {
             <div className={styles.titulo}>Informações Adicionais</div>
             {props.logado ?
                 <>
-                    <Button texto='Tornar-se Premium' dark={false} onClick={() => navegar('/planos')} />
+                    {/* <Button texto='Tornar-se Premium' dark={false} onClick={() => navegar('/planos')} /> */}
                     <Button texto='Procurar Especialistas' dark={false} onClick={() => navegar('/pesquisa/1')} />
                     <Button texto='Solicitações em aberto' dark={false} onClick={() => navegar('/pesquisa/2')} />
                     <Button texto='Perfil de Usuário' dark={false} onClick={() => navegar('/perfil')} />

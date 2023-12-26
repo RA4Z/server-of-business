@@ -14,6 +14,7 @@ import Notifications from 'components/Notifications';
 
 function Header({ selected, childToParent, usuarioLogado }: any) {
     const [option, setOption] = useState(false)
+    const [acordo, setAcordo] = useState(false)
     const [notification, setNotification] = useState(false)
     const [logado, setLogado] = useState(false)
     const navigate = useNavigate();
@@ -67,7 +68,8 @@ function Header({ selected, childToParent, usuarioLogado }: any) {
     }
 
     function pressionarMenu() {
-        setOption(!option)
+        if (!acordo) setOption(!option)
+        setAcordo(!acordo)
     }
 
     if (window.location.pathname.toLowerCase().indexOf('cadastro') > 0 ||
