@@ -65,7 +65,7 @@ function Footer() {
                     <a href="https://br.freepik.com/fotos-gratis/pessoas-negocio-apertar-mao-em-um-sala-reuniao_2770460.htm" target="_blank" rel="noreferrer"><li>Imagem de rawpixel.com no Freepik</li></a>
                     <a href="https://br.freepik.com/fotos-gratis/grupo-de-pessoas-diversas-tendo-uma-reuniao-de-negocios_2894621.htm" target="_blank" rel="noreferrer"><li>Imagem de rawpixel.com no Freepik</li></a>
                     <a href="https://br.freepik.com/fotos-gratis/homem-sorridente-de-tiro-medio-no-armazem_21251335.htm" target="_blank" rel="noreferrer"><li>Imagem de freepik.com no Freepik</li></a>
-                    <a href="https://br.freepik.com/fotos-gratis/diferentes-ocupacoes-de-mulheres-jovens_11600063.htm" target="_blank" rel="noreferrer"><li>Imagem de gpointstudio no Freepik</li></a>
+                    <a href="https://www.freepik.com/free-ai-image/wolf-pack-natural-environment_47933705.htm#query=wolfs&position=22&from_view=search&track=sph&uuid=cd7e72fa-2b27-4004-90bd-44d2baf512dc?log-in=google" target="_blank" rel="noreferrer"><li>Imagem de freepik.com AI no Freepik</li></a>
                     <a href="https://br.freepik.com/fotos-gratis/alegre-jovem-empresario-caucasiano_6514541.htm" target="_blank" rel="noreferrer"><li>Imagem de drobotdean no Freepik</li></a>
                     <a href="https://br.freepik.com/fotos-gratis/mulher-ocupada-fazendo-muitas-coisas-ao-mesmo-tempo_865252.htm" target="_blank" rel="noreferrer"><li>Imagem de pressfoto no Freepik</li></a>
                 </div>
