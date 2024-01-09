@@ -33,9 +33,9 @@ function Footer() {
         <div className={styles.container}>
             <div className={styles.background}>
                 <div>
-                    <img src={Logo} alt='Logo da Server of Business' className={styles.background__logotipo} />
+                    <img src={Logo} alt='Logo da Wolls' className={styles.background__logotipo} />
                     <div className={styles.background__dev}>
-                        <button className={styles.container__button}>Server of Business</button>
+                        <button className={styles.container__button}>Wolls</button>
                         <a href='https://github.com/RA4Z'>Desenvolvido e prototipado por<br /> Robert Aron Zimmermann</a>
                         <p>robertz.raz@gmail.com</p>
                     </div>
@@ -77,7 +77,7 @@ function Footer() {
                 <img src={Youtube} alt='Logotipo do Youtube' />
             </div>
             <Divider style={{ background: 'white', margin: 10 }} />
-            <p>Server of Business - Todos os direitos reservados</p>
+            <p>Wolls - Todos os direitos reservados</p>
             <Snackbar
                 open={statusToast.visivel}
                 onClose={() => setStatusToast({ ...statusToast, visivel: false })}

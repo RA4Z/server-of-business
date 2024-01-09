@@ -128,7 +128,7 @@ export default function Cadastro(props: Props) {
                             onChange={(val) => setData({ ...data, estado: val })} />
                     </div>
 
-                    <FormControlLabel control={<Checkbox onChange={e => setExtras({ ...extras, termos: e.target.checked })} />} label="Ao criar sua conta você estará aceitando os termos de serviço e a política de privacidade da Server of Business." className={styles.check} />
+                    <FormControlLabel control={<Checkbox onChange={e => setExtras({ ...extras, termos: e.target.checked })} />} label="Ao criar sua conta você estará aceitando os termos de serviço e a política de privacidade do Wolls." className={styles.check} />
                     <Button texto='Crie sua conta' dark={true} onClick={() => criarConta()} />
 
                     <div className={styles.container__criar}>

@@ -24,7 +24,7 @@ export default function ForgotPassword({ visible, childToParent }: any) {
                 <>
                     <div className={styles.overlay} onClick={() => childToParent(false)} />
                     <div className={styles.container}>
-                        <img src={Logo} alt='Logotipo Server of Business' />
+                        <img src={Logo} alt='Logotipo Wolls' />
                         <p>Insira seu E-mail abaixo</p>
                         <TextField id="outlined-email"
                             value={email}

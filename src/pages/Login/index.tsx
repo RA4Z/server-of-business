@@ -56,7 +56,7 @@ export default function Login(props: Props) {
         <>
             <div className={styles.container}>
                 <img src={Logo} onClick={() => navigate('/')} alt='Logotipo da empresa' />
-                <p className={styles.container__title}>Server of Business</p>
+                <p className={styles.container__title}>Wolls</p>
                 <form className={styles.container__inputs}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
