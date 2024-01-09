@@ -32,4 +32,4 @@ const auth = getAuth(app)
 const storage = getStorage(app)
 const database = getDatabase(app);
 
-export { db, storage, auth, database };
+export { db, storage, auth, database, analytics };

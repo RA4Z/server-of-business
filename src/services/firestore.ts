@@ -1,7 +1,8 @@
-import { db } from '../config/firebase';
+import { analytics, db } from '../config/firebase';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { deletarImagem } from './storage';
 import { deleteChat } from './database';
+import { logEvent } from 'firebase/analytics';
 
 export async function infoUsuario(emailUser: string, setUser: any) {
   try {
@@ -74,6 +75,7 @@ export async function infoProjetosContratados(idUser: string, setSolicitado: any
 export async function cadastrarInfoUser(data: any, id: any) {
   try {
     await setDoc(doc(db, `usuários`, id), data)
+    logEvent(analytics, 'cadastro_usuario')
     return 'sucesso'
   } catch (error) {
     return error
@@ -83,6 +85,7 @@ export async function cadastrarInfoUser(data: any, id: any) {
 export async function cadastrarSolicitacao(data: any) {
   try {
     const result = await addDoc(collection(db, 'solicitados'), data)
+    logEvent(analytics, 'cadastro_solicitacao')
     return result.id
   } catch (error) {
     return 'erro'
@@ -201,6 +204,7 @@ export async function deletarSolicitacao(projetoID: string) {
       const chat = await deleteChat(projetoID)
       if (chat) {
         await deleteDoc(postRef)
+        logEvent(analytics, 'deletar_solicitacao')
         return 'ok'
       }
     }
