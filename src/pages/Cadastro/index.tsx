@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormControlLabel, Input, InputLabel, TextField } from '@mui/material'
+import { Checkbox, FormControl, FormControlLabel, Input, InputLabel, Snackbar, TextField } from '@mui/material'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -17,6 +17,7 @@ interface Props {
 export default function Cadastro(props: Props) {
     const navigate = useNavigate();
     const [extras, setExtras] = useState({ repeatPassword: '', termos: false, senha: '' })
+    const [statusToast, setStatusToast] = useState({ visivel: false, message: '' })
     const [data, setData] = useState({
         avatar: '',
         nome: '',
@@ -47,14 +48,15 @@ export default function Cadastro(props: Props) {
     })
 
     async function criarConta() {
-        if (extras.senha !== extras.repeatPassword) return alert('As senhas não conferem!')
-        if (data.nome === '') return alert('O nome de usuário está em branco!')
-        if (data.pais === '' || data.estado === '') return alert('Selecione um país e um estado válidos!')
-        if (!extras.termos) return alert('Os termos de serviço e a política de privacidade não foram aceitas!')
+        if (extras.senha !== extras.repeatPassword) return setStatusToast({ visivel: true, message: 'As senhas não conferem!' })
+        if (data.nome === '') return setStatusToast({ visivel: true, message: 'O nome de usuário está em branco!' })
+        if (data.pais === '' || data.estado === '') return setStatusToast({ visivel: true, message: 'Selecione um país e um estado válidos!' })
+        if (data.pais !== 'Brazil') return setStatusToast({ visivel: true, message: 'Só estão liberados contas cadastradas no Brasil por enquanto!' })
+        if (!extras.termos) return setStatusToast({ visivel: true, message: 'Os termos de serviço e a política de privacidade não foram aceitas!' })
         props.setLoad(true)
         const response = await cadastrar(data.email, extras.senha, data)
         props.setLoad(false)
-        if (response !== 'sucesso') alert(response)
+        if (response !== 'sucesso') setStatusToast({ visivel: true, message: response!.toString() })
     }
 
     return (
@@ -135,6 +137,12 @@ export default function Cadastro(props: Props) {
                 <div className={styles.container__right}>
                     <img src={Imagem} alt='Imagem representando profissões' />
                 </div>
+                <Snackbar
+                    open={statusToast.visivel}
+                    onClose={() => setStatusToast({ ...statusToast, visivel: false })}
+                    autoHideDuration={3000}
+                    message={statusToast.message}
+                />
             </div>
         </>
     )
