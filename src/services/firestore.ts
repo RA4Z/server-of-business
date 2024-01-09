@@ -7,7 +7,7 @@ import { logEvent } from 'firebase/analytics';
 export async function infoUsuario(emailUser: string, setUser: any) {
   try {
     let usuario: any[] = []
-    const userRef = collection(db, 'usuários');
+    const userRef = collection(db, 'usuarios');
     const q = query(userRef, where("email", "==", emailUser));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -74,7 +74,7 @@ export async function infoProjetosContratados(idUser: string, setSolicitado: any
 
 export async function cadastrarInfoUser(data: any, id: any) {
   try {
-    await setDoc(doc(db, `usuários`, id), data)
+    await setDoc(doc(db, `usuarios`, id), data)
     logEvent(analytics, 'cadastro_usuario')
     return 'sucesso'
   } catch (error) {
@@ -94,7 +94,7 @@ export async function cadastrarSolicitacao(data: any) {
 
 export async function atualizarInfoUser(userId: string, data: any) {
   try {
-    const postRef = doc(db, "usuários", userId);
+    const postRef = doc(db, "usuarios", userId);
     await updateDoc(postRef, data)
     return 'ok'
   }
@@ -115,7 +115,7 @@ export async function atualizarInfoService(serviceId: string, data: any) {
 
 export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoUser?: string) {
   if (estadoUser !== '') {
-    const ref = query(collection(db, "usuários"), where('estado', '==', estadoUser))
+    const ref = query(collection(db, "usuarios"), where('estado', '==', estadoUser))
     onSnapshot(ref, (querySnapshot) => {
       const users: any[] = []
       querySnapshot.forEach((doc) => {
@@ -125,7 +125,7 @@ export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoU
       if (setBackup) setBackup(users)
     })
   } else {
-    const ref = query(collection(db, "usuários"))
+    const ref = query(collection(db, "usuarios"))
     onSnapshot(ref, (querySnapshot) => {
       const users: any[] = []
       querySnapshot.forEach((doc) => {
@@ -163,7 +163,7 @@ export async function visualizarSolicitados(setSolicitados: any, setBackup?: any
 
 export async function infoUser(projetoID: any, setProjeto: any) {
   try {
-    const ref = (await getDoc(doc(db, 'usuários', projetoID))).data()
+    const ref = (await getDoc(doc(db, 'usuarios', projetoID))).data()
     setProjeto(ref)
     return 'ok'
   }
@@ -174,7 +174,7 @@ export async function infoUser(projetoID: any, setProjeto: any) {
 export async function userInscrito(userID: string[], setProjeto: any) {
   try {
     const users: any[] = await Promise.all(userID.map(async (id) => {
-      const ref = (await getDoc(doc(db, 'usuários', id)));
+      const ref = (await getDoc(doc(db, 'usuarios', id)));
       return { id: ref.id, ...ref.data() };
     }));
     setProjeto(users);
