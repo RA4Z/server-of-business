@@ -8,7 +8,6 @@ import Imagem from 'images/tela-cadastro.png'
 import Button from 'components/Button'
 import { auth } from 'config/firebase';
 import { cadastrar } from 'services/requisitions';
-import { salvarInfoUser } from 'services/firestore';
 import { TextMaskCustom } from 'utils/genericos';
 
 interface Props {
@@ -53,13 +52,9 @@ export default function Cadastro(props: Props) {
         if (data.pais === '' || data.estado === '') return alert('Selecione um país e um estado válidos!')
         if (!extras.termos) return alert('Os termos de serviço e a política de privacidade não foram aceitas!')
         props.setLoad(true)
-        const response = await cadastrar(data.email, extras.senha)
+        const response = await cadastrar(data.email, extras.senha, data)
         props.setLoad(false)
-        if (response === 'sucesso') {
-            salvarInfoUser(data)
-        } else {
-            alert(response)
-        }
+        if (response !== 'sucesso') alert(response)
     }
 
     return (

@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { deletarImagem } from './storage';
 import { deleteChat } from './database';
 
@@ -71,14 +71,15 @@ export async function infoProjetosContratados(idUser: string, setSolicitado: any
   }
 }
 
-export async function salvarInfoUser(data: any) {
+export async function cadastrarInfoUser(data: any, id: any) {
   try {
-    const result = await addDoc(collection(db, 'usuários'), data)
-    return result.id
+    await setDoc(doc(db, `usuários`, id), data)
+    return 'sucesso'
   } catch (error) {
-    return 'erro'
+    return error
   }
 }
+
 export async function cadastrarSolicitacao(data: any) {
   try {
     const result = await addDoc(collection(db, 'solicitados'), data)

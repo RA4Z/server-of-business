@@ -1,5 +1,6 @@
 import { auth } from "config/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, AuthErrorCodes, sendPasswordResetEmail } from "firebase/auth";
+import { cadastrarInfoUser } from "./firestore";
 
 
 function errosFirebase(error: any) {
@@ -20,10 +21,11 @@ function errosFirebase(error: any) {
   return mensagem
 }
 
-export async function cadastrar(email: string, senha: string) {
+export async function cadastrar(email: string, senha: string, data: any) {
   const resultado = await createUserWithEmailAndPassword(auth, email, senha)
-    .then((dadosDoUsuario) => {
-      return "sucesso"
+    .then(async (dadosDoUsuario) => {
+      const cadastrarInfo = await cadastrarInfoUser(data, dadosDoUsuario.user.uid)
+      return cadastrarInfo
     })
     .catch((error) => {
       return errosFirebase(error)
