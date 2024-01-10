@@ -50,12 +50,13 @@ export async function faleConosco(texto: string, email: string) {
 }
 
 export async function sendNotification(userId: string, titulo: string, descricao: string, tipo: string, idService?: string) {
-    const id = push(child(ref(database), `notifications/${userId}`)).key
+    console.log(idService)
     if (idService !== undefined) {
-        set(ref(database, `notifications/${userId}/${id}`), {
+        set(ref(database, `notifications/${userId}/${idService}`), {
             titulo: titulo, descricao: descricao, tipo: tipo, timestamp: serverTimestamp(), idService: idService
         })
     } else {
+        const id = push(child(ref(database), `notifications/${userId}`)).key
         set(ref(database, `notifications/${userId}/${id}`), {
             titulo: titulo, descricao: descricao, tipo: tipo, timestamp: serverTimestamp()
         })
