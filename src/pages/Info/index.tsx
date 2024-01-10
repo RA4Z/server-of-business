@@ -76,7 +76,11 @@ export default function Info(usuarioLogado: User_Interface) {
                 setStatusToast({ message: 'Não é possível se inscrever, alguém já foi contratado para este serviço!', visivel: true })
             } else setAskCandidatar(true)
         } else {
-            setShow(true)
+            if (user.email === usuarioLogado.email) {
+                setStatusToast({ message: 'Não é possível convidar a si mesmo para um projeto!', visivel: true })
+            } else {
+                setShow(true)
+            }
         }
     }
 
