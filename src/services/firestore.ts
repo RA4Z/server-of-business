@@ -1,5 +1,5 @@
 import { analytics, db } from '../config/firebase';
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, onSnapshot, orderBy, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { deletarImagem } from './storage';
 import { deleteChat } from './database';
 import { logEvent } from 'firebase/analytics';
@@ -114,52 +114,44 @@ export async function atualizarInfoService(serviceId: string, data: any) {
 }
 
 export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoUser?: string) {
+  let ref;
+
   if (estadoUser !== '') {
-    const ref = query(collection(db, "usuarios"), where('estado', '==', estadoUser))
-    onSnapshot(ref, (querySnapshot) => {
-      const users: any[] = []
-      querySnapshot.forEach((doc) => {
-        users.push({ id: doc.id, ...doc.data() })
-      })
-      setUsers(users)
-      if (setBackup) setBackup(users)
-    })
+    ref = query(collection(db, "usuarios"), where('estado', '==', estadoUser), orderBy('estrelas', 'desc'), limit(100));
   } else {
-    const ref = query(collection(db, "usuarios"))
-    onSnapshot(ref, (querySnapshot) => {
-      const users: any[] = []
-      querySnapshot.forEach((doc) => {
-        users.push({ id: doc.id, ...doc.data() })
-      })
-      setUsers(users)
-      if (setBackup) setBackup(users)
-    })
+    ref = query(collection(db, "usuarios"), orderBy('estrelas', 'desc'), limit(100));
   }
-}
-export async function visualizarSolicitados(setSolicitados: any, setBackup?: any, estadoUser?: string) {
-  if (estadoUser !== '') {
-    const ref = query(collection(db, "solicitados"), where('estado', '==', estadoUser), where('idContratado', '==', ''))
-    onSnapshot(ref, (querySnapshot) => {
-      const users: any[] = []
-      querySnapshot.forEach((doc) => {
-        users.push({ id: doc.id, ...doc.data() })
-      })
-      setSolicitados(users)
-      if (setBackup) setBackup(users)
+
+  onSnapshot(ref, (querySnapshot) => {
+    const users: any[] = []
+    querySnapshot.forEach((doc) => {
+      users.push({ id: doc.id, ...doc.data() })
     })
-  } else {
-    const ref = query(collection(db, "solicitados"))
-    onSnapshot(ref, (querySnapshot) => {
-      const users: any[] = []
-      querySnapshot.forEach((doc) => {
-        users.push({ id: doc.id, ...doc.data() })
-      })
-      setSolicitados(users)
-      if (setBackup) setBackup(users)
-    })
-  }
+    setUsers(users)
+    if (setBackup) setBackup(users)
+  })
 }
 
+export async function visualizarSolicitados(setSolicitados: any, setBackup?: any, estadoUser?: string) {
+  let ref;
+
+  if (estadoUser !== '') {
+    ref = query(collection(db, "solicitados"), where('estado', '==', estadoUser), where('idContratado', '==', ''));
+  } else {
+    ref = collection(db, "solicitados");
+  }
+
+  ref = query(ref, orderBy('diaProcurado'), limit(100));
+
+  onSnapshot(ref, (querySnapshot) => {
+    const solicitados: any[] = [];
+    querySnapshot.forEach((doc) => {
+      solicitados.push({ id: doc.id, ...doc.data() });
+    });
+    setSolicitados(solicitados);
+    if (setBackup) setBackup(solicitados);
+  });
+}
 
 export async function infoUser(projetoID: any, setProjeto: any) {
   try {

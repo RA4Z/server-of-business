@@ -32,13 +32,16 @@ export default function Adicionar(props: Props) {
             <div className={styles.container}>
                 <h2>Adição de Especializações</h2>
                 <form onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            adicionarEspecializacao(texto)
-                        }
-                    }}>
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        adicionarEspecializacao(texto)
+                    }
+                }}>
                     <TextField id="add-especialist" label="Nome da Especialização" value={texto} onChange={(e) => setTexto(e.target.value)} variant="outlined" autoComplete="especialização" className={styles.input} />
-                    <Button texto='Adicionar' dark={false} onClick={() => adicionarEspecializacao(texto)} />
+                    <Button texto='Adicionar' dark={false} onClick={(e) => {
+                        e.preventDefault()
+                        adicionarEspecializacao(texto)
+                    }} />
                 </form>
                 <Divider style={{ margin: 20 }} />
 

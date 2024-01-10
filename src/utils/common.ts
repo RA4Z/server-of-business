@@ -7,6 +7,11 @@ export const alteraDados = (variavel: any, valor: any, dados: any, setDados: any
   })
 }
 
+export function regexTest(recebido: any, filtro:any) {
+  const regex = new RegExp(filtro, 'i');
+  return regex.test(recebido);
+}
+
 export function verificaSeTemEntradaVazia(dados: any, setDados: any) {
   for (const [variavel, valor] of Object.entries(dados)) {
     if (valor === '') {

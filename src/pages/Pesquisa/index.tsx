@@ -11,6 +11,7 @@ import UserIMG from 'images/user.png'
 import { info_especialistas, info_servicos } from 'utils/infos'
 import { visualizarSolicitados, visualizarUsuarios } from 'services/firestore'
 import TextoTitulos from 'components/TextoTitulos'
+import { regexTest } from 'utils/common';
 
 interface Props {
     childToParent: any,
@@ -21,7 +22,6 @@ function Pesquisa({ childToParent, estado }: Props) {
     useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); })
     const { categoria, especifico } = useParams();
     const [filtro, setFiltro] = useState({ nome: '', cidade: '', especializacao: '', freelancer: especifico === 'free' ? true : false, autonomo: especifico === 'auto' ? true : false })
-
     const [services, setServices] = useState(info_servicos)
     const [backupServices, setBackupServices] = useState(info_servicos)
     const [infoSearch, setInfoSearch] = useState({ users: false, services: false })
@@ -44,18 +44,6 @@ function Pesquisa({ childToParent, estado }: Props) {
     }, [backupUser, backupServices, categoria, infoSearch, estado])
 
     useEffect(() => {
-        function testaNome(title: string) {
-            const regex = new RegExp(filtro.nome, 'i');
-            return regex.test(title);
-        }
-        function testaCargo(cargo: any) {
-            const regex = new RegExp(filtro.especializacao, 'i');
-            return regex.test(cargo);
-        }
-        function testaCidade(cidade: string) {
-            const regex = new RegExp(filtro.cidade, 'i');
-            return regex.test(cidade);
-        }
         function filtrarEspecialistaUser(novaLista: typeof users) {
             let lista = novaLista.filter(item => item.freelancer === true || item.autonomo === true)
             if (filtro.autonomo && !filtro.freelancer) lista = lista.filter(item => item.autonomo === true)
@@ -69,13 +57,12 @@ function Pesquisa({ childToParent, estado }: Props) {
             return lista
         }
         if (categoria === '1') {
-            let novaLista = backupUser.filter(item => testaNome(item.nome) && testaCargo(item.cargos) && testaCidade(item.cidade))
+            let novaLista = backupUser.filter(item => regexTest(item.nome, filtro.nome) && regexTest(item.cargos, filtro.especializacao) && regexTest(item.cidade, filtro.cidade))
             novaLista = filtrarEspecialistaUser(novaLista)
-            novaLista.sort((a, b) => (a.nome < b.nome) ? -1 : 1)
             novaLista.sort(item => item.premium ? -1 : 1)
             setUsers(novaLista)
         } else {
-            let novaLista = backupServices.filter(item => testaNome(item.titulo) && testaCargo(item.cargos) && testaCidade(item.cidade))
+            let novaLista = backupServices.filter(item => regexTest(item.titulo, filtro.nome) && regexTest(item.cargos, filtro.especializacao) && regexTest(item.cidade, filtro.cidade))
             novaLista = filtrarEspecialistaService(novaLista)
             novaLista.sort((a, b) => (a.diaProcurado < b.diaProcurado) ? -1 : 1)
             novaLista.sort(item => item.premium ? -1 : 1)
