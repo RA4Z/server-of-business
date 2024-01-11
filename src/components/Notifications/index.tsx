@@ -9,7 +9,7 @@ import TextoTitulos from "components/TextoTitulos";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from "react-router-dom";
 import Button from "components/Button";
-import { atualizarInfoUser } from "services/firestore";
+import { atualizarInfoService, atualizarInfoUser } from "services/firestore";
 
 interface Props {
     usuarioLogado: User_Interface
@@ -41,6 +41,14 @@ export default function Notifications(props: Props) {
         if (!result) {
             setStatusToast({ message: 'Ocorreu algum erro ao tentar deletar! Tente novamente mais tarde', visivel: true })
         }
+    }
+
+    async function conviteTrabalho(idNotificacao: string, direcionamento: string, index: number) {
+        let response = 'ok'
+        if (direcionamento === 'aceitar') {
+            response = await atualizarInfoService(notificacoes[index].idService!, { idContratado: props.usuarioLogado.id })
+        }
+        if(response === 'ok') await deletarNotificacao(idNotificacao)
     }
 
     function acessarService(path: string) {
@@ -102,13 +110,21 @@ export default function Notifications(props: Props) {
                                                         size='large'
                                                     />
                                                 </>}
+                                            {registro.tipo === 'convite' &&
+                                                <div className={styles.btnConvite}>
+                                                    <Button texto='Aceitar' dark={true} onClick={() => conviteTrabalho(registro.id, 'aceitar', index)} />
+                                                    <Button texto='Rejeitar' dark={false} onClick={() => conviteTrabalho(registro.id, 'rejeitar', index)} />
+                                                </div>
+                                            }
                                         </div>
                                         {registro.tipo === 'concluido' ?
                                             <div className={styles.textoDescritivo__delete}>
                                                 <Button texto='Avaliar' dark={false} onClick={() => avaliarUser(registro.id, index)} />
                                             </div>
                                             :
-                                            <DeleteIcon titleAccess='Apagar Notificação' fontSize="large" onClick={() => deletarNotificacao(registro.id)} className={styles.textoDescritivo__delete} />
+                                            <>
+                                                {registro.tipo !== 'convite' && <DeleteIcon titleAccess='Apagar Notificação' fontSize="large" onClick={() => deletarNotificacao(registro.id)} className={styles.textoDescritivo__delete} />}
+                                            </>
                                         }
                                     </Typography>
                                 </AccordionDetails>
