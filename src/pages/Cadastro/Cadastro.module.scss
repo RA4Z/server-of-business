@@ -3,6 +3,10 @@
 
 .input {
     width: calc(100px + 50vmin);
+
+    @media(max-width: 1080px) and (min-width: $mobile) {
+        width: 80%;
+    }
 }
 
 .check {
@@ -13,6 +17,10 @@
 .selection {
     font-size: calc(10px + 1vmin);
     color: $primary;
+
+    @media(max-width: 1080px) and (min-width: $mobile) {
+        width: 70%;
+    }
 }
 
 .container {
@@ -36,8 +44,18 @@
             flex-direction: column;
             gap: 5px;
             width: calc(100px + 50vmin);
+
+            @media(max-width: 1080px) and (min-width: $mobile) {
+                align-items: center;
+                text-align: center;
+            }
         }
-        
+
+        @media(max-width: 1080px) and (min-width: $mobile) {
+            width: 50%;
+            align-items: center;
+            text-align: center;
+        }
     }
 
     &__right {
@@ -48,10 +66,27 @@
             display: flex;
             max-height: 90vh;
         }
-        
-        @media(max-width: 1080px) {
-            display: none;
+
+        @media(max-width: $mobile) {
+            position: absolute;
+
+            img {
+                z-index: -1;
+                width: 100%;
+                height: 100vh;
+                opacity: 0.2;
+                object-fit: cover;
+            }
         }
+
+        @media(max-width: 1080px) and (min-width: $mobile) {
+            img {
+                width: 100%;
+                object-fit: cover;
+                height: 100%;
+            }
+        }
+
     }
 
     &__criar {
