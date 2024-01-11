@@ -38,7 +38,7 @@ export default function Solicitar({ visible, infoUser, setLoad }: Props) {
         email: infoUser.email,
         pais: infoUser.pais,
         estado: infoUser.estado,
-        cidade: '',
+        cidade: infoUser.cidade,
         endereco: '',
         freelancer: false,
         autonomo: false,
