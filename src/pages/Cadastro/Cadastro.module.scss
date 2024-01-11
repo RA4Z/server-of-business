@@ -36,7 +36,7 @@
 
         p {
             text-align: center;
-            font-size: calc(20px + 2vmin);
+            font-size: calc(25px + 2vmin);
         }
 
         &__countries {
@@ -54,7 +54,6 @@
         @media(max-width: 1080px) and (min-width: $mobile) {
             width: 50%;
             align-items: center;
-            text-align: center;
         }
     }
 
@@ -74,7 +73,7 @@
                 z-index: -1;
                 width: 100%;
                 height: 100vh;
-                opacity: 0.2;
+                opacity: 0.1;
                 object-fit: cover;
             }
         }
