@@ -41,7 +41,7 @@ function ImportImage(props: Props) {
 
               // Salva a imagem redimensionada
               if (props.service) {
-                const url = await salvarImagem(serviceURL, `${props.serviceId}-serviceIMG`, 'services');
+                const url = await salvarImagem(serviceURL, `${props.serviceId}`, 'services');
                 await atualizarInfoService(props.serviceId, { imagem: url! });
               } else {
                 const url = await salvarImagem(avatarURL, `${props.userInfo?.email}-avatar`, 'avatares');
