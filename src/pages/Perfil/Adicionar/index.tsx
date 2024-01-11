@@ -16,7 +16,7 @@ export default function Adicionar(props: Props) {
 
     function removerEspecializacao(especializacao: string) {
         setEspecializacoes(especializacoes.filter(especial => especial !== especializacao))
-        props.especialistasCadastrados(especializacoes)
+        props.especialistasCadastrados(especializacoes.filter(especial => especial !== especializacao))
     }
     function adicionarEspecializacao(especializacao: string) {
         if (especializacao !== '') {
@@ -37,7 +37,16 @@ export default function Adicionar(props: Props) {
                         adicionarEspecializacao(texto)
                     }
                 }}>
-                    <TextField id="add-especialist" label="Nome da Especialização" value={texto} onChange={(e) => setTexto(e.target.value)} variant="outlined" autoComplete="especialização" className={styles.input} />
+                    <TextField
+                        id="add-especialist"
+                        label="Nome da Especialização"
+                        value={texto}
+                        onChange={(e) => setTexto(e.target.value)}
+                        variant="outlined"
+                        autoComplete="especialização"
+                        inputProps={{ maxLength: 30 }}
+                        className={styles.input} />
+
                     <Button texto='Adicionar' dark={false} onClick={(e) => {
                         e.preventDefault()
                         adicionarEspecializacao(texto)
@@ -49,7 +58,7 @@ export default function Adicionar(props: Props) {
                     {especializacoes.map((especializacao) => (
                         <div className={styles.especializacoes__especializacao} key={especializacao}>
                             <li>{especializacao}</li>
-                            <Cancelar onClick={() => removerEspecializacao(especializacao)} />
+                            <Cancelar style={{ cursor: 'pointer' }} onClick={() => removerEspecializacao(especializacao)} />
                         </div>
                     ))}
                 </div>
