@@ -156,7 +156,9 @@ export default function Trabalho({ usuarioLogado, setLoad }: any) {
         const response = await deletarSolicitacao(jobId!)
         setLoad(false)
         if (response === 'ok') {
-            await sendNotification(trabalhoInfo.info.idContratado, `Serviço Concluído`, `O usuário ${usuarioLogado.nome} registrou o serviço "${trabalhoInfo.info.titulo}" como concluído, obrigado pela ajuda!`, 'concluido')
+            await sendNotification(trabalhoInfo.info.idContratado, `Serviço Concluído`,
+                `O usuário ${usuarioLogado.nome} registrou o serviço "${trabalhoInfo.info.titulo}" como concluído, obrigado pela ajuda!`,
+                'concluido', undefined, { avaliacoes: usuarioLogado.avaliacoes, estrelas: usuarioLogado.estrelas, idContratante: usuarioLogado.id })
             setStatusToast({ message: 'Solicitação concluída com sucesso! Aguarde um momento...', visivel: true })
             await atualizarInfoUser(trabalhoInfo.info.idContratado, { avaliacoes: trabalhoInfo.contratado.avaliacoes + 1, estrelas: numeroAvalia })
             await timeout(2000)

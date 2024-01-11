@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Dialog, DialogContent, DialogTitle, Snackbar, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Dialog, DialogContent, DialogTitle, Rating, Snackbar, Typography } from "@mui/material"
 import styles from './Notifications.module.scss'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect, useState } from "react";
@@ -8,6 +8,8 @@ import classNames from "classnames";
 import TextoTitulos from "components/TextoTitulos";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from "react-router-dom";
+import Button from "components/Button";
+import { atualizarInfoUser } from "services/firestore";
 
 interface Props {
     usuarioLogado: User_Interface
@@ -17,7 +19,8 @@ interface Props {
 
 export default function Notifications(props: Props) {
     const navigate = useNavigate()
-    const [notificacoes, setNotificacoes] = useState<{ id: any, titulo: string, descricao: string, tipo: string, timestamp: number, idService?: string }[]>([])
+    const [notificacoes, setNotificacoes] = useState<{ id: any, titulo: string, descricao: string, tipo: string, timestamp: number, idService?: string, avaliacoes?: number, estrelas?: number, idContratante?: string }[]>([])
+    const [avaliacao, setAvaliacao] = useState<number | null>(5)
     const [loading, setLoading] = useState(true)
     const [statusToast, setStatusToast] = useState({
         visivel: false,
@@ -45,6 +48,23 @@ export default function Notifications(props: Props) {
         props.setNotification(false)
     }
 
+    async function avaliarUser(idNotificacao: string, index: number) {
+        if (avaliacao === 0 || avaliacao === null) {
+            setStatusToast({ message: 'Não é permitido dar nota zero ao Especialista contratado!', visivel: true })
+            return
+        }
+        setNotificacoes(notificacoes.filter(especial => especial.id !== idNotificacao))
+        const result = await deleteNotification(props.usuarioLogado.id, idNotificacao)
+        if (!result) {
+            setStatusToast({ message: 'Ocorreu algum erro ao tentar avaliar! Tente novamente mais tarde', visivel: true })
+            return
+        }
+        if (notificacoes[index].estrelas !== undefined && notificacoes[index].avaliacoes !== undefined) {
+            const numeroAvalia = Number((((notificacoes[index].estrelas! * notificacoes[index].avaliacoes!) + avaliacao) / (notificacoes[index].avaliacoes! + 1)).toFixed(2))
+            await atualizarInfoUser(notificacoes[index].idContratante!, { avaliacoes: notificacoes[index].avaliacoes! + 1, estrelas: numeroAvalia })
+        }
+    }
+
     return (
         <Dialog
             open={props.notification}
@@ -70,8 +90,26 @@ export default function Notifications(props: Props) {
                                         <div>
                                             <li>{registro.descricao}</li>
                                             {registro.idService !== undefined && <li className={styles.textoDescritivo__link} onClick={() => acessarService(`/info/services/${registro.idService}`)}>Acessar o serviço correspondente</li>}
+                                            {registro.tipo === 'concluido' &&
+                                                <>
+                                                    <div style={{ fontWeight: 'bold' }}>Por favor, avalie o Usuário Contratante</div>
+                                                    <Rating
+                                                        className={styles.star}
+                                                        name="hover-feedback"
+                                                        value={avaliacao}
+                                                        onChange={(e, newValue) => setAvaliacao(newValue)}
+                                                        precision={1}
+                                                        size='large'
+                                                    />
+                                                </>}
                                         </div>
-                                        <DeleteIcon titleAccess='Apagar Notificação' fontSize="large" onClick={() => deletarNotificacao(registro.id)} className={styles.textoDescritivo__delete} />
+                                        {registro.tipo === 'concluido' ?
+                                            <div className={styles.textoDescritivo__delete}>
+                                                <Button texto='Avaliar' dark={false} onClick={() => avaliarUser(registro.id, index)} />
+                                            </div>
+                                            :
+                                            <DeleteIcon titleAccess='Apagar Notificação' fontSize="large" onClick={() => deletarNotificacao(registro.id)} className={styles.textoDescritivo__delete} />
+                                        }
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>

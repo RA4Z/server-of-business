@@ -30,6 +30,12 @@
     }
 }
 
+.star {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5px;
+}
+
 .textoDescritivo {
     display: flex;
     list-style-type: none;
