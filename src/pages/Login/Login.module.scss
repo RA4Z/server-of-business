@@ -20,7 +20,14 @@
     }
     &__title {
         color: $primary;
-        font-size: calc(20px + 1vmin);
+        font-weight: bold;
+        font-size: calc(20px + 2vmin);
+    }
+    &__text {
+        color: $secondary;
+        text-wrap: wrap;
+        text-align: center;
+        font-size: calc(10px + 1vmin);
     }
     p {
         margin: 0;
