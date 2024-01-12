@@ -128,7 +128,6 @@ export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoU
     querySnapshot.forEach((doc) => {
       users.push({ id: doc.id, ...doc.data() })
     })
-    console.log(users)
     setUsers(users)
     if (setBackup) setBackup(users)
   })

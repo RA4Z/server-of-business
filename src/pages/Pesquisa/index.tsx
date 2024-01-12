@@ -78,7 +78,7 @@ function Pesquisa({ childToParent, estado }: Props) {
             childToParent(2)
             break;
         default:
-            console.log('Erro Inesperado no Direcionamento!')
+            alert('Erro Inesperado no Direcionamento!')
     }
 
     return (

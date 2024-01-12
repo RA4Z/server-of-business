@@ -17,7 +17,7 @@ export default function Planos(usuarioLogado: User_Interface) {
                 setStatusToast({ message: 'Você já possui este plano!', visivel: true })
             }
         } else {
-            console.log(`Selecionando Plano ${plano}`)
+            setStatusToast({ message: `Selecionando Plano ${plano}`, visivel: true })
         }
     }
     return (

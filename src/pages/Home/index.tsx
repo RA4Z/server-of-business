@@ -29,7 +29,7 @@ export default function Home({ pagina = 1, childToParent }: any) {
                 navigate('/pesquisa/1/auto')
                 break;
             default:
-                console.log('Erro Inesperado no Direcionamento!')
+                alert('Erro Inesperado no Direcionamento!')
         }
     }
     return (
