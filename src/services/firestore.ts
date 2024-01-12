@@ -117,7 +117,7 @@ export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoU
   let ref;
 
   if (estadoUser !== '') {
-    ref = query(collection(db, "usuarios"), where('estado', '==', estadoUser), orderBy('estrelas', 'desc'), limit(100));
+    ref = query(collection(db, "usuarios"), where('estado', '==', estadoUser), where('autonomo', '==', true) || where('freelancer', '==', true), orderBy('estrelas', 'desc'), limit(100));
   } else {
     ref = query(collection(db, "usuarios"), orderBy('estrelas', 'desc'), limit(100));
   }
@@ -127,6 +127,7 @@ export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoU
     querySnapshot.forEach((doc) => {
       users.push({ id: doc.id, ...doc.data() })
     })
+    console.log(users)
     setUsers(users)
     if (setBackup) setBackup(users)
   })
