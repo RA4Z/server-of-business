@@ -1,5 +1,5 @@
 import { analytics, db } from '../config/firebase';
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, onSnapshot, orderBy, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import { addDoc, and, collection, deleteDoc, doc, getDoc, getDocs, limit, onSnapshot, or, orderBy, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { deletarImagem } from './storage';
 import { deleteChat } from './database';
 import { logEvent } from 'firebase/analytics';
@@ -117,7 +117,7 @@ export async function visualizarUsuarios(setUsers: any, setBackup?: any, estadoU
   let ref;
 
   if (estadoUser !== '') {
-    ref = query(collection(db, "usuarios"), where('estado', '==', estadoUser), where('autonomo', '==', true) || where('freelancer', '==', true),
+    ref = query(collection(db, "usuarios"), and(or(where('autonomo', '==', true), where('freelancer', '==', true)), where('estado', '==', estadoUser)),
       orderBy('estrelas', 'desc'), limit(100));
   } else {
     ref = query(collection(db, "usuarios"), orderBy('estrelas', 'desc'), limit(100));
