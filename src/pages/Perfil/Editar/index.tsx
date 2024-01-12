@@ -34,6 +34,10 @@ export default function Editar({ visible, infoUser, setLoad }: Props) {
     })
 
     async function saveChanges() {
+        if ((infoTemp.autonomo || infoTemp.freelancer) && infoTemp.cargos.length === 0) {
+            setStatusToast({ message: 'Insira ao menos uma Especialização!!', visivel: true })
+            return
+        }
         setLoad(true)
         const result = await atualizarInfoUser(infoUser.id, infoTemp)
         setLoad(false)
