@@ -73,20 +73,21 @@ function Perfil({ infoUser, setLoad }: any) {
                     onClick={() => setSolicitar(true)}
                 />
             </div>
-            <Divider style={{ margin: 50 }} />
-            <p className={styles.titulo_solicita}>Suas solicitações em aberto</p>
-            <div className={styles.cards_solicitados}>
-                {solicitados && solicitados.map(solicitado => (
-                    <Card
-                        key={solicitado.id}
-                        titulo={solicitado.titulo}
-                        imagem={solicitado.imagem === '' ? ImagemTrabalho : solicitado.imagem}
-                        buttonText='Ver mais informações'
-                        descricao={solicitado.descricao}
-                        onClick={() => navigate(`/trabalho/${solicitado.id}`)}
-                    />
-                ))}
-            </div>
+            {(solicitados !== undefined && solicitados.length > 0) && <>
+                <Divider style={{ margin: 50 }} />
+                <p className={styles.titulo_solicita}>Suas solicitações em aberto</p>
+                <div className={styles.cards_solicitados}>
+                    {solicitados.map(solicitado => (
+                        <Card
+                            key={solicitado.id}
+                            titulo={solicitado.titulo}
+                            imagem={solicitado.imagem === '' ? ImagemTrabalho : solicitado.imagem}
+                            buttonText='Ver mais informações'
+                            descricao={solicitado.descricao}
+                            onClick={() => navigate(`/trabalho/${solicitado.id}`)}
+                        />
+                    ))}
+                </div></>}
             {(contratado !== undefined && contratado.length > 0) && <>
                 <Divider style={{ margin: 50 }} />
                 <p className={styles.titulo_solicita}>Projetos Contratados</p>
