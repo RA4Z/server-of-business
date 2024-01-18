@@ -41,6 +41,9 @@
         &:hover {
             color: $primary;
         }
+        @media(max-width: $mobile) {
+            left: calc(100px + 15vmin);
+        }
     }
 }
 
