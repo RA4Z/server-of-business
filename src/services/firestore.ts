@@ -191,7 +191,7 @@ export async function infoSolicitado(projetoID: any, setProjeto?: any, info?: an
 
 export async function deletarSolicitacao(projetoID: string) {
   try {
-    const result = await deletarImagem(`${projetoID}-serviceIMG.png`, 'services')
+    const result = await deletarImagem(`${projetoID}`, 'services')
     const postRef = doc(db, "solicitados", projetoID);
     if (result) {
       const chat = await deleteChat(projetoID)
