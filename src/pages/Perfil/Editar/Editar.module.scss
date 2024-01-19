@@ -79,3 +79,10 @@
         width: calc(75px + 10vmin);
     }
 }
+
+.sobreLateral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}

@@ -16,6 +16,7 @@ export interface User_Interface {
     freelancer: boolean,
     cidade: string,
     avaliacoes: number,
+    valorMedia: number,
     setInfoUser: any
 }
 export interface Service_Interface {

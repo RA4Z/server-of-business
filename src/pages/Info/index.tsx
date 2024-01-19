@@ -91,6 +91,7 @@ export default function Info(usuarioLogado: User_Interface) {
         descricao: aba_atual.descricao,
         premium: aba_atual.premium,
         cargo: categoria === 'users' ? user.cargos[0] : '',
+        valorMedia: categoria === 'users' ? user.valorMedia : 0,
         estrelas: categoria === 'users' ? Number(user.estrelas).toFixed(2) : '',
         data: categoria === 'services' ? service.diaProcurado : '',
         hora: categoria === 'services' ? service.horarioProcurado : '',
@@ -205,7 +206,10 @@ export default function Info(usuarioLogado: User_Interface) {
                         ))}
                     </div>
                     <Divider style={{ width: '100%', margin: 25 }}></Divider>
-                    {categoria === 'users' ? <p>{info.descricao}</p> : ''}
+                    {categoria === 'users' ? <>
+                        <p>{info.descricao}</p>
+                        {info.valorMedia > 0 ? <p>O valor médio cobrado pelo usuário é de {info.valorMedia.toFixed(2)}R$</p> : <p>O usuário não possui um valor médio cobrado!</p>}
+                    </> : ''}
                 </div>
                 {(categoria === 'services' && info.idContratado === usuarioLogado.id) ?
                     <div className={styles.contratante}>

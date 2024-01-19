@@ -28,6 +28,7 @@ export default function Cadastro(props: Props) {
         telefone: '',
         dataExpira: '',
         planoAtual: '',
+        valorMedia: 0,
         premium: false,
         autonomo: false,
         freelancer: false,

@@ -17,6 +17,7 @@ export const info_especialistas = [
         freelancer: false,
         cidade: '',
         avaliacoes: 0,
+        valorMedia: 0,
     }
 ]
 
