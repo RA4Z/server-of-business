@@ -217,7 +217,9 @@ export default function Info(usuarioLogado: User_Interface) {
                         <Button texto='Contatar Contratante' dark={true} onClick={() => setContatarChat(true)} />
                     </div>
                     :
-                    <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Contatar Especialista'} dark={true} onClick={() => direcionarTarefa(categoria)} />}
+                    <div className={styles.contratante}>
+                        <Button texto={categoria === 'services' ? 'Candidatar-se ao serviço' : 'Convidar para serviço'} dark={true} onClick={() => direcionarTarefa(categoria)} />
+                    </div>}
             </div>
             <Snackbar
                 open={statusToast.visivel}
