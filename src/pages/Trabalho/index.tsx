@@ -2,7 +2,7 @@ import styles from './Trabalho.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Snackbar } from '@mui/material';
-import { atualizarInfoUser, deletarSolicitacao, infoSolicitado, infoUser, userInscrito } from 'services/firestore';
+import { atualizarInfoService, atualizarInfoUser, deletarSolicitacao, infoSolicitado, infoUser, userInscrito } from 'services/firestore';
 import Voltar from '@mui/icons-material/Reply';
 import ImagemTrabalho from 'images/contratar_freelancer.jpg'
 import UserIMG from 'images/user.png';
@@ -41,6 +41,7 @@ export default function Trabalho({ usuarioLogado, setLoad }: any) {
     const [contatarChat, setContatarChat] = useState(false)
     const [avaliacao, setAvaliacao] = useState<number | null>(5)
     const [deletar, setDeletar] = useState(false)
+    const [expulsar, setExpulsar] = useState(false)
     const [concluirProjeto, setConcluirProjeto] = useState(false)
     const [erroNotFound, setErroNotFound] = useState(false)
     const [userVisibility, setUserVisibility] = useState(false);
@@ -170,6 +171,16 @@ export default function Trabalho({ usuarioLogado, setLoad }: any) {
     }
 
     const { info, necessario, inscritos, userSelecionado } = trabalhoInfo;
+
+    async function expulsarEspecialista() {
+        const response = await atualizarInfoService(jobId!, { idContratado: '' })
+        if (response === 'ok') {
+            setStatusToast({ message: 'Especialista expulso com sucesso!', visivel: true })
+            setExpulsar(false)
+        } else {
+            setStatusToast({ message: 'Ocorreu algum erro! Tente novamente mais tarde!', visivel: true })
+        }
+    }
     return (
         <>
             <Dialog
@@ -219,6 +230,26 @@ export default function Trabalho({ usuarioLogado, setLoad }: any) {
                     <Button dark={true} texto="Concluir Solicitação" onClick={() => concluirSolicitacao()} />
                 </DialogActions>
             </Dialog>
+            <Dialog
+                open={expulsar}
+                onClose={() => setExpulsar(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                style={{ textAlign: 'center' }}>
+                <DialogTitle id="alert-dialog-title">
+                    {`Expulsar Especialista`}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        <div>Você está expulsando o especialista contratado.</div>
+                        <div>Tem certeza de que deseja fazer isso? Essa ação é irreversível!</div>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button dark={false} texto="Cancelar" onClick={() => setExpulsar(false)} />
+                    <Button dark={true} texto="Expulsar" onClick={() => expulsarEspecialista()} />
+                </DialogActions>
+            </Dialog>
 
             <div className={styles.pagina_overlay}>
                 {userVisibility ?
@@ -245,6 +276,10 @@ export default function Trabalho({ usuarioLogado, setLoad }: any) {
                         <Button dark={false} texto='Cancelar Solicitação' onClick={() => setDeletar(true)} />
                         <Button dark={true} texto='Concluir Solicitação' onClick={() => setConcluirProjeto(true)} />
                     </div>
+                    {trabalhoInfo.contratado.id !== '' &&
+                        <div style={{ marginTop: 10 }}>
+                            <Button dark={false} texto='Expulsar Especialista' onClick={() => setExpulsar(true)} />
+                        </div>}
                 </div>
                 <Divider />
                 <div>
